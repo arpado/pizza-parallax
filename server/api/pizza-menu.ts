@@ -1,0 +1,35 @@
+export default defineEventHandler(() => {
+    return {
+        // [
+        //     {
+        //         name: "Margharita",
+        //         image: "pizza-ready.jpg",
+        //         description: "tomato, cheese",
+        //         price: "1.99"
+        //     },
+        //     {
+        //         name: "Four Seasons",
+        //         image: "pizza-ready.jpg",
+        //         description: "tomato, cheese, mozzarella, pamesan",
+        //         price: "2.49"
+        //     },
+        //     {
+        //         name: "Ungherese",
+        //         image: "pizza-ready.jpg",
+        //         description: "tomato, salami, pepper, cheese",
+        //         price: "2.49"
+        //     },
+        //     {
+        //         name: "Ham & Eggs",
+        //         image: "pizza-ready.jpg",
+        //         description: "tomato, ham, egg, cheese",
+        //         price: "2.49"
+        //     },
+        //     {
+        //         name: "Meaty",
+        //         image: "pizza-ready.jpg",
+        //         description: "tomato, ham, salami, cheese",
+        //         price: "2.99"
+        //     }]
+    }
+})
