@@ -1,0 +1,14 @@
+{
+    "map": "",
+    "title": "Our Contacts",
+    "text": {
+        "adress": "Local City, Main Street 3.",
+        "telephone": "(01) 234 - 567 - 89",
+        "email": "pizza(at)parallax.com"
+    },
+    "hours": {
+        "regular": "8-22",
+        "extended": "8-24",
+        "closed": "Closed"
+    }
+}

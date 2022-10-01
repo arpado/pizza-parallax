@@ -1,0 +1,19 @@
+[
+    {
+        "title": "Using only the best quality ingredients for our pizzas!",
+        "image": "ingredients.jpg",
+        "text": [
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis dolorum enim natus quasi pariatur, itaque quidem, voluptas vero eligendi non laborum. Animi, impedit natus esse sint error ratione quo eos, recusandae velit, laborum provident excepturi exercitationem eum odit in quod.",
+            "Necessitatibus mollitia adipisci quas perspiciatis odit voluptates magnam facilis totam temporibus. Voluptatibus repellat perferendis consequatur voluptatem suscipit quisquam, harum omnis assumenda facilis rem molestiae laboriosam asperiores pariatur mollitia eveniet, vitae ducimus quia ipsam reprehenderit, illum possimus obcaecati soluta quam.",
+            "Suscipit quas vel voluptate. Eius fuga nam assumenda magni hic autem cumque laudantium expedita saepe impedit. Dolorem doloribus at deleniti velit!"
+        ]
+    },
+    {
+        "title": "Our staff is the greatest and we really care about quality!",
+        "image": "cook.jpg",
+        "text": [
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit enim nemo adipisci? Ipsa soluta assumenda dignissimos voluptate iure inventore, error id placeat officia quo at sunt blanditiis, explicabo cum facilis consequatur neque tempora in omnis esse? Sed, dolor nostrum dolorem mollitia magni, ab tenetur atque cupiditate natus qui dolore nisi?",
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, voluptatibus. Expedita iusto in vero repellendus, est labore veritatis, aliquam tenetur aliquid similique odio nemo ab qui pariatur ratione ipsum a nihil quo quos autem. Rerum quam rem possimus placeat non?"
+        ]
+    }
+]
