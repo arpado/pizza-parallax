@@ -2,7 +2,7 @@
   <div class="section">
     <div class="card">
       <div class="image card-subsection">
-        <img :src="`assets/${content.map}`" alt="" />
+        <img :src="`images/${content.map}`" alt="" />
       </div>
       <div class="text card-subsection">
         <h3>{{ content.title }}</h3>

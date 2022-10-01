@@ -2,7 +2,7 @@
   <!-- <div class="section"> -->
     <div class="card">
       <!-- <div class="image card-subsection"> -->
-        <img :src="`assets/${pizza.image}`" alt="" />
+        <img :src="`images/${pizza.image}`" alt="" />
       <!-- </div> -->
       <!-- <div class="text-section card-subsection"> -->
         <h3 class="pizza-name">{{ pizza.name }}</h3>

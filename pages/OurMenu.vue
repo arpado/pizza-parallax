@@ -18,7 +18,7 @@ import pizzaArray from "../content/pizza-menu.json";
 <style scoped>
 .container {
   width: 100%;
-  background-image: url("assets/pizza4.jpg");
+  background-image: url("images/pizza4.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

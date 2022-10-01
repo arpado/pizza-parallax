@@ -25,8 +25,8 @@ export default {
     applyStyle() {
       return {
         /* eslint-disable */
-        "background-image": `url("assets/${this.imageName}")`,
-        // "url(" + require("assets/" + this.imageName) + ")",
+        "background-image": `url("/images/${this.imageName}")`,
+        // "background-image": "url(" + require("~/assets/" + this.imageName) + ")",
         height: this.imgHeight,
       };
     },
