@@ -6,7 +6,7 @@
     </p> -->
     <div class="card">
       <div class="image card-subsection">
-        <img :src="`../assets/${content.image}`" alt="" />
+        <img :src="`assets/${content.image}`" alt="" />
       </div>
       <div class="text card-subsection">
         <h3>{{ content.title }}</h3>
