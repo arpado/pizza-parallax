@@ -32,7 +32,7 @@ export default {
       navArray: [
         { text: "Home", to: "/" },
         { text: "Our Selection", to: "OurMenu" },
-        { text: "Contact", to: "contact" },
+        // { text: "Contact", to: "contact" },
         { text: "Login", to: "LoginPage" },
       ],
       menuVisible: false,
