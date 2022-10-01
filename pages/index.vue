@@ -7,29 +7,27 @@
       >
         <TitleElement />
       </ParallaxImageComponent>
-      <SectionElement :content="sectionContent[0]"/>
+      <!-- <SectionElement :content="sectionContent[0]"/> -->
       <ParallaxImageComponent
         :imageName="this.content.images.image1"
         :imgHeight="'400px'"
       >
       </ParallaxImageComponent>
-      <SectionElement :content="sectionContent[1]"/>
+      <!-- <SectionElement :content="sectionContent[1]"/> -->
       <ParallaxImageComponent
         :imageName="this.content.images.image2"
         :imgHeight="'400px'"
       >
       </ParallaxImageComponent>
-      <ContactsElement :content="contacts"/>
+      <!-- <ContactsElement :content="contacts"/> -->
     <!-- </NuxtLayout> -->
   </div>
 </template>
 
-<script setup>
-import sectionContent from '../content/hero-section-content.json'
-import contacts from '../content/contacts.json'
-</script>
+<script >
+import sectionContent from '~/content/hero-section-content.json'
+import contacts from '~/content/contacts.json'
 
-<script>
 
 export default {
   data() {
