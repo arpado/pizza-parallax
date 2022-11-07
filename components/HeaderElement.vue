@@ -17,6 +17,7 @@
           @scroll-request="emitScrollRequest"
         />
       </div>
+      <div class="cart-button" @click="toggleCart">Cart</div>
     </nav>
   </header>
 </template>
@@ -24,6 +25,8 @@
 <script>
 import DropdownMenu from "@/components/DropdownMenu.vue";
 import HorizontalMenu from "@/components/HorizontalMenu.vue";
+import { useCartStore } from '../stores/cartStore';
+import { mapActions } from 'pinia';
 
 export default {
   components: { DropdownMenu, HorizontalMenu },
@@ -41,11 +44,17 @@ export default {
   },
   mounted() {
     window.addEventListener("click", this.closeOpenNavMenu);
+    window.addEventListener("scroll", this.updateScroll);
   },
   unmounted() {
     window.removeEventListener("click", this.closeOpenNavMenu);
   },
   methods: {
+    // TEST
+    test() {
+      console.log('poop')
+    },
+    // TEST
     reload() {
       window.location.reload(true);
     },
@@ -65,14 +74,10 @@ export default {
     emitScrollRequest(id) {
       this.$emit("scroll-request", id);
     },
-  },
-  methods: {
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
-  },
-  mounted() {
-    window.addEventListener("scroll", this.updateScroll);
+    ...mapActions(useCartStore, ['toggleCart'])
   },
 };
 </script>
