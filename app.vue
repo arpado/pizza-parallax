@@ -1,7 +1,7 @@
 <template>
-    <NuxtLayout name="default">
-        <NuxtPage />
-    </NuxtLayout>
+  <NuxtLayout name="default">
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <script setup>
@@ -13,6 +13,8 @@
 </script>
 
 <style>
+@import '/node_modules/augmented-ui/augmented-ui.min.css';
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -42,17 +44,17 @@ button,
   font-size: 1rem;
 }
 @media (min-width: 800px) {
-h2 {
-  font-size: 2rem;
-}
-p,
-label,
-input,
-h3,
-h4,
-button,
-.btn-font {
-  font-size: 1.5rem;
-}
+  h2 {
+    font-size: 2rem;
+  }
+  p,
+  label,
+  input,
+  h3,
+  h4,
+  button,
+  .btn-font {
+    font-size: 1.5rem;
+  }
 }
 </style>
