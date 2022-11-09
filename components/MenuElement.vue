@@ -25,30 +25,6 @@
       <div class="pizza-buttons">
         <div class="btn-bar">
           <div class="size-selector-bar">
-            <!-- <span
-              class="size-selector btn-font"
-              :class="{ 'size-selected': selectedPizzaSize === 'S' }"
-              @click="changeSize('S')"
-              >S</span
-            >
-            <span
-              class="size-selector btn-font"
-              :class="{ 'size-selected': selectedPizzaSize === 'M' }"
-              @click="changeSize('M')"
-              >M</span
-            >
-            <span
-              class="size-selector btn-font"
-              :class="{ 'size-selected': selectedPizzaSize === 'L' }"
-              @click="changeSize('L')"
-              >L</span
-            >
-            <span
-              class="size-selector btn-font"
-              :class="{ 'size-selected': selectedPizzaSize === 'XL' }"
-              @click="changeSize('XL')"
-              >XL</span
-            > -->
             <PizzaSizeSelector size="S" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
             <PizzaSizeSelector size="M" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
             <PizzaSizeSelector size="L" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
