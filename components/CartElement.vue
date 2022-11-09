@@ -1,7 +1,15 @@
 <template>
   <div class="cart-container" v-show="cartStore.showCart">
       <h3>In Cart:</h3>
-      <p>{{ cartStore.pizzaOnOrder }}</p>
+      <ul>
+          <li v-for="(pizza, index) in cartStore.pizzaOnOrder" :key="index">
+              {{pizza.name}} - {{pizza.size}} - {{pizza.quantity}} - {{pizza.price}} - {{pizza.sumPrice.toFixed(2)}}
+            <button @click="cartStore.lessPizza(index)">--</button>
+            <button @click="cartStore.morePizza(index)">+</button>
+            <button @click="cartStore.deletePizza(pizza.name, pizza.size)">X</button>
+          </li>
+      </ul>
+      <p>total: {{ cartStore.totalPrice }}</p>
   </div>
 </template>
 
@@ -13,16 +21,16 @@ export default {
         const cartStore = useCartStore()
         return { cartStore }
     }
-
 }
 </script>
 
 <style>
 .cart-container {
-    width: 200px;
-    height: 400px;
+    width: 400px;
+    height: fit-content;
+    padding: 2rem;
     background-color: white;
-    position: absolute;
+    position: fixed;
     top: 150px;
     right: 0;
     z-index: 999;
