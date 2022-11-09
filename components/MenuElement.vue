@@ -18,14 +18,14 @@
           </div>
           <div class="pizza-price">
             <p>Price:</p>
-            <p>${{ pizza.price }}</p>
+            <p>${{ getSumPizzaPrice }}</p>
           </div>
         </div>
       </div>
       <div class="pizza-buttons">
         <div class="btn-bar">
           <div class="size-selector-bar">
-            <span
+            <!-- <span
               class="size-selector btn-font"
               :class="{ 'size-selected': selectedPizzaSize === 'S' }"
               @click="changeSize('S')"
@@ -48,32 +48,47 @@
               :class="{ 'size-selected': selectedPizzaSize === 'XL' }"
               @click="changeSize('XL')"
               >XL</span
-            >
-          </div>
-          <div class="order-btn btn-font" @click="addToOrder(pizza.name)">
-            Add to cart
+            > -->
+            <PizzaSizeSelector size="S" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
+            <PizzaSizeSelector size="M" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
+            <PizzaSizeSelector size="L" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
+            <PizzaSizeSelector size="XL" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
           </div>
         </div>
+        <div class="pizza-quantity">
+          <input type="number" name="" min="1" id="pizza-quantity" class="pizza-quantity-input" v-model="selectedPizzaQuantity"/>
+        </div>
+      </div>
+      <div class="order-btn btn-font" @click="resetAndSend(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)">
+        Add to cart
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// useCartStore.addToOrder(this.pizza.name)
-import { mapActions } from "pinia";
+// @click="addToOrder(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)"
+// import { mapActions } from "pinia";
 import { useCartStore } from "../stores/cartStore";
 
 export default {
   name: "SectionElement",
   props: ["pizza"],
+  // try
+  setup() {
+        const cartStore = useCartStore()
+        return { cartStore }
+  },
   data() {
     return {
       // pizzaName: this.pizza.name,
       selectedPizzaSize: "L",
+      selectedPizzaQuantity: 1,
+      // sumPizzaPrice: getSumPizzaPrice,
     };
   },
   methods: {
+    // ...mapActions(useCartStore, ["addToOrder"]),
     changeSize(value) {
       this.selectedPizzaSize = value;
     },
@@ -81,8 +96,17 @@ export default {
       // console.log('poop')
       console.log(pizza);
     },
-    ...mapActions(useCartStore, ["addToOrder"]),
+    resetAndSend(name, size, quantity, price) {
+      const store = useCartStore()
+      store.addToOrder(name, size, quantity, price)
+      this.selectedPizzaQuantity = 1
+    },
   },
+  computed: {
+    getSumPizzaPrice() {
+      return this.selectedPizzaQuantity * this.pizza.price 
+    }
+  }
 };
 </script>
 
@@ -165,21 +189,32 @@ img {
   /* grid-column: 2/3;
   grid-row: 8/10; */
 }
+.pizza-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .btn-bar {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  height: 200px;
+  /* height: 200px; */
   /* grid-column: 2/3;
   grid-row: 11/13; */
 }
-.size-selector {
+/* .size-selector {
   padding: 0.5rem 1rem;
   background-color: var(--main-black);
   color: var(--main-white);
   border: 1px solid var(--main-white);
+} */
+.pizza-quantity {
+
+}
+.pizza-quantity-input {
+  width: 100px;
 }
 .order-btn {
   padding: 1rem 2rem;
@@ -187,7 +222,7 @@ img {
   color: var(--main-black);
   border: 1px solid var(--main-black);
 }
-.size-selector:hover,
+/* .size-selector:hover, */
 .order-btn {
   cursor: pointer;
 }
