@@ -13,7 +13,7 @@ class Pizza {
 export const useCartStore = defineStore('cart', {
   state: () => {
     return {
-      showCart: true,
+      showCart: false,
       pizzaOnOrder: [],
     }
   },
