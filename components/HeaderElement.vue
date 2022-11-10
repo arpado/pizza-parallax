@@ -17,7 +17,8 @@
           @scroll-request="emitScrollRequest"
         />
       </div>
-      <div class="cart-button" @click="toggleCart">Cart</div>
+      <div class="login-button"  @click="modalStore.toggleLogin">Login modal</div>
+      <div class="cart-button" @click="cartStore.toggleCart">Cart</div>
     </nav>
   </header>
 </template>
@@ -26,10 +27,17 @@
 import DropdownMenu from "@/components/DropdownMenu.vue";
 import HorizontalMenu from "@/components/HorizontalMenu.vue";
 import { useCartStore } from '../stores/cartStore';
+import { useModalStore } from '../stores/modalStore';
 import { mapActions } from 'pinia';
 
 export default {
   components: { DropdownMenu, HorizontalMenu },
+  setup() {
+    const cartStore = useCartStore();
+    const modalStore = useModalStore();
+
+    return {cartStore, modalStore};
+  },
   data() {
     return {
       navArray: [
@@ -55,6 +63,7 @@ export default {
       console.log('poop')
     },
     // TEST
+    // EZT ATIRNI, H VISSZAVIGYEN A /HOME-RA
     reload() {
       window.location.reload(true);
     },
@@ -77,7 +86,7 @@ export default {
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
-    ...mapActions(useCartStore, ['toggleCart'])
+    // ...mapActions(useCartStore, ['toggleCart'])
   },
 };
 </script>
