@@ -3,6 +3,8 @@
     <HeaderElement />
     <!-- ezt innen lehet , h majd el -->
     <CartElement />
+    <LoginElement />
+    <BookingElement />
     <slot />
     <FooterElement />
   </div>
