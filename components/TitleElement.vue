@@ -6,13 +6,19 @@
     <h1>The Best Pizzeria!</h1>
     <h2>Come and eat at our place! Lorem ipsum, dolor sit amet consectetur adipisicing elit!</h2>
     <div class="btn-container">
-      <ButtonElement text="Book a Table!"/>
-      <ButtonElement text="Order Pizza"/>
+      <ButtonElement text="Book a Table!" @click="modalStore.toggleBooking" />
+      <NuxtLink to="OurMenu">
+        <ButtonElement text="Order Pizza" />
+      </NuxtLink>
+      <!-- </ButtonElement> -->
     </div>
   </div>
 </template>
 
 <script>
+// modalStore.toggleBooking
+import { useModalStore } from '../stores/modalStore';
+
 export default {
   name: "TitleElement",
   props: {
@@ -24,6 +30,15 @@ export default {
       default: false,
     },
   },
+  setup() {
+    const modalStore = useModalStore()
+    return { modalStore }
+  },
+  methods: {
+    test() {
+      console.log('titleelement')
+    }
+  }
 };
 </script>
 
@@ -62,5 +77,9 @@ export default {
 .btn-container {
   display: flex;
   justify-content: space-evenly;
+}
+.btn-container > a {
+  text-decoration: none;
+  color: unset;
 }
 </style>
