@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <!-- <span :class="[transparent ? 'transparent' : '', 'border']">
-      {{ title }}
-    </span> -->
     <h1>The Best Pizzeria!</h1>
     <h2>Come and eat at our place! Lorem ipsum, dolor sit amet consectetur adipisicing elit!</h2>
     <div class="btn-container">
@@ -10,13 +7,11 @@
       <NuxtLink to="OurMenu">
         <ButtonElement text="Order Pizza" />
       </NuxtLink>
-      <!-- </ButtonElement> -->
     </div>
   </div>
 </template>
 
 <script>
-// modalStore.toggleBooking
 import { useModalStore } from '../stores/modalStore';
 
 export default {
