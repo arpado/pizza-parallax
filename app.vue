@@ -5,15 +5,16 @@
 </template>
 
 <script setup>
-// const nuxtApp = useNuxtApp()
+const nuxtApp = useNuxtApp()
 
-// nuxtApp.hook("page:finish", () => {
-//   window.scrollTo(0, 0)
-// })
+nuxtApp.hook("page:finish", () => {
+  window.scrollTo(0, 0)
+})
 </script>
 
 <style>
 @import '/node_modules/augmented-ui/augmented-ui.min.css';
+@import '/assets/flex-setup.css';
 
 * {
   box-sizing: border-box;
@@ -24,6 +25,7 @@ body,
 html {
   height: 100%;
   font-size: 100%;
+  scroll-behavior: smooth;
 }
 :root {
   --main-red: #fd1d01;
