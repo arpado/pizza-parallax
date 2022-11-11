@@ -1,9 +1,5 @@
 <template>
-  <div class="card-background">
-    <div
-      data-augmented-ui="tl-scoop tr-scoop br-scoop bl-scoop both"
-      class="card"
-    >
+    <NuxtLayout name="card" class="additional-dimensions">
       <div class="pizza-title">
         <h3 class="pizza-name">{{ pizza.name }}</h3>
       </div>
@@ -38,38 +34,31 @@
       <div class="order-btn btn-font" @click="resetAndSend(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)">
         Add to cart
       </div>
-    </div>
-  </div>
+    </NuxtLayout>
 </template>
 
 <script>
 // @click="addToOrder(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)"
-// import { mapActions } from "pinia";
 import { useCartStore } from "../stores/cartStore";
 
 export default {
   name: "SectionElement",
   props: ["pizza"],
-  // try
   setup() {
         const cartStore = useCartStore()
         return { cartStore }
   },
   data() {
     return {
-      // pizzaName: this.pizza.name,
       selectedPizzaSize: "L",
       selectedPizzaQuantity: 1,
-      // sumPizzaPrice: getSumPizzaPrice,
     };
   },
   methods: {
-    // ...mapActions(useCartStore, ["addToOrder"]),
     changeSize(value) {
       this.selectedPizzaSize = value;
     },
     test(pizza) {
-      // console.log('poop')
       console.log(pizza);
     },
     resetAndSend(name, size, quantity, price) {
@@ -87,44 +76,12 @@ export default {
 </script>
 
 <style scoped>
-/* .section {
-  height: 1px;
-  
-  min-height: 50vh;
-  min-width: 380px;
-  width: 80vw;
-  max-width: 600px;
-  padding: 15px;
-  background-color: var(--main-brown);
-} */
-.card-background {
-  height: fit-content;
-  /* width: 100%; */
-  padding: 1rem;
-  background-color: var(--main-brown);
-}
-.card {
-  /* height: 100%;
-  width: 100%; */
-  height: fit-content;
+.additional-dimensions {
   min-height: 60vh;
   min-width: 380px;
   width: 80vw;
   max-width: 500px;
-  /* border: 15px solid var(--main-brown); */
-
-  background-color: var(--main-white);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  /* display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(12, 1fr); */
 }
-/* .card-subsection {
-  width: 50%;
-} */
 .image-section {
   display: flex;
   justify-content: center;
@@ -132,38 +89,21 @@ export default {
 }
 img {
   width: 100%;
-  /* height: 100%; */
   object-fit: cover;
-  /* grid-column: 1/2;
-  grid-row: 1/13; */
 }
 .pizza-name {
   text-align: center;
   padding: 2rem;
-  /* grid-column: 2/3;
-  grid-row: 1/2; */
 }
 .pizza-description {
   text-align: center;
   min-height: 8rem;
-  /* mi a line-height? */
-  /* grid-column: 2/3;
-  grid-row: 2/4; */
 }
-
-/* .text-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-} */
 .pizza-price {
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* grid-column: 2/3;
-  grid-row: 8/10; */
 }
 .pizza-buttons {
   display: flex;
@@ -171,21 +111,11 @@ img {
   align-items: center;
 }
 .btn-bar {
-  /* width: 100%; */
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  /* height: 200px; */
-  /* grid-column: 2/3;
-  grid-row: 11/13; */
 }
-/* .size-selector {
-  padding: 0.5rem 1rem;
-  background-color: var(--main-black);
-  color: var(--main-white);
-  border: 1px solid var(--main-white);
-} */
 .pizza-quantity {
 
 }
@@ -198,7 +128,6 @@ img {
   color: var(--main-black);
   border: 1px solid var(--main-black);
 }
-/* .size-selector:hover, */
 .order-btn {
   cursor: pointer;
 }
