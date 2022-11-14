@@ -2,6 +2,7 @@
   <NuxtLayout name="default">
     <NuxtPage />
   </NuxtLayout>
+  <ItemSetup />
 </template>
 
 <script setup>
