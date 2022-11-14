@@ -5,17 +5,26 @@ export const useModalStore = defineStore('modal', {
         return {
             // showModal: false,
             showLogin: false,
-            showBooking: false
+            showBooking: false,
+            showItemSetup: false,
         }
     },
     actions: {
         toggleLogin() {
             this.showBooking = false
+            this.showItemSetup = false
             this.showLogin = !this.showLogin
         },
         toggleBooking() {
             this.showLogin = false
+            this.showItemSetup = false
             this.showBooking = !this.showBooking
+        },
+        toggleItemSetup(item) {
+            this.showLogin = false
+            this.showBooking = false
+            this.showItemSetup = !this.showItemSetup
+            console.log(item)
         },
         // openModal(content) {
         //     this.showModal = true
@@ -26,6 +35,7 @@ export const useModalStore = defineStore('modal', {
             // this.modalContent = null
             this.showLogin = false
             this.showBooking = false
+            this.showItemSetup = false
         },
         closeModalOnEscape(e) {
             if (e.keyCode == 27) {
