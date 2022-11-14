@@ -59,7 +59,6 @@ export default {
     return {
       selectedPizzaSize: "L",
       selectedPizzaQuantity: 1,
-      // pizza: this.pizza,
     };
   },
   methods: {
@@ -75,8 +74,6 @@ export default {
       this.selectedPizzaQuantity = 1
     },
     modifyPizza(pizza) {
-      // const modalStore = useModalStore()
-      // const itemModStore = useItemModificationStore()
       this.modalStore.toggleItemSetup(pizza)
       this.itemModStore.loadItem(pizza)
     }
