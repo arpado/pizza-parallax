@@ -31,6 +31,9 @@
           <input type="number" name="" min="1" id="pizza-quantity" class="pizza-quantity-input" v-model="selectedPizzaQuantity"/>
         </div>
       </div>
+      <div class="order-btn btn-font" @click="modifyPizza(pizza)">
+        Modify Order
+      </div>
       <div class="order-btn btn-font" @click="resetAndSend(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)">
         Add to cart
       </div>
@@ -40,18 +43,23 @@
 <script>
 // @click="addToOrder(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)"
 import { useCartStore } from "../stores/cartStore";
+import { useModalStore } from '../stores/modalStore';
+import { useItemModificationStore } from '../stores/itemModificationStore';
 
 export default {
   name: "SectionElement",
   props: ["pizza"],
   setup() {
         const cartStore = useCartStore()
-        return { cartStore }
+        const modalStore = useModalStore()
+        const itemModStore = useItemModificationStore()
+        return { cartStore, modalStore, itemModStore }
   },
   data() {
     return {
       selectedPizzaSize: "L",
       selectedPizzaQuantity: 1,
+      // pizza: this.pizza,
     };
   },
   methods: {
@@ -66,6 +74,12 @@ export default {
       store.addToOrder(name, size, quantity, price)
       this.selectedPizzaQuantity = 1
     },
+    modifyPizza(pizza) {
+      // const modalStore = useModalStore()
+      // const itemModStore = useItemModificationStore()
+      this.modalStore.toggleItemSetup(pizza)
+      this.itemModStore.loadItem(pizza)
+    }
   },
   computed: {
     getSumPizzaPrice() {
