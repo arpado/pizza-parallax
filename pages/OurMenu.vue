@@ -7,12 +7,16 @@
       <div class="menu-list">
         <MenuElement v-for="pizza in pizzaArray" :key="pizza.name" :pizza="pizza" />
       </div>
+       <!-- <div class="menu-list">
+        <MenuElement v-for="item in drinksArray" :key="drink.name" :item="item" />
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup>
 import pizzaArray from "../content/pizza-menu.json";
+// import drinksArray from "../content/drinks-menu.json";
 </script>
 
 <style scoped>
