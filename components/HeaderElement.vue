@@ -5,7 +5,7 @@
     </div>
     <nav class="flex">
       <!-- ezt ossze kell majd vonni -->
-      <NavMenuElement
+      <NavbarElement
         class="widescreen-nav"
         :nav-array="navArray"
         :modal-array="modalArray"
@@ -14,7 +14,7 @@
       />
       <div class="narrowscreen-nav">
         <div class="hamburger" @click="toggleMenu">Menu</div>
-        <NavMenuElement
+        <NavbarElement
           v-show="menuVisible"
           :nav-array="navArray"
           :modal-array="modalArray"
