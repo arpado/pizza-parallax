@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 
 class Pizza {
-  constructor(name, size, quantity, price) {
+  constructor(name, size, quantity, crust, additionalToppings, price) {
     this.name = name;
     this.size = size;
+    this.crust = crust;
+    this.additionalToppings = additionalToppings;
     this.quantity = quantity;
     this.price = price;
     this.sumPrice = this.quantity * this.price;
@@ -32,7 +34,7 @@ export const useCartStore = defineStore('cart', {
     toggleCart() {
       this.showCart = !this.showCart
     },
-    addToOrder(name, size, quantity, price) {
+    addToOrder(name, size, quantity, crust, additionalToppings, price) {
       let pizzaFound = false
       this.pizzaOnOrder.forEach(item => {
         if (item.name === name && item.size === size) {
@@ -44,8 +46,9 @@ export const useCartStore = defineStore('cart', {
       })
 
       if (!pizzaFound && quantity > 0) {
-        this.pizzaOnOrder.push(new Pizza(name, size, quantity, price))
+        this.pizzaOnOrder.push(new Pizza(name, size, quantity, crust, additionalToppings, price))
       }
+      console.log(this.pizzaOnOrder)
     },
     morePizza(index) {
       this.pizzaOnOrder[index].quantity++
