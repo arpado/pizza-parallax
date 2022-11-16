@@ -1,88 +1,50 @@
 <template>
-    <NuxtLayout name="card" class="additional-dimensions">
-      <div class="pizza-title">
-        <h3 class="pizza-name">{{ pizza.name }}</h3>
+  <NuxtLayout name="card" class="additional-dimensions">
+    <div class="pizza-title">
+      <h3 class="pizza-name">{{ pizza.name }}</h3>
+    </div>
+    <div class="pizza-body">
+      <div class="image-section card-subsection">
+        <img :src="`images/${pizza.image}`" alt="" />
       </div>
-      <div class="pizza-body">
-        <div class="image-section card-subsection">
-          <img :src="`images/${pizza.image}`" alt="" />
+      <div class="text-section card-subsection">
+        <div class="pizza-description">
+          <h4>Toppings:</h4>
+          <p>{{ pizza.description }}</p>
         </div>
-        <div class="text-section card-subsection">
-          <div class="pizza-description">
-            <h4>Toppings:</h4>
-            <p>{{ pizza.description }}</p>
-          </div>
-          <div class="pizza-price">
-            <p>Price:</p>
-            <p>${{ getSumPizzaPrice }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="pizza-buttons">
-        <div class="btn-bar">
-          <div class="size-selector-bar">
-            <PizzaSizeSelector size="S" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
-            <PizzaSizeSelector size="M" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
-            <PizzaSizeSelector size="L" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
-            <PizzaSizeSelector size="XL" :selectedPizzaSize="selectedPizzaSize" @emitChangeSize="changeSize"/>
-          </div>
-        </div>
-        <div class="pizza-quantity">
-          <input type="number" name="" min="1" id="pizza-quantity" class="pizza-quantity-input" v-model="selectedPizzaQuantity"/>
+        <div class="pizza-price">
+          <p>Price starts from:</p>
+          <p>${{ pizza.price }}</p>
         </div>
       </div>
-      <div class="order-btn btn-font" @click="modifyPizza(pizza)">
-        Modify Order
-      </div>
-      <div class="order-btn btn-font" @click="resetAndSend(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)">
-        Add to cart
-      </div>
-    </NuxtLayout>
+    </div>
+    <button
+      class="order-btn btn-font flex center-both"
+      @click="modifyPizza(pizza)"
+    >
+      Select Item
+    </button>
+  </NuxtLayout>
 </template>
 
 <script>
-// @click="addToOrder(pizza.name, selectedPizzaSize ,selectedPizzaQuantity, pizza.price)"
-import { useCartStore } from "../stores/cartStore";
-import { useModalStore } from '../stores/modalStore';
-import { useItemModificationStore } from '../stores/itemModificationStore';
+import { useModalStore } from "../stores/modalStore";
+import { useItemModificationStore } from "../stores/itemModificationStore";
 
 export default {
   name: "SectionElement",
   props: ["pizza"],
   setup() {
-        const cartStore = useCartStore()
-        const modalStore = useModalStore()
-        const itemModStore = useItemModificationStore()
-        return { cartStore, modalStore, itemModStore }
-  },
-  data() {
-    return {
-      selectedPizzaSize: "L",
-      selectedPizzaQuantity: 1,
-    };
+    const modalStore = useModalStore();
+    const itemModStore = useItemModificationStore();
+    return { modalStore, itemModStore };
   },
   methods: {
-    changeSize(value) {
-      this.selectedPizzaSize = value;
-    },
-    test(pizza) {
-      console.log(pizza);
-    },
-    resetAndSend(name, size, quantity, price) {
-      const store = useCartStore()
-      store.addToOrder(name, size, quantity, price)
-      this.selectedPizzaQuantity = 1
-    },
     modifyPizza(pizza) {
-      this.modalStore.toggleItemSetup(pizza)
-      this.itemModStore.loadItem(pizza)
-    }
+      this.modalStore.toggleItemSetup(pizza);
+      this.itemModStore.loadItem(pizza);
+    },
   },
-  computed: {
-    getSumPizzaPrice() {
-      return this.selectedPizzaQuantity * this.pizza.price 
-    }
-  }
 };
 </script>
 
@@ -128,7 +90,6 @@ img {
   flex-wrap: wrap;
 }
 .pizza-quantity {
-
 }
 .pizza-quantity-input {
   width: 100px;
@@ -138,6 +99,7 @@ img {
   background-color: var(--main-red);
   color: var(--main-black);
   border: 1px solid var(--main-black);
+  margin: 0 auto;
 }
 .order-btn {
   cursor: pointer;
