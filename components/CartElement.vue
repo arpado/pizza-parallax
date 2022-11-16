@@ -6,31 +6,42 @@
       <li
         v-for="(pizza, index) in cartStore.pizzaOnOrder"
         :key="index"
-        class="item-on-order"
+        class="item-on-order flex column"
       >
-        <div class="item-info">
-          {{ pizza.name }} - {{ pizza.size }} - {{ pizza.quantity }} -
-          {{ pizza.price }} - {{ pizza.sumPrice.toFixed(2) }}
+        <div class="title">
+          <h4>{{ pizza.name }}</h4>
         </div>
-        <div class="item-buttons">
-          <button
-            class="order-manipulation-btn"
-            @click="cartStore.lessPizza(index)"
-          >
-            -
-          </button>
-          <button
-            class="order-manipulation-btn"
-            @click="cartStore.morePizza(index)"
-          >
-            +
-          </button>
-          <button
-            class="order-manipulation-btn"
-            @click="cartStore.deletePizza(pizza.name, pizza.size)"
-          >
-            X
-          </button>
+        <div class="item-body flex row justify-between align-center">
+          <div class="item-info">
+            <p>Size: {{ pizza.size }}</p>
+            <p>Crust: {{ pizza.crust }}</p>
+            <p>Additional toppings: <span v-for="item in pizza.additionalToppings" :key="item"> {{ item }},</span></p>
+            <p>Quantity: {{ pizza.quantity }}</p>
+            <p>Price: {{ pizza.sumPrice.toFixed(2) }}</p>
+            <!-- {{ pizza.name }} - {{ pizza.size }} - {{ pizza.quantity }} -
+            {{ pizza.price }} - {{ pizza.sumPrice.toFixed(2) }} -
+            {{ pizza.crust }} - {{ pizza.additionalToppings }} -->
+          </div>
+          <div class="item-buttons">
+            <button
+              class="order-manipulation-btn"
+              @click="cartStore.lessPizza(index)"
+            >
+              -
+            </button>
+            <button
+              class="order-manipulation-btn"
+              @click="cartStore.morePizza(index)"
+            >
+              +
+            </button>
+            <button
+              class="order-manipulation-btn"
+              @click="cartStore.deletePizza(pizza.name, pizza.size)"
+            >
+              X
+            </button>
+          </div>
         </div>
       </li>
     </ul>
@@ -84,6 +95,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.item-body {
+  width: 100%;
 }
 .order-total {
   grid-row: 10/11;
