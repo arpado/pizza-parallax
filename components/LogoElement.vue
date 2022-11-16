@@ -27,7 +27,7 @@ export default {};
 <style scoped>
 .container {
   min-height: 70px;
-  height: 70%;
+  height: 80%;
   max-height: 100px;
   width: 200px;
   position: relative;
