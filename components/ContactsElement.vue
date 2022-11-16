@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section" id="contacts-section">
     <div class="card">
       <div class="image card-subsection">
         <img :src="`images/${content.map}`" alt="" />
