@@ -3,48 +3,51 @@
     <div class="logo" @click="reload">
       <LogoElement />
     </div>
-    <nav>
-      <HorizontalMenu
+    <nav class="flex">
+      <!-- ezt ossze kell majd vonni -->
+      <NavMenuElement
         class="widescreen-nav"
         :nav-array="navArray"
-        @scroll-request="emitScrollRequest"
+        :modal-array="modalArray"
+        @login="modalStore.toggleLogin"
+        @cart="cartStore.toggleCart"
       />
       <div class="narrowscreen-nav">
         <div class="hamburger" @click="toggleMenu">Menu</div>
-        <DropdownMenu
+        <NavMenuElement
           v-show="menuVisible"
           :nav-array="navArray"
-          @scroll-request="emitScrollRequest"
+          :modal-array="modalArray"
+          @login="modalStore.toggleLogin"
+          @cart="cartStore.toggleCart"
+          :dropdown-top="[scrollPosition >= 120 ? '80px' : '130px']"
         />
       </div>
-      <div class="login-button"  @click="modalStore.toggleLogin">Login modal</div>
-      <div class="cart-button" @click="cartStore.toggleCart">Cart</div>
     </nav>
   </header>
 </template>
 
 <script>
-import DropdownMenu from "@/components/DropdownMenu.vue";
-import HorizontalMenu from "@/components/HorizontalMenu.vue";
 import { useCartStore } from '../stores/cartStore';
 import { useModalStore } from '../stores/modalStore';
 import { mapActions } from 'pinia';
 
 export default {
-  components: { DropdownMenu, HorizontalMenu },
   setup() {
     const cartStore = useCartStore();
     const modalStore = useModalStore();
-
     return {cartStore, modalStore};
   },
   data() {
     return {
       navArray: [
-        { text: "Home", to: "/" },
-        { text: "Our Selection", to: "OurMenu" },
-        // { text: "Contact", to: "contact" },
-        { text: "Login", to: "LoginPage" },
+        { text: "Home", to: "/", hash: ""},
+        { text: "Our Selection", to: "OurMenu", hash: ""},
+        { text: "Contacts", to: "/", hash: "#contacts-section"},
+      ],
+      modalArray: [
+        { text: "Cart", event: "cart"},
+        { text: "Login", event: "login"},
       ],
       menuVisible: false,
       scrollPosition: 0,
@@ -56,6 +59,7 @@ export default {
   },
   unmounted() {
     window.removeEventListener("click", this.closeOpenNavMenu);
+    window.removeEventListener("scroll", this.updateScroll);
   },
   methods: {
     // TEST
@@ -110,10 +114,12 @@ header {
   transition: height 0.5s ease-out;
 }
 .small-header {
-  height: 10vh;
+  /* height: 10vh; */
+  height: 80px;
 }
 .big-header {
-  height: 15vh;
+  /* height: 15vh; */
+  height: 130px;
 }
 .logo {
   height: 100%;
