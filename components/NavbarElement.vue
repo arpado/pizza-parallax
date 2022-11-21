@@ -8,19 +8,55 @@
         >{{ navLink.text }}</NuxtLink
       >
     </li>
-    <li v-for="(modalBtn, index) in modalArray" :key="index">
+    <!-- <li v-for="(modalBtn, index) in modalArray" :key="index">
       <div class="navLink" @click="$emit(modalBtn.event)">
         {{ modalBtn.text }}
       </div>
+    </li> -->
+     <li>
+      <div class="navLink" @click="$emit('cart')">
+        Cart
+      </div>
+    </li>
+     <li v-if="!user">
+      <div class="navLink" @click="$emit('login')">
+        Login
+      </div>
+    </li>
+    <li v-else>
+      <div class="navLink" @click="logout">
+        Logout
+      </div>
     </li>
   </ul>
+  <!-- <UserElement v-if="user" :user="user"/> -->
 </template>
 
 <script>
+import { userLogout } from '~/composables/useAuth'
+import { useState } from '#app'
+import { useUser } from '~/composables/useAuth'
+// import { onClickOutside } from '@vueuse/core'
+
 export default {
   /* eslint-disable */
   props: ["navArray", "modalArray", "dropdownTop"],
-};
+    setup() {
+        // const avatar = (given) => given ?? 'img/logo.png' 
+        const user = useState('user')
+
+        const logout = userLogout 
+        // onClickOutside(this.userActions, () => this.hideActions = false)
+        return {user, logout}
+    },
+    data() {
+        return {
+            // hideActions: true,
+            // userActions: null,
+            // user: false
+        }
+    }
+}
 </script>
 
 <style scoped>

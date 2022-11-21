@@ -1,17 +1,20 @@
 <template>
+<!-- ennek majd meg megnezni, h hogyan csinalta -->
   <Transition name="slide-fade">
     <NuxtLayout name="modal" v-if="modalStore.showLogin">
       <div class="login-container flex column justify-evenly">
         <h3>LOGIN</h3>
-        <form action="POST">
-          <label for="username">Name:</label>
-          <input type="text" name="username" id="username" />
+        <!-- <form action="POST"> -->
+        <form v-on:submit.prevent action="#" method="POST">
+          <label for="email">Email:</label>
+          <input type="text" name="email" id="email" v-model="email"/>
           <hr />
           <label for="password">Password:</label>
-          <input type="text" name="password" id="password" />
+          <input type="text" name="password" id="password" v-model="password"/>
           <hr />
         </form>
-        <button type="submit">Login</button>
+        <div class="error-container" v-if="hasError">OOPS!</div>
+        <button @click="postLoginForm">Login</button>
         <p>
           Not registered yet? <NuxtLink  to="/RegisterPage" @click="modalStore.closeModal">Register Here!</NuxtLink>
         </p>
@@ -22,12 +25,30 @@
 
 <script>
 import { useModalStore } from "../stores/modalStore";
+import { loginWithEmail } from "~/composables/useAuth"
 
 export default {
   setup() {
+    definePageMeta({
+      middleware: 'guest'
+    })
+
     const modalStore = useModalStore();
     return { modalStore };
   },
+  data() {
+    return {
+      email: null,
+      password: null,
+      hasError: null,
+      errorMessage: null,
+    }
+  },
+  methods: {
+    async postLoginForm() {
+      await loginWithEmail(email.value, password.value)
+    }
+  }
 };
 </script>
 

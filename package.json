@@ -16,8 +16,10 @@
     "@pinia/nuxt": "^0.4.3",
     "@prisma/client": "^4.6.1",
     "augmented-ui": "^2.0.0",
+    "bcrypt": "^5.1.0",
     "pinia": "^2.0.23",
-    "swiper": "^8.3.2"
+    "swiper": "^8.3.2",
+    "uuid": "^9.0.0"
   },
   "prisma": {
     "schema": "server/database/schema.prisma"
