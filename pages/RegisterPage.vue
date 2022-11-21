@@ -1,35 +1,79 @@
 <template>
-    <div class="wrapper">
-      <div class="container">
-        <div class="login-box">
-          <h3>Register</h3>
-          <div class="input-box">
-            <label for="username">Username:</label>
-            <input type="text" name="" id="username" />
-          </div>
-          <div class="input-box">
-            <label for="password">Password:</label>
-            <input type="text" name="" id="password" />
-          </div>
-          <div class="input-box">
-            <label for="password-again">Password again:</label>
-            <input type="text" name="" id="password-again" />
-          </div>
-          <button>Register</button>
+  <div class="wrapper">
+    <div class="container">
+      <div class="login-box">
+        <h3>Register</h3>
+        <div class="input-box">
+          <label for="username">Username:</label>
+          <input type="text" name="" id="username" v-model="username" />
         </div>
-        <div class="alternatives">
-          <p>
-            Already registered? Click
-            <NuxtLink to="LoginPage">here</NuxtLink> to login!
-          </p>
-          <p>Click <NuxtLink to="/">here</NuxtLink> to return home!</p>
+        <div class="input-box">
+          <label for="email">Email:</label>
+          <input type="text" name="" id="email" v-model="email" />
         </div>
+        <div class="input-box">
+          <label for="password">Password:</label>
+          <input type="text" name="" id="password" v-model="password" />
+        </div>
+        <div class="input-box">
+          <label for="password-again">Password again:</label>
+          <input
+            type="text"
+            name=""
+            id="password-again"
+            v-model="passwordAgain"
+          />
+        </div>
+        <!-- @click="registerUser(username, email, password, passwordAgain)" -->
+        <button @click="postRegistrationForm(username, email, password)">Register</button>
+      </div>
+      <div class="alternatives">
+        <p>
+          Already registered? Click
+          <NuxtLink to="LoginPage">here</NuxtLink> to login!
+        </p>
+        <p>Click <NuxtLink to="/">here</NuxtLink> to return home!</p>
+        <p>{{ username }} -{{email}} - {{ password }} - {{ passwordAgain }}</p>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import { registerWithEmail } from '~/composables/useAuth';
+
+export default {
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+      passwordAgain: "",
+      // ezeket majd csekkolni
+      errors: new Map(),
+      response: {
+        hasErrors: false
+      }
+    };
+  },
+  methods: {
+ 
+    async postRegistrationForm(name, email, password) {
+      this.response = await registerWithEmail(this.name, this.email, this.password)
+      // this.errors = this.response.errors
+      console.log(this.response)
+    },
+    
+    // async postRegistrationForm(name, email, password) {
+    //   response.value = await registerWithEmail(name, email, password)
+    // },
+    // registerUser(name, email, password, passwordAgain) {
+    //   if (name && email && password && password === passwordAgain) {
+    //     // create user
+    //   }
+    // },
+  },
+};
 </script>
 
 <style scoped>
@@ -44,7 +88,7 @@ export default {};
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  background-image: url("/assets/pizza3.jpg");
+  /* background-image: url("/assets/pizza3.jpg"); */
   background-size: cover;
   background-position: center;
 }
