@@ -1,6 +1,6 @@
-import { createSession, getSessionByAuthToken } from '~/prisma/database/sessionRepository'
+import { createSession, getSessionByAuthToken } from '~/server/database/repositories/sessionRepository.js'
 import { v4 as uuidv4 } from 'uuid'
-import { sanitiseUserForTheFrontend } from '~/server/services/userServices'
+import { sanitiseUserForTheFrontend } from '~/server/services/userServices.js'
 
 export async function makeSession(user, event) {
     const authToken = uuidv4().replaceAll('-', '')

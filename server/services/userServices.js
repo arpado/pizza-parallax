@@ -1,5 +1,5 @@
 // import { getUserByEmail } from '~/prisma/database/userRepository'
-import { validate } from '~/server/services/validator'
+import { validate } from '~/server/services/validate.js'
 
 // export async function doesUserExist(email) {
 //     const hasEmail = await getUserByEmail(email)

@@ -27,10 +27,10 @@ export async function registerWithEmail(name, email, password) {
     try {
         const data = await useFetch('api/auth/register', {
             method: 'POST',
-            body: { data: {name, email, password } }
+            // body: { data: {name, email, password } }
         })
 
-        // return data
+        return data
 
         if (data) {
             useState('user').value = data

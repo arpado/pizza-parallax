@@ -1,4 +1,4 @@
-import { getUserByEmail } from '~/prisma/database/userRepository'
+import { getUserByEmail } from '~/server/database/repositories/userRepository.js'
 
 export async function validate(data) {
     const errors = new Map()
