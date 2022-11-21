@@ -1,5 +1,6 @@
 node_modules
 *.log*
+.vscode
 .nuxt
 .nitro
 .cache
