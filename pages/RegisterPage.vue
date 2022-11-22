@@ -15,16 +15,17 @@
           <label for="password">Password:</label>
           <input type="text" name="" id="password" v-model="password" />
         </div>
-        <div class="input-box">
+        <!-- <div class="input-box">
           <label for="password-again">Password again:</label>
           <input
             type="text"
             name=""
             id="password-again"
-            v-model="passwordAgain"
+           
           />
-        </div>
-        <button @click="postRegistrationForm(name, email, password)">Register</button>
+        </div> -->
+        <button @click="postRegisterForm">Register</button>
+        <!-- (name, email, password) -->
       </div>
       <div class="alternatives">
         <p>
@@ -32,36 +33,73 @@
           <NuxtLink to="LoginPage">here</NuxtLink> to login!
         </p>
         <p>Click <NuxtLink to="/">here</NuxtLink> to return home!</p>
-        <p>{{ name }} -{{email}} - {{ password }} - {{ passwordAgain }}</p>
+        <p>{{ name }} -{{ email }} - {{ password }}</p>
+        <!-- <div v-if="response.hasErrors">
+          <div class="error-messages" v-for="error in errors" :key="error">
+            <p>{{ error }}</p>
+          </div>
+        </div> -->
+        <div
+          v-if="response.hasErrors && errors"
+          role="alert"
+        >
+          <strong class="font-bold">Oops, try again! </strong>
+
+          <ul class="block sm:inline">
+            <li v-for="[key, value] in errors" :key="key">
+              {{ value.check.errorMessage }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { registerWithEmail } from '~/composables/useAuth';
+<script setup>
+// import { registerWithEmail } from '~/composables/useAuth';
 
-export default {
-  data() {
-    return {
-      name: "test",
-      email: "test@test.com",
-      password: "test",
-      passwordAgain: "",
-      // ezeket majd csekkolni
-      errors: new Map(),
-      response: {
-        hasErrors: false
-      }
-    };
-  },
-  methods: {
-    async postRegistrationForm(name, email, password) {
-      this.response = await registerWithEmail(name, email, password)
-      this.errors = this.response.errors
-    },
-  },
-};
+// export default {
+//   data() {
+//     return {
+//       name: "test",
+//       email: "test@test.com",
+//       password: "test",
+//       passwordAgain: "",
+//       errors: null,
+//       response: {
+//         hasErrors: false
+//       }
+//     };
+//   },
+//   methods: {
+//     async postRegistrationForm(name, email, password) {
+//       this.response = await registerWithEmail(name, email, password)
+//       // .then(console.log(res))
+//       // console.log(this.response)
+
+//       this.errors = this.response.errors
+//       // console.log(this.errors)
+//     },
+//   },
+// };
+
+import { ref } from "@vue/reactivity";
+import { registerWithEmail } from "~/composables/useAuth";
+const email = ref(null);
+const password = ref(null);
+const name = ref(null);
+const errors = ref(new Map());
+let response = ref({ hasErrors: false });
+async function postRegisterForm() {
+  response.value = await registerWithEmail(
+    name.value,
+    email.value,
+    password.value
+  );
+  errors.value = response.value.errors;
+  console.log(errors.value)
+}
 </script>
 
 <style scoped>

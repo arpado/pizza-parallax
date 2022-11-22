@@ -20,32 +20,40 @@ async function runChecks(key, value) {
         key,
         hasError: false,
     }
-    // if (key == 'password') {
-    //     if (value.length < 8) {
-    //         check.hasError = true
-    //         check.errorMessage = `password must be at least 8 characters`
-    //     }
-    //     check.lenghtMin8 = false
-    // }
+    
+    if (value == '' || value == null) {
+        check.isBlank = true
+        check.hasError = true
+        check.errorMessage = `${key} is required`
+        return check
+       }
 
-    // if (key == 'email') {
-    //     const isValidEmail = validateEmail(value)
+    if (key == 'password') {
+        if (value.length < 8) {
+            check.hasError = true
+            check.errorMessage = `password must be at least 8 characters`
+        }
+        check.lenghtMin8 = false
+    }
 
-    //     if(!isValidEmail) {
-    //         check.emailTaken = true
-    //         check.hasError = true
-    //         check.errorMessage = `Email ${value} is invalid`
-    //         return check
-    //     }
+    if (key == 'email') {
+        const isValidEmail = validateEmail(value)
 
-    //     const email = await getUserByEmail(value)
+        if(!isValidEmail) {
+            check.emailTaken = true
+            check.hasError = true
+            check.errorMessage = `Email is invalid`
+            return check
+        }
 
-    //     if (email) {
-    //         check.emailTaken = true
-    //         check.hasError = true
-    //         check.errorMessage = `Email is invalid or already taken`
-    //     }
-    // }
+        const email = await getUserByEmail(value)
+
+        if (email) {
+            check.emailTaken = true
+            check.hasError = true
+            check.errorMessage = `Email is already taken`
+        }
+    }
 
     // if (key == 'username') {
     //     const username = await getUserByUserName(value)

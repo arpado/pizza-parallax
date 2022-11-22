@@ -19,13 +19,16 @@ export default async (event) => {
     const user = await getUserByEmail(email)
 
     if (user === null) {
-        sendError(event, createError({ statusCode: 401, statusMessage: 'Unauthenticated' }))
+        sendError(event, createError({ statusCode: 401, statusMessage: 'User not found!' }))
+    }
+    if (password == undefined) {
+        return sendError(event, createError({ statusCode: 401, statusMessage: 'Password must be given!' }))
     }
 
     const isPasswordCorrect = bcrypt.compareSync(password, user.password)
 
     if (!isPasswordCorrect) {
-        sendError(event, createError({ statusCode: 401, statusMessage: 'Unauthenticated' }))
+        sendError(event, createError({ statusCode: 401, statusMessage: 'Wrong password!' }))
     }
 
     await makeSession(user, event)
@@ -38,30 +41,29 @@ export default async (event) => {
 //     try {
 //       const data = await loginRequest(event)
 //       const user = await getUserByEmail(data.usernameOrEmail)
-  
+
 //       if (user === null) {
 //         return sendError(event, createError({ statusCode: 401, data: standardAuthError }))
 //       }
-  
+
 //       if (user.password == undefined) {
 //         return sendError(event, createError({ statusCode: 401, data: standardAuthError }))
 //       }
-  
+
 //       const isPasswordCorrect = await bcrypt.compare(data.password, user.password)
-  
+
 //       if (!isPasswordCorrect) {
 //         sendError(event, createError({ statusCode: 401, data: standardAuthError }))
 //       }
-  
+
 //       await makeSession(user, event)
 //       return sanitizeUserForFrontend(user)
 //     } catch (error: any) {
-  
+
 //       if (error.data instanceof ZodError) {
 //         return await sendZodErrorResponse(event, error.data)
 //       }
-  
+
 //       return await sendDefaultErrorResponse(event, 'Unauthenticated', 401, error)
 //     }
 //   })
-  

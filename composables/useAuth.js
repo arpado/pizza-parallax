@@ -28,31 +28,30 @@ export async function userLogout() {
 
 export async function registerWithEmail(name, email, password) {
     try {
-        const data = await useFetch('api/auth/register', {
+        const { data, error } = await useFetch('api/auth/register', {
             method: 'POST',
             body: { data: {name, email, password } }
         })
+
+        if (error.value) {
+            const errorData = error.value
+            const errors = errorData.data
+            const res = JSON.parse(errors)
+            const errorMap = new Map(Object.entries(res))
+            return { hasErrors: true, errors: errorMap }
+        }
 
         if (data) {
             useState('user').value = data
             await useRouter().push('/')
         }
-        return { hasErrors: false, loggedIn: true }
 
-        // if(error.value) {
-        //     const errorData = error.value
-        //     const errors = errorData.data
-        //     const res = JSON.parse(errors)
-        //     const errorMap = new Map(Object.entries(res))
-        //     return { hasErrors: true, errors: errorMap }
-        // }
-        
-        // if (res) {
-        //     useState('user').value = res
-        //     await useRouter().push('/')
-        // }
-    } catch (error) {
-        console.log('Somthing went wrong: ' + error.toString())
+        // return { hasErrors: false, loggedIn: true }
+
+    // } catch (error) {
+    //     console.log('Somthing went wrong: ' + error.toString())
+    } catch (e) {
+        console.log('error: ' + e.toString())
     }
 }
 
