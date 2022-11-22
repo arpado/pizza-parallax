@@ -1,6 +1,6 @@
-import { createSession, getSessionByAuthToken } from '~/server/database/repositories/sessionRepository.js'
+import { createSession, getSessionByAuthToken } from '~/server/database/repositories/sessionRepository'
 import { v4 as uuidv4 } from 'uuid'
-import { sanitiseUserForTheFrontend } from '~/server/services/userServices.js'
+import { sanitizeUserForFrontend } from '~/server/app/services/userService'
 
 export async function makeSession(user, event) {
     const authToken = uuidv4().replaceAll('-', '')
@@ -16,5 +16,5 @@ export async function makeSession(user, event) {
 
 export async function getUserBySessionToken(authToken) {
     const session = await getSessionByAuthToken(authToken)
-    return sanitiseUserForTheFrontend(session.user)
+    return sanitizeUserForFrontend(session.user)
 }

@@ -4,8 +4,8 @@
       <div class="login-box">
         <h3>Register</h3>
         <div class="input-box">
-          <label for="username">Username:</label>
-          <input type="text" name="" id="username" v-model="username" />
+          <label for="name">Name:</label>
+          <input type="text" name="" id="name" v-model="name" />
         </div>
         <div class="input-box">
           <label for="email">Email:</label>
@@ -24,8 +24,7 @@
             v-model="passwordAgain"
           />
         </div>
-        <!-- @click="registerUser(username, email, password, passwordAgain)" -->
-        <button @click="postRegistrationForm(username, email, password)">Register</button>
+        <button @click="postRegistrationForm(name, email, password)">Register</button>
       </div>
       <div class="alternatives">
         <p>
@@ -33,7 +32,7 @@
           <NuxtLink to="LoginPage">here</NuxtLink> to login!
         </p>
         <p>Click <NuxtLink to="/">here</NuxtLink> to return home!</p>
-        <p>{{ username }} -{{email}} - {{ password }} - {{ passwordAgain }}</p>
+        <p>{{ name }} -{{email}} - {{ password }} - {{ passwordAgain }}</p>
       </div>
     </div>
   </div>
@@ -45,9 +44,9 @@ import { registerWithEmail } from '~/composables/useAuth';
 export default {
   data() {
     return {
-      username: "",
-      email: "",
-      password: "",
+      name: "test",
+      email: "test@test.com",
+      password: "test",
       passwordAgain: "",
       // ezeket majd csekkolni
       errors: new Map(),
@@ -57,21 +56,10 @@ export default {
     };
   },
   methods: {
- 
     async postRegistrationForm(name, email, password) {
-      this.response = await registerWithEmail(this.name, this.email, this.password)
-      // this.errors = this.response.errors
-      console.log(this.response)
+      this.response = await registerWithEmail(name, email, password)
+      this.errors = this.response.errors
     },
-    
-    // async postRegistrationForm(name, email, password) {
-    //   response.value = await registerWithEmail(name, email, password)
-    // },
-    // registerUser(name, email, password, passwordAgain) {
-    //   if (name && email && password && password === passwordAgain) {
-    //     // create user
-    //   }
-    // },
   },
 };
 </script>

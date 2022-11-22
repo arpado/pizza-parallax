@@ -1,9 +1,9 @@
+// import { H3Event } from "h3"
 import bcrypt from 'bcrypt'
-import { getUserByEmail } from '~/server/database/repositories/userRespository';
-import { sendError, H3Event } from "h3"
-import { sanitizeUserForFrontend } from '~~/server/app/services/userService';
-import { makeSession } from '~~/server/app/services/sessionService';
-
+import { getUserByEmail } from '~/server/database/repositories/userRepository';
+import { sendError } from "h3"
+import { sanitizeUserForFrontend } from '~/server/app/services/userService';
+import { makeSession } from '~/server/app/services/sessionService.js';
 
 // import { ZodError } from "zod"
 // import loginRequest from '~~/server/app/formRequests/LoginRequest';
@@ -22,13 +22,14 @@ export default async (event) => {
         sendError(event, createError({ statusCode: 401, statusMessage: 'Unauthenticated' }))
     }
 
-    const isPasswordCorrect = bcrypt.compare(password, user.password)
+    const isPasswordCorrect = bcrypt.compareSync(password, user.password)
 
     if (!isPasswordCorrect) {
         sendError(event, createError({ statusCode: 401, statusMessage: 'Unauthenticated' }))
     }
 
     await makeSession(user, event)
+
     return sanitizeUserForFrontend(user)
 }
 

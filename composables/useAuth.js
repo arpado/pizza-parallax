@@ -1,5 +1,7 @@
 import { useRouter, useState } from '#app'
 // import useErrorMapper from "./useErrorMapper";
+import { useUserStore } from '~/stores/userStore'
+// const user = useUserStore.user
 
 export const useAuthCookie = () => useCookie('auth_token')
 
@@ -18,19 +20,18 @@ export async function useUser() {
 }
 
 export async function userLogout() {
-    await useFetch('/api/auth/logout')
+    const data = await useFetch('/api/auth/logout')
     useState('user').value = null
     await useRouter().push('/')
+    return data
 }
 
 export async function registerWithEmail(name, email, password) {
     try {
         const data = await useFetch('api/auth/register', {
             method: 'POST',
-            // body: { data: {name, email, password } }
+            body: { data: {name, email, password } }
         })
-
-        return data
 
         if (data) {
             useState('user').value = data
@@ -55,24 +56,9 @@ export async function registerWithEmail(name, email, password) {
     }
 }
 
-// export async function loginWithEmail(usernameOrEmail, password) {
-//     try {
-//       const result =  await $fetch('api/auth/login', { method: 'POST', body: { usernameOrEmail: usernameOrEmail, password: password } })
-  
-//       if (!result?.id) {
-//         throw Error('something went wrong')
-//       }
-//       useState('user').value = result
-//       await useRouter().push('/')
-  
-//       return { hasErrors: false, loggedIn: true }
-//     } catch (error) {
-//     //   return useErrorMapper(error.data.data)
-//     }
-//   }
-export async function loginWithEmail(usernameOrEmail, password) {
+export async function loginWithEmail(email, password) {
     try {
-      const result = await useFetch(`/api/auth/login`, { method: 'POST', body: { usernameOrEmail: usernameOrEmail, password: password } })
+      const result = await useFetch(`/api/auth/login`, { method: 'POST', body: { email: email, password: password } })
   
       if (!result?.id) {
         throw Error('something went wrong')
@@ -85,18 +71,3 @@ export async function loginWithEmail(usernameOrEmail, password) {
     //   return useErrorMapper(error.data.data)
     }
   }
-
-// export async function registerWithEmail(name, email, password) {
-//     try {
-//         const res = await $fetch('api/auth/register', {
-//             method: 'POST',
-//             body: { name, email, password }
-//         })
-//         if (res) {
-//             useState('user').value = res
-//             await useRouter().push('/')
-//         }
-//     } catch (error) {
-//         console.log('Somthing went wrong: ' + error.toString())
-//     }
-// }

@@ -14,7 +14,8 @@
           <hr />
         </form>
         <div class="error-container" v-if="hasError">OOPS!</div>
-        <button @click="postLoginForm">Login</button>
+        <p>{{ email }} - {{ password }}</p>
+        <button @click="postLoginForm(email, password)">Login</button>
         <p>
           Not registered yet? <NuxtLink  to="/RegisterPage" @click="modalStore.closeModal">Register Here!</NuxtLink>
         </p>
@@ -45,8 +46,9 @@ export default {
     }
   },
   methods: {
-    async postLoginForm() {
-      await loginWithEmail(email.value, password.value)
+    async postLoginForm(email, password) {
+      await loginWithEmail(email, password)
+      this.modalStore.toggleLogin()
     }
   }
 };

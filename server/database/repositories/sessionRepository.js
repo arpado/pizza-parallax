@@ -1,4 +1,4 @@
-import prisma from '~/prisma/client'
+import prisma from '~/server/database/client'
 
 export async function createSession(data) {
   return await prisma.session.create({

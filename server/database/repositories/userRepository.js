@@ -1,4 +1,4 @@
-import prisma from '~/prisma/client'
+import prisma from '~/server/database/client'
 
 export async function getUserByEmail(email) {
     return await prisma.user.findUnique({
@@ -7,7 +7,8 @@ export async function getUserByEmail(email) {
         },
         select: {
             id: true,
-            name: true
+            name: true,
+            password: true,
         }
     })
 }

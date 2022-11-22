@@ -6,8 +6,10 @@
 </template>
 
 <script setup>
-const nuxtApp = useNuxtApp()
+import { useUser } from '~/composables/useAuth'
+const user = await useUser()
 
+const nuxtApp = useNuxtApp()
 nuxtApp.hook("page:finish", () => {
   window.scrollTo(0, 0)
 })
