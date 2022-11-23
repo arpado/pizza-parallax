@@ -43,7 +43,7 @@ export default {
       navArray: [
         { text: "Home", to: "/", hash: ""},
         { text: "Our Selection", to: "OurMenu", hash: ""},
-        { text: "Contacts", to: "/", hash: "#contacts-section"},
+        // { text: "Contacts", to: "/", hash: "#contacts-section"},
       ],
       modalArray: [
         { text: "Cart", event: "cart"},
