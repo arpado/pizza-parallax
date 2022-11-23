@@ -17,6 +17,13 @@
 <script>
 import pizzaArray from "../content/pizza-menu.json";
 // import drinksArray from "../content/drinks-menu.json";
+export default {
+  data() {
+    return {
+      pizzaArray: pizzaArray,
+    }
+  },
+}
 </script>
 
 <style scoped>
