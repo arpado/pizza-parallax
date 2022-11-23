@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     imports: {
         dirs: ['stores'],
     },
+    target: 'static',
     // content: {
         // https://content.nuxtjs.org/api/configuration
     // }
