@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import pizzaArray from "../content/pizza-menu.json";
 // import drinksArray from "../content/drinks-menu.json";
 </script>
