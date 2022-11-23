@@ -24,13 +24,13 @@ export default defineNuxtConfig({
         dirs: ['stores'],
     },
     target: 'static',
-    "nitro": {
-        "output": {
-            dir: 'output',
-            serverDir: 'output/server',
-            publicDir: 'output/public'
-        }
-    }
+    // "nitro": {
+    //     "output": {
+    //         dir: 'output',
+    //         serverDir: 'output/server',
+    //         publicDir: 'output/public'
+    //     }
+    // }
     // content: {
         // https://content.nuxtjs.org/api/configuration
     // }
