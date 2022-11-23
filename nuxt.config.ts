@@ -24,7 +24,7 @@ export default defineNuxtConfig({
         dirs: ['stores'],
     },
     // target: 'static',
-    ssr: false,
+    // ssr: false,
     // "nitro": {
     //     "output": {
     //         dir: 'output',
@@ -35,4 +35,5 @@ export default defineNuxtConfig({
     // content: {
         // https://content.nuxtjs.org/api/configuration
     // }
+    // NITRO_PRESET = node-server
 })
