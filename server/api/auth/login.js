@@ -12,16 +12,17 @@ import { makeSession } from '~/server/app/services/sessionService.js';
 // import sendZodErrorResponse from '~~/server/app/errors/responses/ZodErrorsResponse';
 
 
-export default async (event) => {
+export default eventHandler(async (event) => {
     const body = await useBody(event)
     const email = body.email
     const password = body.password
     const user = await getUserByEmail(email)
 
-    if (user === null) {
-        sendError(event, createError({ statusCode: 401, statusMessage: 'User not found!' }))
+    if (!user) {
+        return sendError(event, createError({ statusCode: 401, statusMessage: 'User not found!' }))
     }
-    if (password == undefined) {
+
+    if (!password) {
         return sendError(event, createError({ statusCode: 401, statusMessage: 'Password must be given!' }))
     }
 
@@ -34,7 +35,7 @@ export default async (event) => {
     await makeSession(user, event)
 
     return sanitizeUserForFrontend(user)
-}
+})
 
 // export default eventHandler(async (event) => {
 

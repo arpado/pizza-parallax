@@ -20,7 +20,7 @@ async function runChecks(key, value) {
         key,
         hasError: false,
     }
-    
+
     if (value == '' || value == null) {
         check.isBlank = true
         check.hasError = true
@@ -68,7 +68,8 @@ async function runChecks(key, value) {
 }
 
 function validateEmail(input) {
-    const validRegex = /^[a-zA-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9-]+)*S/
+    const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+                    // /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     if (!input.match(validRegex)) {
         return false
     }

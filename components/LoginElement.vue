@@ -13,7 +13,10 @@
           <input type="text" name="password" id="password" v-model="password"/>
           <hr />
         </form>
-        <div class="error-container" v-if="hasError">OOPS!</div>
+        <div class="error-container" v-if="hasError">
+          <h3>OOPS!</h3>
+          <p>{{ errorMessage }}</p>
+        </div>
         <p>{{ email }} - {{ password }}</p>
         <button @click="postLoginForm(email, password)">Login</button>
         <p>
@@ -39,16 +42,21 @@ export default {
   },
   data() {
     return {
-      email: null,
-      password: null,
-      hasError: null,
+      email: '',
+      password: '',
+      hasError: false,
       errorMessage: null,
     }
   },
   methods: {
     async postLoginForm(email, password) {
-      await loginWithEmail(email, password)
-      this.modalStore.toggleLogin()
+      const res = await loginWithEmail(email, password)
+      this.hasError = res.hasError
+      if (this.hasError) {
+        this.errorMessage = res.errorMessage
+      } else {
+        this.modalStore.toggleLogin()
+      }
     }
   }
 };

@@ -98,7 +98,6 @@ async function postRegisterForm() {
     password.value
   );
   errors.value = response.value.errors;
-  console.log(errors.value)
 }
 </script>
 
