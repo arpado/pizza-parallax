@@ -1,5 +1,5 @@
 // import { H3Event } from "h3"
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 import { getUserByEmail } from '~/server/database/repositories/userRepository';
 import { sendError } from "h3"
 import { sanitizeUserForFrontend } from '~/server/app/services/userService';
@@ -26,7 +26,13 @@ export default eventHandler(async (event) => {
         return sendError(event, createError({ statusCode: 401, statusMessage: 'Password must be given!' }))
     }
 
-    const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+    // const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+    const isPasswordCorrect = Boolean
+    if (password == user.password) {
+        isPasswordCorrect = true
+    } else {
+        isPasswordCorrect = false
+    }
 
     if (!isPasswordCorrect) {
         sendError(event, createError({ statusCode: 401, statusMessage: 'Wrong password!' }))

@@ -36,4 +36,6 @@ export default defineNuxtConfig({
         // https://content.nuxtjs.org/api/configuration
     // }
     // NITRO_PRESET = node-server
+     // NITRO_PRESET = cloudflare-pages
+    // NITRO_APP_BASE_URL = /
 })

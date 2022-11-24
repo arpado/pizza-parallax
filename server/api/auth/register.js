@@ -1,6 +1,6 @@
 // import { CompatibilityEvent } from 'h3'
 import { sendError } from 'h3'
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 import { validateUser } from '~/server/app/services/userService'
 import { createUser } from '~/server/database/repositories/userRepository'
 import { makeSession } from '~/server/app/services/sessionService.js'
@@ -16,7 +16,8 @@ export default async (CompatibilityEvent) => {
         return sendError(CompatibilityEvent, createError({statusCode: 422, data: errors}))
     }
     
-    const encryptedPassword = await bcrypt.hash(data.password, 10)
+    // const encryptedPassword = await bcrypt.hash(data.password, 10)
+    const encryptedPassword = data.password
 
     const userData = {
         name: data.name,
