@@ -27,7 +27,7 @@ export default eventHandler(async (event) => {
     }
 
     // const isPasswordCorrect = bcrypt.compareSync(password, user.password)
-    const isPasswordCorrect = Boolean
+    let isPasswordCorrect = Boolean
     if (password == user.password) {
         isPasswordCorrect = true
     } else {
