@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
     const email = body.email
     const password = body.password
     const user = await getUserByEmail(email)
+    return user
 
     if (!user) {
         return sendError(event, createError({ statusCode: 401, statusMessage: 'User not found!' }))
