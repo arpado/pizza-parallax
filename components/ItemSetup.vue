@@ -1,5 +1,6 @@
 <template>
-  <NuxtLayout name="modal" v-show="modalStore.showItemSetup">
+ <!-- v-show="modalStore.showItemSetup" -->
+  <NuxtLayout name="modal">
     <div class="container">
       <h3>Modify</h3>
       <h3 v-if="itemModStore.itemOnMod">{{ itemModStore.itemOnMod.name }}</h3>

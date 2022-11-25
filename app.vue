@@ -2,13 +2,13 @@
   <Transition name="loader" mode="in-out">
     <LoaderElement class="loader" v-if="!pageLoaded" />
   </Transition>
-  <Transition name="content" mode="out-in">
+  <!-- <Transition name="content" mode="out-in"> -->
     <NuxtLayout name="default" >
       <NuxtPage />
     </NuxtLayout>
-  </Transition>
+  <!-- </Transition> -->
 
-  <ItemSetup />
+  <ItemSetup v-if="useModalStore.showItemSetup"/>
   <!-- <h1>hello</h1> -->
 </template>
 
@@ -24,6 +24,7 @@ nuxtApp.hook("page:finish", () => {
 
 <script>
 import gsap from "gsap";
+import { useModalStore } from '~/stores/modalStore'
 
 export default {
   data() {

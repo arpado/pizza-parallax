@@ -1,7 +1,10 @@
-// import { defineNuxtConfig } from 'nuxt'
+import { defineNuxtConfig } from 'nuxt/config'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+    // alias: {
+    //     pinia: '/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs',
+    // },
     modules: [
         [
             '@pinia/nuxt',
@@ -41,4 +44,6 @@ export default defineNuxtConfig({
     // NITRO_PRESET = node-server
      // NITRO_PRESET = cloudflare-pages
     // NITRO_APP_BASE_URL = /
+    // "pinia": "^2.0.23",
+    // "@nuxtjs/composition-api": "^0.33.1",
 })

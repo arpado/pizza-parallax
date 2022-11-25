@@ -33,9 +33,9 @@ import { loginWithEmail } from "~/composables/useAuth"
 
 export default {
   setup() {
-    definePageMeta({
-      middleware: 'guest'
-    })
+    // definePageMeta({
+    //   middleware: 'guest'
+    // })
 
     const modalStore = useModalStore();
     return { modalStore };

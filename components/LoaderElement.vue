@@ -18,9 +18,9 @@ export default {
   //     });
   //   },
   // },
-  mounted() {
-    console.log(this.$refs.loader);
-  },
+  // mounted() {
+  //   console.log(this.$refs.loader);
+  // },
   // unmounted() {
   //   this.loaderLeave(this.$refs.loader)
   // },

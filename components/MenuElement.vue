@@ -1,5 +1,6 @@
 <template>
-  <NuxtLayout name="card" class="additional-dimensions">
+<div class="additional-dimensions">
+   <NuxtLayout name="card" >
     <div class="pizza-title">
       <h3 class="pizza-name">{{ pizza.name }}</h3>
     </div>
@@ -25,11 +26,12 @@
       Select Item
     </button>
   </NuxtLayout>
+  </div> 
 </template>
 
 <script>
-import { useModalStore } from "../stores/modalStore";
-import { useItemModificationStore } from "../stores/itemModificationStore";
+import { useModalStore } from "~/stores/modalStore";
+import { useItemModificationStore } from "~/stores/itemModificationStore";
 
 export default {
   name: "SectionElement",
