@@ -91,12 +91,15 @@ const name = ref(null);
 const errors = ref(new Map());
 let response = ref({ hasErrors: false });
 async function postRegisterForm() {
+  console.log(name.value)
   response.value = await registerWithEmail(
     name.value,
     email.value,
     password.value
   );
+  if (response.value.errors) {
   errors.value = response.value.errors;
+  }
 }
 </script>
 

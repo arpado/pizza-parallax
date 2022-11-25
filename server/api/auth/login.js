@@ -12,8 +12,8 @@ import { makeSession } from '~/server/app/services/sessionService.js';
 // import sendZodErrorResponse from '~~/server/app/errors/responses/ZodErrorsResponse';
 
 
-export default eventHandler(async (event) => {
-    const body = await useBody(event)
+export default defineEventHandler(async (event) => {
+    const body = await readBody(event)
     const email = body.email
     const password = body.password
     const user = await getUserByEmail(email)

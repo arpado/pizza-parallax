@@ -31,10 +31,11 @@ export async function registerWithEmail(name, email, password) {
         const { data, error, refresh } = await useFetch('api/auth/register', {
             method: 'POST',
             body: { data: {name, email, password },
-            initialCache: false 
+            // initialCache: false 
             }
         })
-
+        console.log(data)
+        // return 
         refresh()
 
         if (error.value) {
