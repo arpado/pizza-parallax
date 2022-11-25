@@ -61,7 +61,7 @@ export async function registerWithEmail(name, email, password) {
 
 export async function loginWithEmail(email, password) {
     try {
-      const { data, error } = await useFetch(`/api/auth/login`, { method: 'POST', body: { email: email, password: password }, initialCache: false })
+      const { data, error } = await useFetch(`/api/auth/login`, { method: 'GET', body: { email: email, password: password }, initialCache: false })
   
     //   if (!data?.id) {
     //     throw Error('Something went wrong: no id found!')
