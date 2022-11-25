@@ -30,7 +30,7 @@
       <div class="alternatives">
         <p>
           Already registered? Click
-          <NuxtLink to="LoginPage">here</NuxtLink> to login!
+          <!-- <NuxtLink to="LoginPage">here</NuxtLink> to login! -->
         </p>
         <p>Click <NuxtLink to="/">here</NuxtLink> to return home!</p>
         <p>{{ name }} -{{ email }} - {{ password }}</p>
@@ -41,12 +41,11 @@
         </div> -->
         <div
           v-if="response.hasErrors && errors"
-          role="alert"
         >
           <strong class="font-bold">Oops, try again! </strong>
 
-          <ul class="block sm:inline">
-            <li v-for="[key, value] in errors" :key="key">
+          <ul>
+            <li v-for="(key, value) in errors" :key="key">
               {{ value.check.errorMessage }}
             </li>
           </ul>

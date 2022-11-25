@@ -23,6 +23,9 @@ export default defineNuxtConfig({
     imports: {
         dirs: ['stores'],
     },
+    // nodeResolve: {
+    //     browser: true
+    //   },
     // target: 'static',
     // ssr: false,
     // "nitro": {
