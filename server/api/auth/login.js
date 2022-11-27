@@ -75,3 +75,55 @@ export default defineEventHandler(async (event) => {
 //       return await sendDefaultErrorResponse(event, 'Unauthenticated', 401, error)
 //     }
 //   })
+
+
+// for netlify
+
+// export default defineEventHandler( async (event) => {
+
+//     const headers = {
+//       "Access-Control-Allow-Origin": "*",
+//       "Access-Control-Allow-Headers": "Content-Type",
+//       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+//     };
+//     if (event.httpMethod === "OPTIONS") {
+//       return {
+//         statusCode: 200,
+//         headers,
+//         body: JSON.stringify({ message: "Successful preflight call." }),
+//       };
+//     } else
+//      if (event.httpMethod === "POST") {
+//         // defineEventHandler(async (event) => {
+//             const body = await readBody(event)
+//             const email = body.email
+//             const password = body.password
+//             const user = await getUserByEmail(email)
+//             // return user
+        
+//             if (!user) {
+//                 return sendError(event, createError({ statusCode: 401, statusMessage: 'User not found!' }))
+//             }
+        
+//             if (!password) {
+//                 return sendError(event, createError({ statusCode: 401, statusMessage: 'Password must be given!' }))
+//             }
+        
+//             // const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+//             let isPasswordCorrect = Boolean
+//             if (password == user.password) {
+//                 isPasswordCorrect = true
+//             } else {
+//                 isPasswordCorrect = false
+//             }
+        
+//             if (!isPasswordCorrect) {
+//                 sendError(event, createError({ statusCode: 401, statusMessage: 'Wrong password!' }))
+//             }
+        
+//             await makeSession(user, event)
+        
+//             return sanitizeUserForFrontend(user)
+//         // })
+//     }
+//   })

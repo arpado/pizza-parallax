@@ -1,4 +1,5 @@
 <template>
+<div class="body">
   <Transition name="loader" mode="in-out">
     <LoaderElement class="loader" v-if="!pageLoaded" />
   </Transition>
@@ -8,8 +9,9 @@
     </NuxtLayout>
   <!-- </Transition> -->
 
-  <ItemSetup v-if="useModalStore.showItemSetup"/>
-  <!-- <h1>hello</h1> -->
+  <ItemSetup />
+  <!-- v-show="useModalStore.showItemSetup" -->
+  </div>
 </template>
 
 <script setup>
@@ -31,6 +33,10 @@ export default {
     return {
       pageLoaded: false,
     };
+  },
+  setup() {
+    const modalStore = useModalStore();
+    return { modalStore };
   },
   methods: {
     // loaderLeave(el) {
@@ -66,8 +72,11 @@ html {
   font-size: 100%;
   scroll-behavior: smooth;
 }
-body{
+.body {
   background-color: var(--main-red);
+    height: 100%;
+  font-size: 100%;
+  scroll-behavior: smooth;
 }
 :root {
   --main-red: #fd1d01;
