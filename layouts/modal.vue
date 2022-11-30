@@ -4,7 +4,8 @@
       <div class="modal-close flex center-both" @click="modalStore.closeModal">
         <p>+</p>
       </div>
-      <NuxtLayout name="card" ref="card" id="card">
+      <!-- ref="card" -->
+      <NuxtLayout name="card" >
           <slot />
       </NuxtLayout>
     </div>
