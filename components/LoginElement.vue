@@ -1,35 +1,45 @@
 <template>
-<!-- ennek majd meg megnezni, h hogyan csinalta -->
-  <Transition name="slide-fade">
-    <NuxtLayout name="modal" v-if="modalStore.showLogin">
+  <!-- ennek majd meg megnezni, h hogyan csinalta -->
+  <!-- <Transition name="slide-fade"> -->
+  <div class="container" v-if="modalStore.showLogin">
+    <NuxtLayout name="modal">
       <div class="login-container flex column justify-evenly">
         <h3>LOGIN</h3>
         <!-- <form action="POST"> -->
         <form v-on:submit.prevent action="#" method="POST">
           <label for="email">Email:</label>
-          <input type="text" name="email" id="email" v-model="email"/>
+          <input type="email" name="email" id="email" v-model="email" />
           <hr />
           <label for="password">Password:</label>
-          <input type="text" name="password" id="password" v-model="password"/>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            v-model="password"
+          />
           <hr />
         </form>
         <div class="error-container" v-if="hasError">
-          <h3>OOPS!</h3>
-          <p>{{ errorMessage }}</p>
+          <h3>Error!</h3>
+          <p v-if="errorMessage">{{ errorMessage }}</p>
+          <p v-else>Something went wrong!</p>
         </div>
-        <p>{{ email }} - {{ password }}</p>
         <button @click="postLoginForm(email, password)">Login</button>
         <p>
-          Not registered yet? <NuxtLink  to="/RegisterPage" @click="modalStore.closeModal">Register Here!</NuxtLink>
+          Not registered yet?
+          <NuxtLink to="/RegisterPage" @click="modalStore.closeModal"
+            >Register Here!</NuxtLink
+          >
         </p>
       </div>
     </NuxtLayout>
-  </Transition>
+  </div>
+  <!-- </Transition> -->
 </template>
 
 <script>
 import { useModalStore } from "../stores/modalStore";
-import { loginWithEmail } from "~/composables/useAuth"
+import { loginWithEmail } from "~/composables/useAuth";
 
 export default {
   setup() {
@@ -42,34 +52,39 @@ export default {
   },
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       hasError: false,
       errorMessage: null,
-    }
+    };
   },
   methods: {
     async postLoginForm(email, password) {
-      const res = await loginWithEmail(email, password)
-      this.hasError = res.hasError
+      const res = await loginWithEmail(email, password);
+      this.hasError = res.hasError;
       if (this.hasError) {
-        this.errorMessage = res.errorMessage
+        this.errorMessage = res.errorMessage;
       } else {
-        this.modalStore.toggleLogin()
+        this.modalStore.toggleLogin();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.container {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
 .login-container {
-    min-height: 70vh;
-    padding: 1rem;
+  min-height: 70vh;
+  padding: 1rem;
 }
 form > * {
-    display: block;
-    margin-bottom: 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 /* animations */
 .modalanimation-enter-active,
