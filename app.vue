@@ -3,11 +3,16 @@
   <Transition name="loader" mode="in-out">
     <LoaderElement class="loader" v-if="!pageLoaded" />
   </Transition>
+
   <!-- <Transition name="content" mode="out-in"> -->
     <NuxtLayout name="default" >
       <NuxtPage />
     </NuxtLayout>
   <!-- </Transition> -->
+
+  <Transition name="content" mode="in-out">
+    <LoginElement />
+  </Transition>
 
   <ItemSetup />
   <!-- v-show="useModalStore.showItemSetup" -->
@@ -72,11 +77,13 @@ html {
   font-size: 100%;
   scroll-behavior: smooth;
 }
+/* ez lehet, h nem kell */
 .body {
   background-color: var(--main-red);
-    height: 100%;
+  height: 100%;
   font-size: 100%;
   scroll-behavior: smooth;
+  /* position: relative; */
 }
 :root {
   --main-red: #fd1d01;
@@ -126,13 +133,31 @@ button,
 .loader-enter-to {
   opacity: 1;
 }
-.content-enter-active {
+.content-enter-active,
+.content-leave-active {
   transition: opacity 1s ease;
+  z-index: 999;
 }
-.content-enter-from {
+.content-enter-from,
+.content-leave-to {
   opacity: 0;
 }
-.content-enter-to {
+.content-enter-to,
+.content-leave-from {
   opacity: 1;
+}
+
+.slide-fade-enter-active {
+  transition: all 1 ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  /* transform: translateX(20px); */
+  opacity: 0;
 }
 </style>
