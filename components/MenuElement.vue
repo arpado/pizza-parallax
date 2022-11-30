@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     modifyPizza(pizza) {
-      this.modalStore.toggleItemSetup(pizza);
+      this.modalStore.openModal('showItemSetup')
       this.itemModStore.loadItem(pizza);
     },
   },

@@ -5,12 +5,14 @@
     </div>
     <nav class="flex">
       <!-- ezt ossze kell majd vonni -->
+       <!-- @login="modalStore.toggleLogin"
+        @cart="cartStore.toggleCart" -->
       <NavbarElement
         class="widescreen-nav"
         :nav-array="navArray"
         :modal-array="modalArray"
-        @login="modalStore.toggleLogin"
-        @cart="cartStore.toggleCart"
+        @login="modalStore.openModal('showLogin')"
+        @cart="modalStore.openModal('showCart')"
       />
       <div class="narrowscreen-nav">
         <div class="hamburger" @click="toggleMenu">Menu</div>

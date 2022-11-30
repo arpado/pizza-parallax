@@ -1,7 +1,7 @@
 <template>
   <!-- ennek majd meg megnezni, h hogyan csinalta -->
   <!-- <Transition name="slide-fade"> -->
-  <div class="container" v-if="modalStore.showLogin">
+  <div class="container" v-if="modalStore.modalList.showLogin">
     <NuxtLayout name="modal">
       <div class="login-container flex column justify-evenly">
         <h3>LOGIN</h3>

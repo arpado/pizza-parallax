@@ -1,6 +1,6 @@
 <template>
     <Transition name="slide-fade">
-      <NuxtLayout name="modal" modalName="Login" v-if="modalStore.showBooking">
+      <NuxtLayout name="modal" modalName="Login" v-if="modalStore.modalList.showBooking">
         <h3>Book Your Table</h3>
         <p>Section under construction...</p>
       </NuxtLayout>

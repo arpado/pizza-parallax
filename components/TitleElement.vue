@@ -3,7 +3,7 @@
     <h1>The Best Pizzeria!</h1>
     <h2>Come and eat at our place! Lorem ipsum, dolor sit amet consectetur adipisicing elit!</h2>
     <div class="btn-container">
-      <ButtonElement text="Book a Table!" @click="modalStore.toggleBooking" />
+      <ButtonElement text="Book a Table!" @click="modalStore.modalList.openModal('showBooking')" />
       <NuxtLink to="OurMenu">
         <ButtonElement text="Order Pizza" />
       </NuxtLink>
