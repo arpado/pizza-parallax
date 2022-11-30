@@ -4,23 +4,41 @@
       <div class="menu-title">
         <h2>Menu:</h2>
       </div>
-      <div class="menu-list">
+      <div class="menu-section-buttons flex justify-evenly align-center wrap gap-1">
+        <ButtonElement class="menu-selector-btn" @click="setActiveMenu('pizza')" text="Pizzas"/>
+        <ButtonElement class="menu-selector-btn" @click="setActiveMenu('drinks')" text="Drinks"/>
+        <ButtonElement class="menu-selector-btn" @click="setActiveMenu('desserts')" text="Desserts"/>
+      </div>
+      <div class="menu-list" v-show="activeMenu === 'pizza'">
         <MenuElement v-for="pizza in pizzaArray" :key="pizza.name" :pizza="pizza" />
       </div>
-       <!-- <div class="menu-list">
-        <MenuElement v-for="item in drinksArray" :key="drink.name" :item="item" />
-      </div> -->
+       <div class="menu-list" v-show="activeMenu === 'drinks'">
+        <MenuElement v-for="item in drinkArray" :key="item.name" :pizza="item" />
+      </div>
+       <div class="menu-list" v-show="activeMenu === 'desserts'">
+        <MenuElement v-for="item in dessertArray" :key="item.name" :pizza="item" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import pizzaArray from "../content/pizza-menu.json";
-// import drinksArray from "../content/drinks-menu.json";
+import drinkArray from "../content/drink-menu.json";
+import dessertArray from "../content/dessert-menu.json";
+
 export default {
   data() {
     return {
+      activeMenu: "pizza",
       pizzaArray: pizzaArray,
+      drinkArray: drinkArray,
+      dessertArray: dessertArray,
+    }
+  },
+  methods: {
+    setActiveMenu(name) {
+      this.activeMenu = name
     }
   },
 }
@@ -66,5 +84,11 @@ h2 {
   padding: 2rem;
   background-color: var(--main-black);
   color: var(--main-white);
+}
+
+.menu-selector-btn {
+  background-color: var(--main-black);
+  color: var(--main-white);
+  font-weight: bold;
 }
 </style>
