@@ -1,5 +1,6 @@
 <template>
-  <div class="cart-container" v-show="cartStore.showCart">
+  <div class="cart-container" v-show="modalStore.modalList.showCart">
+    <NuxtLayout name="modal">
     <div class="close-cart-arrow" @click="cartStore.toggleCart">close</div>
     <h3 class="cart-title">In Cart:</h3>
     <ul class="item-on-order-container">
@@ -51,23 +52,26 @@
     <div class="send-order">
       <button>SEND ORDER</button>
     </div>
+    </NuxtLayout>
   </div>
 </template>
 
 <script>
 import { useCartStore } from "../stores/cartStore";
+import { useModalStore } from "../stores/modalStore"
 
 export default {
   setup() {
     const cartStore = useCartStore();
-    return { cartStore };
+    const modalStore = useModalStore();
+    return { cartStore, modalStore };
   },
 };
 </script>
 
 <style scoped>
 .cart-container {
-  width: 600px;
+  /* width: 600px;
   height: 80vh;
   padding: 2rem;
   background-color: white;
@@ -76,7 +80,7 @@ export default {
   right: 10px;
   z-index: 999;
   display: grid;
-  grid-template-rows: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr); */
 }
 .close-cart-arrow {
   grid-row: 1/2;
