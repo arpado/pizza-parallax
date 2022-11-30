@@ -110,7 +110,7 @@ header {
   position: fixed;
   color: var(--main-bronze);
   font-size: 2rem;
-  z-index: 999;
+  z-index: 990;
   transition: height 0.5s ease-out;
 }
 .small-header {
