@@ -14,6 +14,15 @@
     <LoginElement />
   </Transition>
 
+  <Transition name="content" mode="in-out">
+    <CartElement />
+  </Transition>
+
+  <Transition name="content" mode="in-out">
+    <BookingElement />
+  </Transition>
+
+
   <ItemSetup />
   <!-- v-show="useModalStore.showItemSetup" -->
   </div>
