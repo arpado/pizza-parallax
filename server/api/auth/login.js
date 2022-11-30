@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     const email = body.email
     const password = body.password
     const user = await getUserByEmail(email)
-    return user
+    // return user
 
     if (!user) {
         return sendError(event, createError({ statusCode: 401, statusMessage: 'User not found!' }))
@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
         return sendError(event, createError({ statusCode: 401, statusMessage: 'Password must be given!' }))
     }
 
+    // bcrypt is incompatible with build, hashing suspended for the time being!!!
     // const isPasswordCorrect = bcrypt.compareSync(password, user.password)
     let isPasswordCorrect = Boolean
     if (password == user.password) {

@@ -12,12 +12,13 @@ export default defineEventHandler( async (CompatibilityEvent) => {
     // return data
 
     // const validation = await validateUser(data)
-
+    
     // if(validation.hasErrors === true) {
     //     const errors = JSON.stringify(Object.fromEntries(validation.errors))
     //     return sendError(CompatibilityEvent, createError({statusCode: 422, data: errors}))
     // }
     
+    // bcrypt is incompatible with build, hashing suspended for the time being!!!
     // const encryptedPassword = await bcrypt.hash(data.password, 10)
     const encryptedPassword = data.password
 
