@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Black Forest",
+        "image": "black-forest-cake.jpg",
+        "description": "Delishoussssness",
+        "price": "2.99"
+    },
+    {
+        "name": "Green Forest Cake",
+        "image": "black-forest-cake.jpg",
+        "description": "This tooo.",
+        "price": "1.99"
+    },
+    {
+        "name": "One More Cake",
+        "image": "black-forest-cake.jpg",
+        "description": "Looks good, isn't it?",
+        "price": "2.49"
+    }
+]
