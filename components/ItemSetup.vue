@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="modal" v-if="modalStore.showItemSetup">
+  <NuxtLayout name="modal" v-if="modalStore.modalList.showItemSetup">
     <div class="container">
       <h3>Modify</h3>
       <h3 v-if="itemModStore.itemOnMod">{{ itemModStore.itemOnMod.name }}</h3>
@@ -7,60 +7,80 @@
         {{ itemModStore.itemOnMod.description }}
       </p>
       <div class="pizza-buttons">
-        <NuxtLayout name="collapsible-container" :text="text[0]">
-          <div class="size-selector" v-for="size in sizeList" :key="size.name">
-            <input
-              type="radio"
-              name="size"
-              :value="size.name"
-              :id="size.name"
-              v-model="selectedPizzaSize"
-            />
-            <label :for="size.name">{{ size.name }} -- ${{ size.price }}</label>
-          </div>
-        </NuxtLayout>
-        <NuxtLayout name="collapsible-container" :text="text[1]">
-          <div
-            class="crust-selector"
-            v-for="crust in crustList"
-            :key="crust.name"
-          >
-            <input
-              type="radio"
-              name="crust"
-              :value="crust.name"
-              :id="crust.name"
-              v-model="selectedCrust"
-            />
-            <label :for="crust.name"
-              >{{ crust.name }} -- +${{ crust.price }}</label
+        <NuxtLayout name="collapsible-container">
+          <template #title>
+            <h3>Select Size</h3>
+          </template>
+          <template #content>
+            <div
+              class="size-selector"
+              v-for="size in sizeList"
+              :key="size.name"
             >
-          </div>
+              <input
+                type="radio"
+                name="size"
+                :value="size.name"
+                :id="size.name"
+                v-model="selectedPizzaSize"
+              />
+              <label :for="size.name"
+                >{{ size.name }} -- ${{ size.price }}</label
+              >
+            </div>
+          </template>
         </NuxtLayout>
-        <NuxtLayout
-          name="collapsible-container"
-          :text="text[2]"
-        >
-          <div
-            class="additional-topping"
-            v-for="top in toppingsList"
-            :key="top.name"
-          >
-            <input
-              type="checkbox"
-              :name="top.name"
-              :id="top.name"
-              v-model="selectedToppings"
-              :value="top.name"
-            />
-            <label :for="top.name">{{ top.name }} -- +${{ top.price }}</label>
-          </div>
+        <NuxtLayout name="collapsible-container">
+          <template #title>
+            <h3>Select Crust</h3>
+          </template>
+          <template #content>
+            <div
+              class="crust-selector"
+              v-for="crust in crustList"
+              :key="crust.name"
+            >
+              <input
+                type="radio"
+                name="crust"
+                :value="crust.name"
+                :id="crust.name"
+                v-model="selectedCrust"
+              />
+              <label :for="crust.name"
+                >{{ crust.name }} -- +${{ crust.price }}</label
+              >
+            </div>
+          </template>
         </NuxtLayout>
-        <NuxtLayout
-          name="collapsible-container"
-          :text="text[3]"
-        >
-          <textarea name="" id="" cols="30" rows="10"></textarea>
+        <NuxtLayout name="collapsible-container">
+          <template #title>
+            <h3>Select Additional Toppings</h3>
+          </template>
+          <template #content>
+            <div
+              class="additional-topping"
+              v-for="top in toppingsList"
+              :key="top.name"
+            >
+              <input
+                type="checkbox"
+                :name="top.name"
+                :id="top.name"
+                v-model="selectedToppings"
+                :value="top.name"
+              />
+              <label :for="top.name">{{ top.name }} -- +${{ top.price }}</label>
+            </div>
+          </template>
+        </NuxtLayout>
+        <NuxtLayout name="collapsible-container">
+          <template #title>
+            <h3>Additional Request</h3>
+          </template>
+          <template #content>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+          </template>
         </NuxtLayout>
       </div>
       <div class="price-container">
@@ -134,7 +154,6 @@ export default {
         { name: "mushroom", price: 1.49, isSelected: false },
         { name: "salami", price: 1.99, isSelected: false },
       ],
-      text: ["Select Size", "Select Crust Type", "Select Additional Toppings", "Additional Information You'd Like To Share"]
     };
   },
   methods: {
