@@ -10,20 +10,21 @@
         <ButtonElement class="menu-selector-btn" @click="setActiveMenu('desserts')" text="Desserts"/>
       </div>
       <div class="menu-list" v-show="activeMenu === 'pizza'">
-        <MenuElement v-for="pizza in pizzaArray" :key="pizza.name" :pizza="pizza" />
+        <MenuElement v-for="item in pizzaArray" :key="item.name" :item="item" />
       </div>
        <div class="menu-list" v-show="activeMenu === 'drinks'">
-        <MenuElement v-for="item in drinkArray" :key="item.name" :pizza="item" />
+        <MenuElement v-for="item in drinkArray" :key="item.name" :item="item" />
       </div>
        <div class="menu-list" v-show="activeMenu === 'desserts'">
-        <MenuElement v-for="item in dessertArray" :key="item.name" :pizza="item" />
+        <MenuElement v-for="item in dessertArray" :key="item.name" :item="item" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import pizzaArray from "../content/pizza-menu.json";
+// pizzaArray is imported from NEW temp file!
+import pizzaArray from "../content/new-pizza-menu.json";
 import drinkArray from "../content/drink-menu.json";
 import dessertArray from "../content/dessert-menu.json";
 
