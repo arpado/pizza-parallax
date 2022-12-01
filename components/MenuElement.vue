@@ -1,27 +1,27 @@
 <template>
 <div class="additional-dimensions">
    <NuxtLayout name="card" >
-    <div class="pizza-title">
-      <h3 class="pizza-name">{{ pizza.name }}</h3>
+    <div class="item-title">
+      <h3 class="item-name">{{ item.name }}</h3>
     </div>
-    <div class="pizza-body">
+    <div class="item-body">
       <div class="image-section card-subsection">
-        <img :src="`images/${pizza.image}`" alt="" />
+        <img :src="`images/${item.image}`" alt="" />
       </div>
       <div class="text-section card-subsection">
-        <div class="pizza-description">
+        <div class="item-description">
           <h4>Toppings:</h4>
-          <p>{{ pizza.description }}</p>
+          <p>{{ item.description }}</p>
         </div>
-        <div class="pizza-price">
+        <div class="item-price">
           <p>Price starts from:</p>
-          <p>${{ pizza.price }}</p>
+          <p v-if="item.props">${{ item.props.sizeList.data[0].price }}</p>
         </div>
       </div>
     </div>
     <button
       class="order-btn btn-font flex center-both"
-      @click="modifyPizza(pizza)"
+      @click="modifyItem(item)"
     >
       Select Item
     </button>
@@ -35,16 +35,16 @@ import { useItemModificationStore } from "~/stores/itemModificationStore";
 
 export default {
   name: "SectionElement",
-  props: ["pizza"],
+  props: ["item"],
   setup() {
     const modalStore = useModalStore();
     const itemModStore = useItemModificationStore();
     return { modalStore, itemModStore };
   },
   methods: {
-    modifyPizza(pizza) {
+    modifyItem(item) {
+      this.itemModStore.loadItem(item);
       this.modalStore.openModal('showItemSetup')
-      this.itemModStore.loadItem(pizza);
     },
   },
 };
@@ -66,21 +66,21 @@ img {
   width: 100%;
   object-fit: cover;
 }
-.pizza-name {
+.item-name {
   text-align: center;
   padding: 2rem;
 }
-.pizza-description {
+.item-description {
   text-align: center;
   min-height: 8rem;
 }
-.pizza-price {
+.item-price {
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.pizza-buttons {
+.item-buttons {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -91,9 +91,9 @@ img {
   align-items: center;
   flex-wrap: wrap;
 }
-.pizza-quantity {
+.item-quantity {
 }
-.pizza-quantity-input {
+.item-quantity-input {
   width: 100px;
 }
 .order-btn {
