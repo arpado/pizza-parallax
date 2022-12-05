@@ -1,29 +1,17 @@
 import { defineStore } from 'pinia'
 
-class Pizza {
-  constructor(name, size, quantity, crust, additionalToppings, price) {
-    this.name = name;
-    this.size = size;
-    this.crust = crust;
-    this.additionalToppings = additionalToppings;
-    this.quantity = quantity;
-    this.price = price;
-    this.sumPrice = this.quantity * this.price;
-  }
-}
-
 export const useCartStore = defineStore('cart', {
   state: () => {
     return {
       showCart: false,
-      pizzaOnOrder: [],
+      itemOnOrder: [],
     }
   },
   getters: {
     totalPrice: (state) => {
       let totalArr = [];
-      state.pizzaOnOrder.forEach(pizza => {
-        totalArr.push(pizza.sumPrice);
+      state.itemOnOrder.forEach(item => {
+        totalArr.push(item.sumPrice);
       })
       return totalArr.reduce(
         (total, sumPrice) => total + sumPrice,
@@ -34,36 +22,37 @@ export const useCartStore = defineStore('cart', {
     toggleCart() {
       this.showCart = !this.showCart
     },
-    addToOrder(name, size, quantity, crust, additionalToppings, price) {
-      let pizzaFound = false
-      this.pizzaOnOrder.forEach(item => {
-        if (item.name === name && item.size === size) {
-          item.quantity += quantity;
-          item.sumPrice = item.quantity * item.price;
-          pizzaFound = true
+    addToOrder(item) {
+      // ha a keyek egyeznek, akkor adja elozohoz, amugy meg ujat csinal
+      let itemFound = false
+      this.itemOnOrder.forEach(elem => {
+        // ide komplexebb validatort
+        if (item.name === elem.name && item.size === elem.size) {
+          elem.quantity += item.quantity;
+          elem.sumPrice = elem.quantity * elem.price;
+          itemFound = true
           return
         }
       })
 
-      if (!pizzaFound && quantity > 0) {
-        this.pizzaOnOrder.push(new Pizza(name, size, quantity, crust, additionalToppings, price))
+      if (!itemFound && item.quantity > 0) {
+        // ez atteve itemOnModra
+        this.itemOnOrder.push(item)
       }
-      console.log(this.pizzaOnOrder)
+      console.log(this.itemOnOrder)
     },
-    morePizza(index) {
-      this.pizzaOnOrder[index].quantity++
-      this.pizzaOnOrder[index].sumPrice = this.pizzaOnOrder[index].quantity * this.pizzaOnOrder[index].price;
-
+    moreItem(index) {
+      this.itemOnOrder[index].quantity++
+      this.itemOnOrder[index].sumPrice = this.itemOnOrder[index].quantity * this.itemOnOrder[index].price;
     },
-    lessPizza(index) {
-      if (this.pizzaOnOrder[index].quantity > 0) {
-        this.pizzaOnOrder[index].quantity--
-        this.pizzaOnOrder[index].sumPrice = this.pizzaOnOrder[index].quantity * this.pizzaOnOrder[index].price;
-
+    lessItem(index) {
+      if (this.itemOnOrder[index].quantity > 1) {
+        this.itemOnOrder[index].quantity--
+        this.itemOnOrder[index].sumPrice = this.itemOnOrder[index].quantity * this.itemOnOrder[index].price;
       }
     },
-    deletePizza(name, size) {
-      this.pizzaOnOrder = this.pizzaOnOrder.filter(elem => { return (elem.name !== name || elem.size !== size) })
+    deleteItem(name, size) {
+      this.itemOnOrder = this.itemOnOrder.filter(elem => { return (elem.name !== name || elem.size !== size) })
     }
   },
 })
