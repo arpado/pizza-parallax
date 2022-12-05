@@ -5,40 +5,36 @@
     <h3 class="cart-title">In Cart:</h3>
     <ul class="item-on-order-container">
       <li
-        v-for="(pizza, index) in cartStore.pizzaOnOrder"
+        v-for="(item, index) in cartStore.itemOnOrder"
         :key="index"
         class="item-on-order flex column"
       >
         <div class="title">
-          <h4>{{ pizza.name }}</h4>
+          <h4>{{ item.name }}</h4>
         </div>
         <div class="item-body flex row justify-between align-center">
           <div class="item-info">
-            <p>Size: {{ pizza.size }}</p>
-            <p>Crust: {{ pizza.crust }}</p>
-            <p>Additional toppings: <span v-for="item in pizza.additionalToppings" :key="item"> {{ item }},</span></p>
-            <p>Quantity: {{ pizza.quantity }}</p>
-            <p>Price: {{ pizza.sumPrice.toFixed(2) }}</p>
-            <!-- {{ pizza.name }} - {{ pizza.size }} - {{ pizza.quantity }} -
-            {{ pizza.price }} - {{ pizza.sumPrice.toFixed(2) }} -
-            {{ pizza.crust }} - {{ pizza.additionalToppings }} -->
+            <p v-for="prop in item.props" :key="prop">{{prop.description}}</p>
+            <p>Additional toppings: <span v-for="item in item.selectedOptions" :key="item"> {{ item }},</span></p>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Price: {{ item.sumPrice.toFixed(2) }}</p>
           </div>
           <div class="item-buttons">
             <button
               class="order-manipulation-btn"
-              @click="cartStore.lessPizza(index)"
+              @click="cartStore.lessItem(index)"
             >
               -
             </button>
             <button
               class="order-manipulation-btn"
-              @click="cartStore.morePizza(index)"
+              @click="cartStore.moreItem(index)"
             >
               +
             </button>
             <button
               class="order-manipulation-btn"
-              @click="cartStore.deletePizza(pizza.name, pizza.size)"
+              @click="cartStore.deleteItem(item.name, item.size)"
             >
               X
             </button>
