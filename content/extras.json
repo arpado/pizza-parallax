@@ -1,0 +1,67 @@
+{
+    "toppingsList": {
+        "title": "Toppings",
+        "data": [
+            {
+                "name": "cheese",
+                "price": 0.99,
+                "isSelected": false
+            },
+            {
+                "name": "ham",
+                "price": 1.49,
+                "isSelected": false
+            },
+            {
+                "name": "mushroom",
+                "price": 1.49,
+                "isSelected": false
+            },
+            {
+                "name": "salami",
+                "price": 1.99,
+                "isSelected": false
+            },
+            {
+                "name": "onion",
+                "price": 0.49,
+                "isSelected": false
+            },
+            {
+                "name": "brokkoli",
+                "price": 0.99,
+                "isSelected": false
+            }
+        ]
+    },
+    "sauceList": {
+        "title": "Sauces",
+        "data": [
+            {
+                "name": "tomato",
+                "price": 0,
+                "isSelected": false
+            },
+            {
+                "name": "yoghurt",
+                "price": 0,
+                "isSelected": false
+            },
+            {
+                "name": "mexican-chilli",
+                "price": 0.49,
+                "isSelected": false
+            },
+            {
+                "name": "greek",
+                "price": 0.99,
+                "isSelected": false
+            },
+            {
+                "name": "barbeque",
+                "price": 0.99,
+                "isSelected": false
+            }
+        ]
+    }
+}

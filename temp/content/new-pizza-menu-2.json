@@ -1,0 +1,45 @@
+[
+    {
+        "name": "Four Seasons",
+        "image": "pizza-ready-cropped.jpg",
+        "description": "tomato, cheese, mozzarella, pamesan",
+        "props": [
+            "Size",
+            "Crust"
+        ],
+        "exclusive": {
+            "size": [
+                {
+                    "name": "small",
+                    "price": "1.49"
+                },
+                {
+                    "name": "medium",
+                    "price": "1.99"
+                },
+                {
+                    "name": "large",
+                    "price": "2.49"
+                },
+                {
+                    "name": "extra large",
+                    "price": "2.99"
+                }
+            ],
+            "crust": [
+                {
+                    "name": "normal",
+                    "price": "0"
+                },
+                {
+                    "name": "thick",
+                    "price": "0.49"
+                },
+                {
+                    "name": "cheese",
+                    "price": "0.99"
+                }
+            ]
+        }
+    }
+]
