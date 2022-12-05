@@ -23,8 +23,7 @@
 </template>
 
 <script>
-// pizzaArray is imported from NEW temp file!
-import pizzaArray from "../content/new-pizza-menu.json";
+import pizzaArray from "../content/pizza-menu.json";
 import drinkArray from "../content/drink-menu.json";
 import dessertArray from "../content/dessert-menu.json";
 
