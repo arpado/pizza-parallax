@@ -1,10 +1,9 @@
 <template>
   <NuxtLayout name="modal" v-if="modalStore.modalList.showItemSetup">
     <div class="container">
-      <h3>Modify</h3>
-      <h3 v-if="itemModStore.itemOnMod">{{ itemModStore.itemOnMod.name }}</h3>
-      <p v-if="itemModStore.itemOnMod">
-        {{ itemModStore.itemOnMod.description }}
+      <h3 v-if="itemModStore.orderItem">{{ itemModStore.orderItem.name }}</h3>
+      <p v-if="itemModStore.orderItem">
+        {{ itemModStore.orderItem.description }}
       </p>
       <div class="item-buttons">
         <NuxtLayout
@@ -26,10 +25,10 @@
                 :name="index"
                 :value="data.name"
                 :id="data.name"
-                v-model="itemModStore[prop.selector]"
+                v-model="itemModStore.propSelectors[prop.selector]"
               />
               <label :for="data.name"
-                >{{ data.name }} -- ${{ data.price }}</label
+                >{{ data.description }} -- ${{ data.price }}</label
               >
             </div>
           </template>
@@ -44,7 +43,7 @@
           </template>
           <template #content>
             <div
-              class="additional-topping"
+              class="checkbox-container"
               v-for="data in additionalOption.data"
               :key="data.name"
             >
@@ -87,20 +86,7 @@
           />
         </div>
         <button @click="itemModStore.moreItem">+</button>
-        <button
-          @click="
-            sendToCart(
-              itemModStore.itemOnMod.name,
-              selectedPizzaSize,
-              selectedPizzaQuantity,
-              selectedCrust,
-              selectedToppings,
-              getSinglePizzaPrice
-            )
-          "
-        >
-          Order
-        </button>
+        <button @click="sendToCart()">Order</button>
       </div>
     </div>
   </NuxtLayout>
@@ -127,11 +113,16 @@ export default {
       // },
     };
   },
-  // methods: {
-  //   sendToCart(name, size, quantity, crust, toppings, price) {
-  //     this.cartStore.addToOrder(name, size, quantity, crust, toppings, price);
-  //   },
-  // },
+  methods: {
+    // sendToCart(itemModStore.ItemToOrder) {
+    //   this.cartStore.addToOrder(name, size, quantity, crust, toppings, price);
+    // },
+    sendToCart() {
+      this.itemModStore.createItem();
+      this.cartStore.addToOrder(this.itemModStore.orderItem)
+      // console.log(this.itemModStore.orderItem);
+    },
+  },
 };
 </script>
 
