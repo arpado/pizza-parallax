@@ -1,32 +1,332 @@
 [
     {
         "name": "Margharita",
+        "type": "pizza",
         "image": "pizza-ready-cropped.jpg",
         "description": "tomato, cheese",
-        "price": "1.99"
+        "propNames": [
+            "Size",
+            "Crust"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small - 28cm",
+                        "price": 0.99,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium - 32cm",
+                        "price": 1.49,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large - 38cm",
+                        "price": 1.99,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "extra-large",
+                        "description": "Extra large - 45cm",
+                        "price": 2.49,
+                        "isSelected": false
+                    }
+                ]
+            },
+            "crustList": {
+                "selector": "crustSelected",
+                "description": "Select crust thickness",
+                "data": [
+                    {
+                        "name": "thin",
+                        "description": "Standard, thin crust",
+                        "price": 0.0,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "thick",
+                        "description": "Thick crust",
+                        "price": 0.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "cheese-filled",
+                        "description": "Thick crust filled with cheese",
+                        "price": 0.99,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     },
     {
         "name": "Four Seasons",
+        "type": "pizza",
         "image": "pizza-ready-cropped.jpg",
         "description": "tomato, cheese, mozzarella, pamesan",
-        "price": "2.49"
+        "propNames": [
+            "Size",
+            "Crust"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small - 28cm",
+                        "price": 1.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium - 32cm",
+                        "price": 1.99,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large - 38cm",
+                        "price": 2.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "extra-large",
+                        "description": "Extra large - 45cm",
+                        "price": 2.99,
+                        "isSelected": false
+                    }
+                ]
+            },
+            "crustList": {
+                "selector": "crustSelected",
+                "description": "Select crust thickness",
+                "data": [
+                    {
+                        "name": "thin",
+                        "description": "Standard, thin crust",
+                        "price": 0.0,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "thick",
+                        "description": "Thick crust",
+                        "price": 0.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "cheese-filled",
+                        "description": "Thick crust filled with cheese",
+                        "price": 0.99,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     },
     {
         "name": "Ungherese",
+        "type": "pizza",
         "image": "pizza-ready-cropped.jpg",
         "description": "tomato, salami, pepper, cheese",
-        "price": "2.49"
+        "propNames": [
+            "Size",
+            "Crust"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small - 28cm",
+                        "price": 1.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium - 32cm",
+                        "price": 1.99,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large - 38cm",
+                        "price": 2.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "extra-large",
+                        "description": "Extra large - 45cm",
+                        "price": 2.99,
+                        "isSelected": false
+                    }
+                ]
+            },
+            "crustList": {
+                "selector": "crustSelected",
+                "description": "Select crust thickness",
+                "data": [
+                    {
+                        "name": "thin",
+                        "description": "Standard, thin crust",
+                        "price": 0.0,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "thick",
+                        "description": "Thick crust",
+                        "price": 0.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "cheese-filled",
+                        "description": "Thick crust filled with cheese",
+                        "price": 0.99,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     },
     {
         "name": "Ham & Eggs",
+        "type": "pizza",
         "image": "pizza-ready-cropped.jpg",
         "description": "tomato, ham, egg, cheese",
-        "price": "2.49"
+        "propNames": [
+            "Size",
+            "Crust"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small - 28cm",
+                        "price": 0.99,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium - 32cm",
+                        "price": 1.49,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large - 38cm",
+                        "price": 1.99,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "extra-large",
+                        "description": "Extra large - 45cm",
+                        "price": 2.49,
+                        "isSelected": false
+                    }
+                ]
+            },
+            "crustList": {
+                "selector": "crustSelected",
+                "description": "Select crust thickness",
+                "data": [
+                    {
+                        "name": "thin",
+                        "description": "Standard, thin crust",
+                        "price": 0.0,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "thick",
+                        "description": "Thick crust",
+                        "price": 0.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "cheese-filled",
+                        "description": "Thick crust filled with cheese",
+                        "price": 0.99,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     },
     {
         "name": "Meaty",
+        "type": "pizza",
         "image": "pizza-ready-cropped.jpg",
         "description": "tomato, ham, salami, cheese",
-        "price": "2.99"
+        "propNames": [
+            "Size",
+            "Crust"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small - 28cm",
+                        "price": 1.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium - 32cm",
+                        "price": 1.99,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large - 38cm",
+                        "price": 2.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "extra-large",
+                        "description": "Extra large - 45cm",
+                        "price": 2.99,
+                        "isSelected": false
+                    }
+                ]
+            },
+            "crustList": {
+                "selector": "crustSelected",
+                "description": "Select crust thickness",
+                "data": [
+                    {
+                        "name": "thin",
+                        "description": "Standard, thin crust",
+                        "price": 0.0,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "thick",
+                        "description": "Thick crust",
+                        "price": 0.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "cheese-filled",
+                        "description": "Thick crust filled with cheese",
+                        "price": 0.99,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     }
 ]

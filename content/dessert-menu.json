@@ -1,20 +1,151 @@
 [
     {
         "name": "Black Forest",
+        "type": "dessert",
         "image": "black-forest-cake.jpg",
-        "description": "Delishoussssness",
-        "price": "2.99"
+        "description": "Delishious chochlate cake.",
+        "propNames": [
+            "Size",
+            "Cherry"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small piece",
+                        "price": 0.99,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium piece",
+                        "price": 1.49,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large piece",
+                        "price": 1.99,
+                        "isSelected": false
+                    }
+                ]
+            },
+            "cherryList": {
+                "selector": "cherrySelected",
+                "description": "Would you like some cherry on top?",
+                "data": [
+                    {
+                        "name": "cherry",
+                        "description": "With cherry on top.",
+                        "price": 0.49,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "no-cherry",
+                        "description": "Without cherry on top.",
+                        "price": 0.0,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     },
     {
-        "name": "Green Forest Cake",
+        "name": "Another Cake",
+        "type": "dessert",
         "image": "black-forest-cake.jpg",
-        "description": "This tooo.",
-        "price": "1.99"
+        "description": "Delishious chochlate cake.",
+        "propNames": [
+            "Size"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small piece",
+                        "price": 0.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium piece",
+                        "price": 0.99,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large piece",
+                        "price": 1.49,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     },
     {
         "name": "One More Cake",
+        "type": "dessert",
         "image": "black-forest-cake.jpg",
         "description": "Looks good, isn't it?",
-        "price": "2.49"
+        "propNames": [
+            "Size",
+            "Flavour"
+        ],
+        "props": {
+            "sizeList": {
+                "selector": "sizeSelected",
+                "description": "Select pizza size",
+                "data": [
+                    {
+                        "name": "small",
+                        "description": "Small piece",
+                        "price": 0.49,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "medium",
+                        "description": "Medium piece",
+                        "price": 0.99,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "large",
+                        "description": "Large piece",
+                        "price": 1.49,
+                        "isSelected": false
+                    }
+                ]
+            },
+            "flavourList": {
+                "selector": "flavourSelected",
+                "description": "Select Flavor",
+                "data": [
+                    {
+                        "name": "chocholate",
+                        "description": "Chocholate cake",
+                        "price": 0.0,
+                        "isSelected": true
+                    },
+                    {
+                        "name": "vanillia",
+                        "description": "Vanillia cake",
+                        "price": 0.0,
+                        "isSelected": false
+                    },
+                    {
+                        "name": "fruit",
+                        "description": "Fruit cake",
+                        "price": 0.0,
+                        "isSelected": false
+                    }
+                ]
+            }
+        }
     }
 ]
