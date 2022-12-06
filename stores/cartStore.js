@@ -4,6 +4,7 @@ export const useCartStore = defineStore('cart', {
   state: () => {
     return {
       showCart: false,
+      // orderArray
       itemOnOrder: [],
     }
   },
