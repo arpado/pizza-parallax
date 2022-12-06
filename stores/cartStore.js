@@ -20,9 +20,9 @@ export const useCartStore = defineStore('cart', {
     }
   },
   actions: {
-    toggleCart() {
-      this.showCart = !this.showCart
-    },
+    // toggleCart() {
+    //   this.showCart = !this.showCart
+    // },
     addToOrder(item) {
       // ha a keyek egyeznek, akkor adja elozohoz, amugy meg ujat csinal
       let itemFound = false
