@@ -46,7 +46,7 @@
       <p>total: {{ cartStore.totalPrice }}</p>
     </div>
     <div class="send-order">
-      <button>SEND ORDER</button>
+      <button @click="sendOrder">SEND ORDER</button>
     </div>
     </NuxtLayout>
   </div>
@@ -61,6 +61,12 @@ export default {
     const cartStore = useCartStore();
     const modalStore = useModalStore();
     return { cartStore, modalStore };
+  },
+  methods: {
+    sendOrder() {
+      this.modalStore.closeModal()
+      this.$router.push('/OrderForm')
+    }
   },
 };
 </script>
