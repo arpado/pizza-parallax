@@ -1,30 +1,36 @@
 <template>
-<div class="body">
-  <Transition name="loader" mode="in-out">
-    <LoaderElement class="loader" v-if="!pageLoaded" />
-  </Transition>
+  <div class="body">
+    <TransitionGroup name="content" mode="in-out" appear>
+      <LoaderElement
+        class="loader"
+        v-if="!pageLoaded || !loaderDone"
+        @slices-done="this.loaderDone = true"
+        key="loader"
+      />
+      <div v-else>
+        <NuxtLayout name="default" key="page">
+          <NuxtPage />
+        </NuxtLayout>
+      </div>
+    </TransitionGroup>
 
-  <!-- <Transition name="content" mode="out-in"> -->
-    <NuxtLayout name="default" >
-      <NuxtPage />
-    </NuxtLayout>
-  <!-- </Transition> -->
+    <!-- <Transition name="content" ></Transition> -->
 
-  <Transition name="content" mode="in-out">
-    <LoginElement />
-  </Transition>
+    <Transition name="content" mode="in-out">
+      <LoginElement />
+    </Transition>
 
-  <Transition name="content" mode="in-out">
-    <CartElement />
-  </Transition>
+    <Transition name="content" mode="in-out">
+      <CartElement />
+    </Transition>
 
-  <Transition name="content" mode="in-out">
-    <BookingElement />
-  </Transition>
+    <Transition name="content" mode="in-out">
+      <BookingElement />
+    </Transition>
 
-
-  <ItemSetup />
-  <!-- v-show="useModalStore.showItemSetup" -->
+    <Transition name="content" mode="in-out">
+      <ItemSetup />
+    </Transition>
   </div>
 </template>
 
@@ -40,12 +46,13 @@ nuxtApp.hook("page:finish", () => {
 
 <script>
 import gsap from "gsap";
-import { useModalStore } from '~/stores/modalStore'
+import { useModalStore } from "~/stores/modalStore";
 
 export default {
   data() {
     return {
       pageLoaded: false,
+      loaderDone: false,
     };
   },
   setup() {
@@ -88,7 +95,7 @@ html {
 }
 /* ez lehet, h nem kell */
 .body {
-  background-color: var(--main-red);
+  background-color: var(--main-black);
   height: 100%;
   font-size: 100%;
   scroll-behavior: smooth;
@@ -129,8 +136,7 @@ button,
 
 /* animation */
 
-
-.loader-leave-active {
+/* .loader-leave-active {
   transition: opacity 1s ease;
 }
 .loader-leave-to {
@@ -141,7 +147,8 @@ button,
 }
 .loader-enter-to {
   opacity: 1;
-}
+} */
+
 .content-enter-active,
 .content-leave-active {
   transition: opacity 1s ease;
@@ -156,7 +163,7 @@ button,
   opacity: 1;
 }
 
-.slide-fade-enter-active {
+/* .slide-fade-enter-active {
   transition: all 1 ease-out;
 }
 
@@ -166,7 +173,29 @@ button,
 
 .slide-fade-enter-from,
 .slide-fade-leave-to {
-  /* transform: translateX(20px); */
+  transform: translateX(20px);
   opacity: 0;
+} */
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.page-enter-active,
+.page-leave-active {
+  transition: all 2s;
+}
+/* .page-enter, */
+.page-leave-to {
+  opacity: 0;
+}
+
+.layout-enter-active,
+.layout-leave-active {
+  transition: all 2s;
+}
+.layout-enter-from,
+.layout-leave-to {
+  filter: grayscale(1);
 }
 </style>
