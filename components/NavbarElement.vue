@@ -2,24 +2,24 @@
   <ul class="flex justify-between align-center" :style="{top: dropdownTop}">
     <li v-for="(navLink, index) in navArray" :key="index">
       <NuxtLink
-        class="navLink"
+        class="navLink flex center-both"
         :to="{ path: navLink.to, hash: navLink.hash }"
-        :external="true"
         >{{ navLink.text }}</NuxtLink
       >
+     <!-- :external="true" -->
     </li>
      <li>
-      <div class="navLink" @click="$emit('cart')">
+      <NuxtLink class="navLink flex center-both" @click="$emit('cart')" tabindex="0">
         Cart
-      </div>
+      </NuxtLink>
     </li>
      <li v-if="!user">
-      <div class="navLink" @click="$emit('login')">
+      <div class="navLink flex center-both" @click="$emit('login')" tabindex="0">
         Login
       </div>
     </li>
     <li v-if="user">
-      <div class="navLink" @click="logout">
+      <div class="navLink flex center-both" @click="logout" tabindex="0">
         Logout
       </div>
     </li>
@@ -66,6 +66,7 @@ ul {
   text-decoration: none;
   color: var(--main-black);
   padding-bottom: 3px;
+  text-align: center;
 }
 .navLink::after {
   content: "";
@@ -87,7 +88,7 @@ ul {
   opacity: 1;
   transform: translate3d(100%, 0, 0);
 }
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 800px) {
   ul {
     position: relative;
     flex-direction: row;
