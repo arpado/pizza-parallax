@@ -1,6 +1,7 @@
 <template>
   <div class="loader container flex center-both" ref="loader">
     <div class="plate">
+      <img src="images/plate.png" alt="">
       <div
         class="pizza-slice"
         :style="{ transform: `rotate(${slice.rotationValue}deg)` }"
@@ -57,20 +58,21 @@ export default {
     };
   },
   methods: {
-    loaderLeave(el) {
-      console.log(el);
-      gsap.to(el, {
-        opacity: 0,
-        duration: 1,
-        // done: this.setPageLoad,
-      });
-    },
+    // loaderLeave(el) {
+    //   console.log(el);
+    //   gsap.to(el, {
+    //     opacity: 0,
+    //     duration: 1,
+    //     // done: this.setPageLoad,
+    //   });
+    // },
     showSlices() {
       gsap.to(this.$refs.pizzaslice, {
         opacity: 1,
         duration: 1,
         stagger: 0.1,
         // onComplete: this.hideSlices,
+        onComplete: this.slicesDone
       })
     },
       hideSlices() {
@@ -81,13 +83,16 @@ export default {
         // onComplete: this.showSlices,
       })
     },
+    slicesDone() {
+      this.$emit('slicesDone')
+    }
   },
   mounted() {
     // console.log(this.$refs.loader);
     this.showSlices(this.$refs.pizzaslice)
   },
   unmounted() {
-    this.loaderLeave(this.$refs.loader);
+    // this.loaderLeave(this.$refs.loader);
   },
 };
 </script>
@@ -104,10 +109,17 @@ export default {
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  box-shadow: 0px 10px 30px 0px black;
-  background-image: url("images/plate.png");
-  background-position: center;
+  /* box-shadow: 0px 10px 30px 0px black; */
+  /* background-image: url("@/public/images/plate.png");
+  background-position: center; */
   position: relative;
+}
+.plate > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  transform: translate(-50%, -50%);
 }
 .pizza-slice {
   position: absolute;
