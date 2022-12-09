@@ -1,21 +1,15 @@
 <template>
-  <div>
-    <HeaderElement />
-    <!-- ezt innen lehet , h majd el -->
-    <!-- <CartElement /> -->
-    
-  <!-- <Transition name="content">
-    <LoginElement />
-  </Transition> -->
-
-    <!-- <BookingElement /> -->
-    <slot />
-    <FooterElement />
-  </div>
+  <Transition name="content" appear>
+    <!-- fene tudja, h ezzel mi van itt -->
+    <div class="container">
+      <HeaderElement />
+      <slot />
+      <FooterElement />
+    </div>
+  </Transition>
 </template>
 
 <script>
-// import { useCartStore } from '../stores/cartStore'
 
 export default {};
 </script>
@@ -35,9 +29,9 @@ export default {};
   opacity: 0;
 } */
 
-/* .content-enter-active,
+.content-enter-active,
 .content-leave-active {
-  transition: opacity 1s ease;
+  transition: opacity 5s ease;
   z-index: 999;
 }
 .content-enter-from,
@@ -47,5 +41,5 @@ export default {};
 .content-enter-to,
 .content-leave-from {
   opacity: 1;
-} */
+}
 </style>
