@@ -4,9 +4,6 @@
       <LogoElement />
     </div>
     <nav class="flex">
-      <!-- ezt ossze kell majd vonni -->
-       <!-- @login="modalStore.toggleLogin"
-        @cart="cartStore.toggleCart" -->
       <NavbarElement
         class="widescreen-nav"
         :nav-array="navArray"
@@ -15,13 +12,13 @@
         @cart="modalStore.openModal('showCart')"
       />
       <div class="narrowscreen-nav">
-        <div class="hamburger" @click="toggleMenu">Menu</div>
+        <div class="hamburger" @click="toggleMenu" tabindex="0">Menu</div>
         <NavbarElement
           v-show="menuVisible"
           :nav-array="navArray"
           :modal-array="modalArray"
-          @login="modalStore.toggleLogin"
-          @cart="cartStore.toggleCart"
+          @login="modalStore.openModal('showLogin')"
+          @cart="modalStore.openModal('showCart')"
           :dropdown-top="[scrollPosition >= 120 ? '80px' : '130px']"
         />
       </div>
@@ -30,26 +27,26 @@
 </template>
 
 <script>
-import { useCartStore } from '../stores/cartStore';
-import { useModalStore } from '../stores/modalStore';
-import { mapActions } from 'pinia';
+import { useCartStore } from "../stores/cartStore";
+import { useModalStore } from "../stores/modalStore";
+import { mapActions } from "pinia";
 
 export default {
   setup() {
     const cartStore = useCartStore();
     const modalStore = useModalStore();
-    return {cartStore, modalStore};
+    return { cartStore, modalStore };
   },
   data() {
     return {
       navArray: [
-        { text: "Home", to: "/", hash: ""},
-        { text: "Our Selection", to: "OurMenu", hash: ""},
+        { text: "Home", to: "/", hash: "" },
+        { text: "Our Selection", to: "OurMenu", hash: "" },
         // { text: "Contacts", to: "/", hash: "#contacts-section"},
       ],
       modalArray: [
-        { text: "Cart", event: "cart"},
-        { text: "Login", event: "login"},
+        { text: "Cart", event: "cart" },
+        { text: "Login", event: "login" },
       ],
       menuVisible: false,
       scrollPosition: 0,
@@ -64,11 +61,6 @@ export default {
     window.removeEventListener("scroll", this.updateScroll);
   },
   methods: {
-    // TEST
-    test() {
-      console.log('poop')
-    },
-    // TEST
     // EZT ATIRNI, H VISSZAVIGYEN A /HOME-RA
     reload() {
       window.location.reload(true);
@@ -92,7 +84,6 @@ export default {
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
-    // ...mapActions(useCartStore, ['toggleCart'])
   },
 };
 </script>
@@ -141,10 +132,28 @@ header {
   display: block;
   visibility: visible;
   margin-right: 10vw;
+  position: relative;
+  overflow: hidden;
 }
 .hamburger:hover,
 .hamburger:focus {
   cursor: pointer;
+}
+.hamburger::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 0.1em;
+  background-color: var(--main-white);
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+.hamburger:hover::after,
+.hamburger:focus::after {
+  opacity: 1;
+  transform: translate3d(100%, 0, 0);
 }
 .widescreen-nav {
   display: none;
@@ -155,7 +164,7 @@ header {
   visibility: visible;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 800px) {
   .narrowscreen-nav {
     display: none;
     visibility: none;
