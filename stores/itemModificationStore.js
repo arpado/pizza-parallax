@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
-import { toppingsList, sauceList } from '@/content/extras.json'
+import { getItemData } from '@/composables/serverRequests'
 
 class OrderItemClassInstance {
-    constructor(name, type, propSelectors, props, selectedOptions, quantity, price) {
+    constructor(name, id, type, propSelectors, props, selectedOptions, quantity, price) {
         this.name = name;
+        this.id = id;
         this.type = type;
         this.propSelectors = propSelectors;
         this.props = props;
@@ -14,47 +15,82 @@ class OrderItemClassInstance {
     }
 }
 
+class itemProp {
+    constructor(name, description, data) {
+        this.name = name;
+        this.description = description;
+        this.data = data;
+    }
+}
+
 export const useItemModificationStore = defineStore('itemModification', {
     state: () => {
         return {
-            // itemBlueprint: null,
             itemOnMod: null,
             orderItem: null,
-            propSelectors: null,
+            propSelectors: {},
             additionalOptions: [],
             selectedOptions: [],
             selectedItemQuantity: 1,
+            itemProps: {},
         }
     },
     actions: {
-        loadItem(item) {
+        async loadItem(item, table) {
             if (this.itemOnMod !== item) {
+                this.propSelectors = {}
+                this.additionalOptions = []
+                this.itemProps = {}
+                this.selectedItemQuantity = 1
                 this.itemOnMod = item
-                this.additionalOptions = this.getAdditionalOptionsList(item.type)
-                this.propSelectors = this.getPropSelectors(item.props)
+                await this.getAdditionalOptionsList(item)
             }
         },
 
         // INITIAL SETUP METHODS//
 
-        getAdditionalOptionsList(type) {
-            const additionalOptions = []
-            switch (type) {
-                case "pizza":
-                    additionalOptions.push(toppingsList)
-                    additionalOptions.push(sauceList)
+        async getAdditionalOptionsList(item) {
+
+            switch (item.table) {
+                case "pizzas":
+                    let sizeData = await getItemData('pizzas', `size(name), price`, [{ name: item.name }], 'price')
+                    // flatten data
+                    sizeData.data.forEach(elem => {
+                        elem.name = elem.size.name
+                        delete elem.size
+                    })
+                    this.itemProps.size = new itemProp('size', 'Select pizza size', sizeData.data)
+                    // preset size on front-end
+                    this.propSelectors.size = this.itemProps.size.data[1].name
+
+                    // get crust
+                    let crustData = await getItemData('crusts', `name, price`, null, 'price')
+                    this.itemProps.crust = new itemProp('crust', 'Select pizza crust', crustData.data)
+                    // preset crust on front-end
+                    this.propSelectors.crust = this.itemProps.crust.data[1].name
+
+                    // get toppings
+                    let topping = await getItemData('toppings', `name, price`, null, 'name')
+                    this.additionalOptions.push({ title: 'Toppings', data: topping.data })
                     break;
-                case "drink":
-                    // this.additionalOptions.push()
+
+                case "drinks":
+                    let drinkSizeData = await getItemData('drinks', `size(name), price`, [{ name: item.name }], 'price')
+                    drinkSizeData.data.forEach(elem => {
+                        elem.name = elem.size.name
+                        delete elem.size
+                    })
+                    this.itemProps.size = new itemProp('size', 'Select drink size', drinkSizeData.data)
+                    this.propSelectors.size = this.itemProps.size.data[1].name
                     break;
-                case "dessert":
-                    // this.additionalOptions.push()
+                    
+                case "desserts":
+
                     break;
                 default:
                     console.log('error in additional options')
                     break;
             }
-            return additionalOptions
         },
         getPropSelectors(item) {
             // sets up the pre-assigned selectedProps in the json
@@ -92,43 +128,28 @@ export const useItemModificationStore = defineStore('itemModification', {
         moreItem() {
             this.selectedItemQuantity++;
         },
-       
+
         createItem() {
             let itemPrice = this.getPropPrices() + this.getAdditionalOptionsPrice()
             let selectedProps = this.getSelectedProps()
-            this.orderItem = new OrderItemClassInstance(this.itemOnMod.name, this.itemOnMod.type, this.propSelectors, selectedProps, this.selectedOptions, this.selectedItemQuantity, itemPrice)
+            this.orderItem = new OrderItemClassInstance(this.itemOnMod.name, this.itemOnMod.id, this.itemOnMod.type, this.propSelectors, selectedProps, this.selectedOptions, this.selectedItemQuantity, itemPrice)
         },
         getSelectedProps() {
             const props = {}
             if (Object.keys(this.propSelectors).length) {
                 for (const [key, value] of Object.entries(this.propSelectors)) {
-                    // if there are valid propSelectors goes through the new items selected props
-                    // eg.: key = "sizeSelected"
-                    // eg.: value = "medium"
-                    let selectedProp = key
-                    let list = {}
-                    for (const [key, value] of Object.entries(this.itemOnMod.props)) {
-                        // goes through the origins props, gets the one according to the propSelector
-                        // eg.: key = "sizeList"
-                        // eg.: value.data = {size: "medium", price: 0.99}
-                        // nb.: selector is just a regular key here: {selector: "sizeSelected"}
-                        if (value.selector.includes(selectedProp)) {
-                            list = value.data
-                        }
-                    }
-                    // filters the origin data for the items selectedProp, gets the presumably only match
-                    props[key] = list.filter((elem) => elem.name === value)[0]
+                    props[key] = this.itemProps[key].data.filter(e => e.name === this.propSelectors[key])[0]
                 }
             }
-            // EZ ITT NEM PURE FUNCTION!!!
-            // state.orderItem.props = props
             return props
         },
         getPropPrices() {
             const selectedProps = this.getSelectedProps()
             let price = 0
-            for (const [key, value] of Object.entries(selectedProps)) {
-                price += value.price
+            if (selectedProps) {
+                for (const [key, value] of Object.entries(selectedProps)) {
+                    price += value.price
+                }
             }
             return price
         },
@@ -139,72 +160,3 @@ export const useItemModificationStore = defineStore('itemModification', {
         },
     }
 })
-
-// ********************* incoming JSON structure ********************** //
-// 
-// [
-//     {
-//         "name": "Margharita",
-//         "type": "pizza",
-//         "image": "pizza-ready-cropped.jpg",
-//         "description": "tomato, cheese",
-//         "propNames": [
-//             "Size",
-//             "Crust"
-//         ],
-//         "props": {
-//             "sizeList": {
-//                 "selector": "sizeSelected",
-//                 "description": "Select pizza size",
-//                 "data": [
-//                     {
-//                         "name": "small",
-//                         "price": 0.99,
-//                         "isSelected": false
-//                     },
-//                     {
-//                         "name": "medium",
-//                         "price": 1.49,
-//                         "isSelected": true
-//                     },
-//                     {
-//                         "name": "large",
-//                         "price": 1.99,
-//                         "isSelected": false
-//                     },
-//                     {
-//                         "name": "extra large",
-//                         "price": 2.49,
-//                         "isSelected": false
-//                     }
-//                 ]
-//             },
-//             "crustList": {
-//                 "selector": "crustSelected",
-//                 "description": "Select crust thickness",
-//                 "data": [
-//                     {
-//                         "name": "thin",
-//                         "price": 0.0,
-//                         "isSelected": true
-//                     },
-//                     {
-//                         "name": "thick",
-//                         "price": 0.49,
-//                         "isSelected": false
-//                     },
-//                     {
-//                         "name": "cheese",
-//                         "price": 0.99,
-//                         "isSelected": false
-//                     }
-//                 ]
-//             }
-//         },
-//         "possibleExtras": {
-//             "extra toppings": ""
-//         }
-//     }
-// ]
-// 
-// ******************************************************************** //
