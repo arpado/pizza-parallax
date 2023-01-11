@@ -1,25 +1,33 @@
 <template>
-  <ul class="flex justify-between align-center" :style="{top: dropdownTop}">
+  <ul class="flex justify-between align-center" :style="{ top: dropdownTop }">
     <li v-for="(navLink, index) in navArray" :key="index">
       <NuxtLink
         class="navLink flex center-both"
         :to="{ path: navLink.to, hash: navLink.hash }"
         >{{ navLink.text }}</NuxtLink
       >
-     <!-- :external="true" -->
+      <!-- :external="true" -->
     </li>
-     <li>
-      <NuxtLink class="navLink flex center-both" @click="$emit('cart')" tabindex="0">
+    <li>
+      <NuxtLink
+        class="navLink flex center-both"
+        @click="$emit('cart')"
+        tabindex="0"
+      >
         Cart
       </NuxtLink>
     </li>
-     <li v-if="!user">
-      <div class="navLink flex center-both" @click="$emit('login')" tabindex="0">
+    <li v-if="!userStore.user">
+      <div
+        class="navLink flex center-both"
+        @click="$emit('login')"
+        tabindex="0"
+      >
         Login
       </div>
     </li>
-    <li v-if="user">
-      <div class="navLink flex center-both" @click="logout" tabindex="0">
+    <li v-else>
+      <div class="navLink flex center-both" @click="signOut" tabindex="0">
         Logout
       </div>
     </li>
@@ -27,24 +35,23 @@
 </template>
 
 <script>
-import { userLogout } from '~/composables/useAuth'
-import { useState } from '#app'
-import { useUser } from '~/composables/useAuth'
+import { useUserStore } from "@/stores/userStore";
+import { postSignOut } from "@/composables/userAuth";
 
 export default {
   /* eslint-disable */
   props: ["navArray", "modalArray", "dropdownTop"],
-    setup() {
-        const user = useState('user')
-        return {user}
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
+  },
+  methods: {
+    async signOut() {
+      let result = await postSignOut();
+      this.userStore.user = null;
     },
-    methods: {
-      async logout() {
-        const message = await userLogout()
-        console.log(message.data.value.message)
-      }
-    },
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -52,6 +59,7 @@ ul {
   position: absolute;
   right: 5vw;
   /* top: 10vh; */
+  padding: 1rem 0;
   flex-direction: column;
   background: var(--main-red);
   box-shadow: 5px 5px 5px 0 black;
