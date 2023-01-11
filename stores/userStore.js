@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { getUser } from '@/composables/userAuth'
 
 export const useUserStore = defineStore('user', {
     state: () => {
@@ -6,4 +7,9 @@ export const useUserStore = defineStore('user', {
             user: null,
         }
     },
+    actions: {
+        async getUserFromDB() {
+            return await getUser(this.user.id)
+        }
+    }
 })
