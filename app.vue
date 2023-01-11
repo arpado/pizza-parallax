@@ -34,16 +34,6 @@
   </div>
 </template>
 
-<script setup>
-import { useUser } from "~/composables/useAuth";
-const user = await useUser();
-
-const nuxtApp = useNuxtApp();
-nuxtApp.hook("page:finish", () => {
-  window.scrollTo(0, 0);
-});
-</script>
-
 <script>
 import gsap from "gsap";
 import { useModalStore } from "~/stores/modalStore";
@@ -56,6 +46,10 @@ export default {
     };
   },
   setup() {
+    const nuxtApp = useNuxtApp();
+    nuxtApp.hook("page:finish", () => {
+      window.scrollTo(0, 0);
+    });
     const modalStore = useModalStore();
     return { modalStore };
   },
@@ -197,5 +191,14 @@ button,
 .layout-enter-from,
 .layout-leave-to {
   filter: grayscale(1);
+}
+
+.modalanimation-enter-active,
+.modalanimation-leave-active {
+  transition: opacity 0.5s linear;
+}
+.modalanimation-enter-from,
+.modalanimation-leave-to {
+  opacity: 0;
 }
 </style>
