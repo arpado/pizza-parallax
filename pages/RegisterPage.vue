@@ -1,21 +1,29 @@
 <template>
-  <div class="wrapper">
-    <div class="container">
-      <div class="login-box">
+  <div class="wrapper flex center-both column">
+    <div class="container flex center-both column">
+      <div class="login-box flex align-center jusify-around column">
         <h3>Register</h3>
-        <div class="input-box">
-          <label for="name">Name:</label>
-          <input type="text" name="" id="name" v-model="name" />
+        <div class="input-box flex justify-center align-start column">
+          <label for="firstName">First Name:</label>
+          <input type="text" name="" id="firstName" v-model="firstName" />
         </div>
-        <div class="input-box">
+        <div class="input-box flex justify-center align-start column">
+          <label for="lastName">Last Name:</label>
+          <input type="text" name="" id="lastName" v-model="lastName" />
+        </div>
+        <div class="input-box flex justify-center align-start column">
+          <label for="address">Address:</label>
+          <input type="text" name="" id="address" v-model="address" />
+        </div>
+        <div class="input-box flex justify-center align-start column">
           <label for="email">Email:</label>
           <input type="text" name="" id="email" v-model="email" />
         </div>
-        <div class="input-box">
+        <div class="input-box flex justify-center align-start column">
           <label for="password">Password:</label>
           <input type="text" name="" id="password" v-model="password" />
         </div>
-        <!-- <div class="input-box">
+        <!-- <div class="input-box flex justify-center align-start column">
           <label for="password-again">Password again:</label>
           <input
             type="text"
@@ -25,25 +33,17 @@
           />
         </div> -->
         <button @click="postRegisterForm">Register</button>
-        <!-- (name, email, password) -->
       </div>
       <div class="alternatives">
-        <p>
-          Already registered? Click
-          <!-- <NuxtLink to="LoginPage">here</NuxtLink> to login! -->
-        </p>
+        <p>Already registered?</p>
         <p>Click <NuxtLink to="/">here</NuxtLink> to return home!</p>
-        <p>{{ name }} -{{ email }} - {{ password }}</p>
         <!-- <div v-if="response.hasErrors">
           <div class="error-messages" v-for="error in errors" :key="error">
             <p>{{ error }}</p>
           </div>
         </div> -->
-        <div
-          v-if="response.hasErrors && errors"
-        >
+        <div v-if="response.hasErrors && errors">
           <strong class="font-bold">Oops, try again! </strong>
-
           <ul>
             <li v-for="(key, value) in errors" :key="key">
               {{ value.check.errorMessage }}
@@ -55,65 +55,48 @@
   </div>
 </template>
 
-<script setup>
-// import { registerWithEmail } from '~/composables/useAuth';
+<script >
+import { useUserStore } from "~/stores/userStore";
+import { registerWithEmail } from "@/composables/userAuth";
 
-// export default {
-//   data() {
-//     return {
-//       name: "test",
-//       email: "test@test.com",
-//       password: "test",
-//       passwordAgain: "",
-//       errors: null,
-//       response: {
-//         hasErrors: false
-//       }
-//     };
-//   },
-//   methods: {
-//     async postRegistrationForm(name, email, password) {
-//       this.response = await registerWithEmail(name, email, password)
-//       // .then(console.log(res))
-//       // console.log(this.response)
-
-//       this.errors = this.response.errors
-//       // console.log(this.errors)
-//     },
-//   },
-// };
-
-import { ref } from "@vue/reactivity";
-import { registerWithEmail } from "~/composables/useAuth";
-const email = ref(null);
-const password = ref(null);
-const name = ref(null);
-const errors = ref(new Map());
-let response = ref({ hasErrors: false });
-async function postRegisterForm() {
-  console.log(name.value)
-  response.value = await registerWithEmail(
-    name.value,
-    email.value,
-    password.value
-  );
-  if (response.value.errors) {
-  errors.value = response.value.errors;
-  }
-}
+export default {
+  setup() {
+    const userStore = useUserStore();
+    const router = useRouter();
+    return { userStore, router };
+  },
+  data() {
+    return {
+      email: null,
+      password: null,
+      firstName: null,
+      lastName: null,
+      address: null,
+      errors: new Map(),
+      response: { hasErrors: false },
+    };
+  },
+  methods: {
+    async postRegisterForm() {
+      console.log(email);
+      let result = await registerWithEmail(
+        this.email,
+        this.password,
+        this.firstName,
+        this.lastName,
+        this.address
+      );
+      console.log(result);
+      this.userStore.user = result.data.user;
+      this.router.push({ path: "/successful-registration" });
+    },
+  },
+};
 </script>
 
 <style scoped>
-.wrapper,
-.container,
-.login-box {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
 .wrapper {
-  justify-content: center;
-  height: 100vh;
+  height: fit-content;
   width: 100vw;
   /* background-image: url("/assets/pizza3.jpg"); */
   background-size: cover;
@@ -122,24 +105,19 @@ async function postRegisterForm() {
 .container {
   width: fit-content;
   padding: 2rem;
-  justify-content: center;
   background-color: var(--main-red);
   color: var(--main-white);
   border: 1px solid var(--main-black);
   box-shadow: 2px 2px 2px 2px var(--main-black);
+  margin-top: 150px;
 }
 .login-box {
-  justify-content: space-around;
 }
 /* .login-box > * {
     margin-top: 50px;
 } */
 .input-box {
-  margin: 30px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  margin: 10px 0;
 }
 button {
   padding: 0.5rem;
@@ -147,5 +125,6 @@ button {
 }
 .alternatives {
   padding: 2rem 1rem;
+  text-align: center;
 }
 </style>
