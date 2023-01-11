@@ -105,14 +105,6 @@ export default {
     const total = computed(() => itemModStore.getSumItemPrice);
     return { modalStore, cartStore, itemModStore, total };
   },
-  // data() {
-  //   return {
-  //     // itemProps: {
-  //     //   sizeList: this.getSize,
-  //     //   crustList: this.getCrust,
-  //     // },
-  //   };
-  // },
   methods: {
     sendToCart() {
       this.itemModStore.createItem();
