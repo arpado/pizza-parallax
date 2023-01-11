@@ -22,8 +22,8 @@
                 </p>
                 <p>{{ item.selectedOptions }}</p>
                 <p>{{ item.quantity }}</p>
-                <p>{{ item.price }}</p>
-                <p>{{ item.sumPrice }}</p>
+                <p>{{ item.price.toFixed(2) }}</p>
+                <p>{{ item.sumPrice.toFixed(2) }}</p>
                 <hr />
               </div>
             </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="order-button-container">
           <button>Go Back</button>
-          <button>Send Order</button>
+          <button @click="sendOrder(cartStore.itemOnOrder)">Send Order</button>
         </div>
       </div>
     </NuxtLayout>
@@ -43,10 +43,14 @@
 
 <script>
 import { useCartStore } from "@/stores/cartStore";
+import { useUserStore } from "@/stores/userStore";
+import { sendOrder } from "@/composables/serverRequests"
+
 export default {
   setup() {
     const cartStore = useCartStore();
-    return { cartStore };
+    const userStore = useUserStore();
+    return { cartStore, userStore };
   },
 };
 </script>
@@ -73,7 +77,6 @@ export default {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-
 }
 .order-info-container,
 .user-info-container {
