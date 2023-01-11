@@ -8,16 +8,16 @@
       <div class="item-buttons">
         <NuxtLayout
           name="collapsible-container"
-          v-for="(prop, index) in itemModStore.itemOnMod.props"
+          v-for="(itemProp, index) in itemModStore.itemProps"
           :key="index"
         >
           <template #title>
-            <h3>{{ prop.description }}</h3>
+            <h3>{{ itemProp.description }}</h3>
           </template>
           <template #content>
             <div
               class="radio-selector"
-              v-for="data in prop.data"
+              v-for="data in itemProp.data"
               :key="data.name"
             >
               <input
@@ -25,10 +25,10 @@
                 :name="index"
                 :value="data.name"
                 :id="data.name"
-                v-model="itemModStore.propSelectors[prop.selector]"
+                v-model="itemModStore.propSelectors[itemProp.name]"
               />
               <label :for="data.name"
-                >{{ data.description }} -- ${{ data.price }}</label
+                >{{ data.name }} -- ${{ data.price }}</label
               >
             </div>
           </template>
@@ -105,22 +105,18 @@ export default {
     const total = computed(() => itemModStore.getSumItemPrice);
     return { modalStore, cartStore, itemModStore, total };
   },
-  data() {
-    return {
-      // itemProps: {
-      //   sizeList: this.getSize,
-      //   crustList: this.getCrust,
-      // },
-    };
-  },
+  // data() {
+  //   return {
+  //     // itemProps: {
+  //     //   sizeList: this.getSize,
+  //     //   crustList: this.getCrust,
+  //     // },
+  //   };
+  // },
   methods: {
-    // sendToCart(itemModStore.ItemToOrder) {
-    //   this.cartStore.addToOrder(name, size, quantity, crust, toppings, price);
-    // },
     sendToCart() {
       this.itemModStore.createItem();
-      this.cartStore.addToOrder(this.itemModStore.orderItem)
-      // console.log(this.itemModStore.orderItem);
+      this.cartStore.addToOrder(this.itemModStore.orderItem);
     },
   },
 };
