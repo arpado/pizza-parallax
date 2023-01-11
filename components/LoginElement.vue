@@ -1,6 +1,4 @@
 <template>
-  <!-- ennek majd meg megnezni, h hogyan csinalta -->
-  <!-- <Transition name="slide-fade"> -->
   <div class="container" v-if="modalStore.modalList.showLogin">
     <NuxtLayout name="modal">
       <div class="login-container flex column justify-evenly">
@@ -24,7 +22,7 @@
           <p v-if="errorMessage">{{ errorMessage }}</p>
           <p v-else>Something went wrong!</p>
         </div>
-        <button @click="postLoginForm(email, password)">Login</button>
+        <button @click="login(email, password)">Login</button>
         <p>
           Not registered yet?
           <NuxtLink to="/RegisterPage" @click="modalStore.closeModal"
@@ -34,21 +32,21 @@
       </div>
     </NuxtLayout>
   </div>
-  <!-- </Transition> -->
 </template>
 
 <script>
-import { useModalStore } from "../stores/modalStore";
-import { loginWithEmail } from "~/composables/useAuth";
+import { useModalStore } from "@/stores/modalStore";
+import { useUserStore } from "@/stores/userStore"
+import { postLoginForm } from "@/composables/userAuth"
 
 export default {
   setup() {
     // definePageMeta({
     //   middleware: 'guest'
     // })
-
     const modalStore = useModalStore();
-    return { modalStore };
+    const userStore = useUserStore();
+    return { modalStore, userStore };
   },
   data() {
     return {
@@ -59,14 +57,9 @@ export default {
     };
   },
   methods: {
-    async postLoginForm(email, password) {
-      const res = await loginWithEmail(email, password);
-      this.hasError = res.hasError;
-      if (this.hasError) {
-        this.errorMessage = res.errorMessage;
-      } else {
-        this.modalStore.toggleLogin();
-      }
+    async login(email, password) {
+      let result = await postLoginForm(email, password)
+      this.userStore.user = result.data.user
     },
   },
 };
@@ -85,28 +78,5 @@ export default {
 form > * {
   display: block;
   margin-bottom: 10px;
-}
-/* animations */
-.modalanimation-enter-active,
-.modalanimation-leave-active {
-  transition: opacity 0.5s linear;
-}
-.modalanimation-enter-from,
-.modalanimation-leave-to {
-  opacity: 0;
-}
-
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
-  opacity: 0;
 }
 </style>
