@@ -73,7 +73,7 @@ img {
   margin-bottom: 1rem;
 }
 .item-description {
-  min-height: 6rem;
+  min-height: 15rem;
   margin: 1rem 0;
 }
 .item-description > h4 {
