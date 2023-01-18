@@ -86,6 +86,7 @@ html {
   height: 100%;
   font-size: 100%;
   scroll-behavior: smooth;
+  font-family: Roboto Slab;
 }
 /* ez lehet, h nem kell */
 .body {

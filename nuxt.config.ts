@@ -22,7 +22,16 @@ export default defineNuxtConfig({
         ],
         ['@nuxtjs/supabase'],
         // '@nuxt/content',
-       
+        ['@nuxtjs/google-fonts', {
+            families: {
+              'Roboto': true,
+              'Montserrat': true,
+              'Oswald': true,
+              'Roboto Slab': true,
+              download: true,
+              inject: true
+            }
+          }]    
     ],
     imports: {
         dirs: ['stores'],
@@ -30,7 +39,8 @@ export default defineNuxtConfig({
     app: {
         pageTransition: { name: 'page', mode: 'out-in' },
         layoutTransition: { name: 'layout', mode: 'out-in' }
-      },
+    },
+
     // nodeResolve: {
     //     browser: true
     //   },
