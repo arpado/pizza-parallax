@@ -1,26 +1,30 @@
 <template>
-  <div class="section" id="contacts-section">
-    <div class="card">
+  <NuxtLayout name="card">
+    <div class="container flex gap-1" id="contacts-section">
       <div class="image card-subsection">
         <img :src="`images/${content.map}`" alt="" />
       </div>
       <div class="text card-subsection">
         <h3>{{ content.title }}</h3>
-        <div class="text" >
-          <p v-for="(para, index) in content.text" :key="index">{{ para }}</p>
+        <div class="flex justify-around">
+          <div class="text">
+            <h4 class="contacts-subtitle flex center-both">Address:</h4>
+            <p v-for="(para, index) in content.text" :key="index">{{ para }}</p>
+          </div>
+          <div class="text">
+            <h4 class="contacts-subtitle flex center-both">Open Hours:</h4>
+            <p>Monday: {{ content.hours.closed }}</p>
+            <p>Tuesday: {{ content.hours.regular }}</p>
+            <p>Wednesday: {{ content.hours.regular }}</p>
+            <p>Thursday: {{ content.hours.regular }}</p>
+            <p>Friday: {{ content.hours.extended }}</p>
+            <p>Staruday: {{ content.hours.extended }}</p>
+            <p>Sunday: {{ content.hours.extended }}</p>
+          </div>
         </div>
-      <div class="text" >
-            <p>Monday: {{content.hours.closed}}</p>
-            <p>Tuesday: {{content.hours.regular}}</p>
-            <p>Wednesday: {{content.hours.regular}}</p>
-            <p>Thursday: {{content.hours.regular}}</p>
-            <p>Friday: {{content.hours.extended}}</p>
-            <p>Staruday: {{content.hours.extended}}</p>
-            <p>Sunday: {{content.hours.extended}}</p>
-        </div>  
       </div>
     </div>
-  </div>
+  </NuxtLayout>
 </template>
 
 <script>
@@ -31,22 +35,8 @@ export default {
 </script>
 
 <style scoped>
-.section {
-  height: fit-content;
-  width: 1px;
-  min-height: 50vh;
-  min-width: 100%;
-  padding: 2rem;
-  background-color: var(--main-brown);
-}
-.card {
-  height: 100%;
-  width: 100%;
-  background-color: var(--main-white);
-  padding: 1rem;
-  display: flex;
+.container {
   flex-direction: column;
-  gap: 1rem;
 }
 .card-subsection {
   width: 100%;
@@ -54,17 +44,18 @@ export default {
 img {
   width: 100%;
   height: 100%;
+  max-height: 400px;
   object-fit: cover;
 }
 h3 {
   text-align: center;
   padding: 1rem;
 }
+.contacts-subtitle {
+  margin: 10px;
+}
 @media (min-width: 560px) {
-  .section {
-  height: 1px;
-  }
-  .card {
+  .container {
     flex-direction: row;
   }
   .card-subsection {
