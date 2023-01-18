@@ -1,7 +1,7 @@
 <template>
   <div class="loader container flex center-both" ref="loader">
     <div class="plate">
-      <img src="@/public/images/plate.png" alt="">
+      <img src="@/src/images/plate.png" alt="">
       <div
         class="pizza-slice"
         :style="{ transform: `rotate(${slice.rotationValue}deg)` }"
@@ -9,7 +9,7 @@
         :key="slice.name"
         ref="pizzaslice"
       >
-        <img src="@/public/images/pizza-slice.png" alt="" srcset="" />
+        <img src="@/src/images/pizza-slice.png" alt="" srcset="" />
       </div>
     </div>
   </div>
