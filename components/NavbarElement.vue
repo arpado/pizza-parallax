@@ -91,8 +91,7 @@ ul {
 .navLink:focus {
   cursor: pointer;
 }
-.navLink:hover::after,
-.navLink:focus::after {
+.navLink:hover::after {
   opacity: 1;
   transform: translate3d(100%, 0, 0);
 }
