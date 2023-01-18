@@ -42,6 +42,7 @@ export default {
       navArray: [
         { text: "Home", to: "/", hash: "" },
         { text: "Our Selection", to: "OurMenu", hash: "" },
+        { text: "User Profile", to: "user-profile", hash: "" },
         // { text: "Contacts", to: "/", hash: "#contacts-section"},
       ],
       modalArray: [
