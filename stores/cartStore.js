@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
+import { v4 as uuidv4 } from 'uuid';
 
 export const useCartStore = defineStore('cart', {
   state: () => {
     return {
       showCart: false,
-      // orderArray
       itemOnOrder: [],
     }
   },
@@ -20,15 +20,18 @@ export const useCartStore = defineStore('cart', {
     }
   },
   actions: {
-    // toggleCart() {
-    //   this.showCart = !this.showCart
-    // },
+    checkSelectedOptions(a, b) {
+      return Array.isArray(a) &&
+        Array.isArray(b) &&
+        a.length === b.length &&
+        a.every((val, index) => val === b[index]);
+    },
     addToOrder(item) {
       // ha a keyek egyeznek, akkor adja elozohoz, amugy meg ujat csinal
       let itemFound = false
       this.itemOnOrder.forEach(elem => {
         // ide komplexebb validatort
-        if (item.name === elem.name && item.size === elem.size) {
+        if (item.name === elem.name && item.size === elem.size && this.checkSelectedOptions(item.selectedOptions, elem.selectedOptions)) {
           elem.quantity += item.quantity;
           elem.sumPrice = elem.quantity * elem.price;
           itemFound = true
@@ -37,7 +40,8 @@ export const useCartStore = defineStore('cart', {
       })
 
       if (!itemFound && item.quantity > 0) {
-        // ez atteve itemOnModra
+        // ez atteve itemOnModra (???)
+        item.orderUnitId = uuidv4();
         this.itemOnOrder.push(item)
       }
       console.log(this.itemOnOrder)
