@@ -25,8 +25,31 @@ async function postSignOut() {
     return await supabase.auth.signOut();
 }
 
-async function getUser(userID) {
-    return await supabase.from("profiles").select('id, first_name, last_name').eq("id", userID);
+async function getUserData(userID) {
+    return await supabase.from("profiles").select('id, first_name, last_name, address').eq("id", userID);
 }
 
-export { registerWithEmail, postLoginForm, postSignOut, getUser }
+async function updateUserData(table, column, data, userId) {
+    let helperObj = {}
+    helperObj[column] = data
+    return await supabase
+        .from(table)
+        .update(helperObj)
+        .eq('id', userId)
+}
+
+async function updateProfileData(column, data) {
+    let helperObj = {}
+    helperObj[column] = data
+    return await supabase.auth.updateUser(helperObj)
+}
+
+async function deleteUser(userId) {
+    const { error } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('id', userId)
+}
+
+
+export { registerWithEmail, postLoginForm, postSignOut, getUserData, updateUserData, updateProfileData, deleteUser }
