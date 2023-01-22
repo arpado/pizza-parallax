@@ -37,6 +37,7 @@
 <script>
 import gsap from "gsap";
 import { useModalStore } from "~/stores/modalStore";
+import { useUserStore } from "@/stores/userStore";
 
 export default {
   data() {
@@ -51,7 +52,8 @@ export default {
       window.scrollTo(0, 0);
     });
     const modalStore = useModalStore();
-    return { modalStore };
+    const userStore = useUserStore();
+    return { modalStore, userStore };
   },
   methods: {
     // loaderLeave(el) {
@@ -66,7 +68,8 @@ export default {
       this.pageLoaded = true;
     },
   },
-  mounted() {
+  async mounted() {
+    await this.userStore.checkActiveUser()
     this.pageLoaded = true;
   },
 };
