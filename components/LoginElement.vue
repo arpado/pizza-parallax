@@ -22,7 +22,7 @@
           <p v-if="errorMessage">{{ errorMessage }}</p>
           <p v-else>Something went wrong!</p>
         </div>
-        <button @click="login(email, password)">Login</button>
+        <button @click="userStore.login(email, password)">Login</button>
         <p>
           Not registered yet?
           <NuxtLink to="/RegisterPage" @click="modalStore.closeModal"
@@ -55,12 +55,6 @@ export default {
       hasError: false,
       errorMessage: null,
     };
-  },
-  methods: {
-    async login(email, password) {
-      let result = await postLoginForm(email, password)
-      this.userStore.user = result.data.user
-    },
   },
 };
 </script>
