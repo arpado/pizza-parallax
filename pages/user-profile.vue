@@ -13,7 +13,6 @@
             <button @click="toggleSetup(key)">Cancel</button>
             <button @click="userStore.updateUser(key, userStore.user[key], userStore.user.id)">Save</button>
           </div>
-          <!-- <a @click="toggleSetup(key)">Modify data</a> -->
         </div>
         <div class="flex justify-between" v-else>
           <span>{{ key }}</span> -- <span>{{ value }}</span> --
@@ -44,13 +43,6 @@ export default {
   },
   data() {
     return {
-      // userData: {
-      //   "First Name": this.userStore.user.firstName,
-      //   "Last Name": this.userStore.user.lastName,
-      //   Email: this.userStore.user.email,
-      //   Phone: this.userStore.user.phone,
-      //   Address: this.userStore.user.address,
-      // },
       activeSetup: null,
     };
   },
@@ -62,19 +54,7 @@ export default {
       }
       this.activeSetup = key;
     },
- 
-    // async getData() {
-    //   // ezt userstorebol szedni, es csak a modositas eseten visszakuldeni a dolgot
-    //   if (this.userStore.user) {
-    //     this.userFromDatabase = await getUserFromDB();
-    //   } else {
-    //     this.userFromDatabase = null;
-    //   }
-    // },
   },
-  // mounted() {
-  //   this.getData()
-  // }
 };
 </script>
 
