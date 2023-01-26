@@ -19,13 +19,18 @@
           <a @click="toggleSetup(key)">Modify data</a>
         </div>
       </div>
+      <!-- THE OPTION TO DELETE USER ACCOUNT IS REMOVED FOR NOW -->
+      <!-- <div class="delete-user">
+        <button @click="deleteUser">Delete Account</button>
+      </div> -->
       <h3>User History</h3>
       <div class="flex column" v-if="userStore.orderHistory">
-        <div class="data-unit-RENAME" v-for="(item, index) in userStore.orderHistory" :key="index">
-          <p>{{ item }}</p>
+        <div class="order-history" v-for="(item, index) in userStore.orderHistory" :key="index">
+          <!-- {{ item }} -->
+          <p>{{ item.item_id }} -- {{ item.item_option }} -- {{ item.item_quantity }}</p>
         </div>
-        <button @click="userStore.getUserOrderHistory">Get History</button>
       </div>
+      <button @click="userStore.getUserOrderHistory">Get History</button>
     </div>
     <div v-else>
       <h3>No user logged in!</h3>
@@ -54,6 +59,13 @@ export default {
       }
       this.activeSetup = key;
     },
+  
+    // REMOVED FOR NOW
+    // deleteUser() {
+    //   if (confirm('Are you sure?')) {
+    //     this.userStore.deleteUser()
+    //   }
+    // }
   },
 };
 </script>
