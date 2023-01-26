@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { postLoginForm, postSignOut, getUserData, updateUserData, updateProfileData } from '@/composables/userAuth'
+import { postLoginForm, postSignOut, getUserData, updateUserData, updateProfileData, deleteProfileData } from '@/composables/userAuth'
 import { getOrderHistory } from '@/composables/serverRequests'
 
 class User {
@@ -11,17 +11,13 @@ class User {
         this.address = address;
     }
 }
- 
 
 export const useUserStore = defineStore('user', {
     state: () => {
         return {
             user: null,
             userId: null,
-            
-            // ezt lehet, h kulon sajat store-ba kell
             orderHistory: [],
-
         }
     },
     actions: {
@@ -34,32 +30,46 @@ export const useUserStore = defineStore('user', {
         },
         async logout() {
             await postSignOut()
-            this.user = null
-            this.userId = null
-
-            // ezt lehet, h kulon sajat store-ba kell
-            this.orderHistory = []
+            this.clearUserData()
         },
         async checkActiveUser() {
-            if(window.localStorage.getItem('sb-qykublxyqkhmvdpnkezp-auth-token')) {
-            let tokenData = window.localStorage.getItem('sb-qykublxyqkhmvdpnkezp-auth-token')
-            let token = JSON.parse(tokenData)
-            this.userId = token.user.id
+            if (window.localStorage.getItem('sb-qykublxyqkhmvdpnkezp-auth-token')) {
+                let tokenData = window.localStorage.getItem('sb-qykublxyqkhmvdpnkezp-auth-token')
+                let token = JSON.parse(tokenData)
+                this.userId = token.user.id
 
-            let userData = await getUserData(this.userId)
-            
-            this.user = new User(userData.data[0].first_name, userData.data[0].last_name, token.user.email, token.user.phone, userData.data[0].address, token.user.id)
+                let userData = await getUserData(this.userId)
+
+                this.user = new User(userData.data[0].first_name, userData.data[0].last_name, token.user.email, token.user.phone, userData.data[0].address, token.user.id)
             }
         },
         async updateUser(column, data, userId) {
             let table = this.getTable(column)
 
-            if(table === 'profiles') {
+            if (table === 'profiles') {
                 let res = await updateProfileData(column, data)
                 return res
             }
 
             await updateUserData(table, column, data, userId)
+        },
+        // REMOVED FOR NOW
+        // async deleteUser() {
+        //     let { error } = await deleteProfileData(this.userId)
+        //     console.log(error)
+        // },
+        async getUserOrderHistory() {
+            this.orderHistory = []
+            let { data, error } = await getOrderHistory(this.userId)
+
+            data.forEach(elem => {
+                let index = this.orderHistory.findIndex(item => elem.order_item_id === item.order_item_id)
+                if (index !== -1) {
+                    this.orderHistory[index].item_option = this.orderHistory[index].item_option.concat(', ', elem.item_option)
+                } else {
+                    this.orderHistory.push(elem)
+                }
+            })
         },
         getTable(column) {
 
@@ -77,19 +87,10 @@ export const useUserStore = defineStore('user', {
                     break;
             }
         },
-
-        // ezt lehet, h kulon sajat store-ba kell
-        async getUserOrderHistory() {
-            let { data, error } = await getOrderHistory(this.userId)
-
-            data.forEach(elem => {
-                let index = this.orderHistory.findIndex(item => elem.order_item_id === item.order_item_id)
-                if (index !== -1) {
-                    this.orderHistory[index].item_option = this.orderHistory[index].item_option.concat(', ', elem.item_option)
-                } else {
-                    this.orderHistory.push(elem)
-                }
-            })
+        clearUserData() {
+            this.user = null
+            this.userId = null
+            this.orderHistory = []
         },
     }
 })
