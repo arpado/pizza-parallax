@@ -78,16 +78,14 @@ export default {
   },
   methods: {
     async postRegisterForm() {
-      console.log(email);
-      let result = await registerWithEmail(
+      let {data, error} = await registerWithEmail(
         this.email,
         this.password,
         this.firstName,
         this.lastName,
         this.address
       );
-      console.log(result);
-      this.userStore.user = result.data.user;
+      this.userStore.checkActiveUser();
       this.router.push({ path: "/successful-registration" });
     },
   },
