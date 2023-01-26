@@ -27,7 +27,7 @@
       </div>
     </li>
     <li v-else>
-      <div class="navLink flex center-both" @click="signOut" tabindex="0">
+      <div class="navLink flex center-both" @click="userStore.logout" tabindex="0">
         Logout
       </div>
     </li>
@@ -36,7 +36,6 @@
 
 <script>
 import { useUserStore } from "@/stores/userStore";
-import { postSignOut } from "@/composables/userAuth";
 
 export default {
   /* eslint-disable */
@@ -44,12 +43,6 @@ export default {
   setup() {
     const userStore = useUserStore();
     return { userStore };
-  },
-  methods: {
-    async signOut() {
-      let result = await postSignOut();
-      this.userStore.user = null;
-    },
   },
 };
 </script>
