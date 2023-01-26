@@ -44,7 +44,8 @@ async function updateProfileData(column, data) {
     return await supabase.auth.updateUser(helperObj)
 }
 
-async function deleteUser(userId) {
+// this has to be done on the server
+async function deleteProfileData(userId) {
     const { error } = await supabase
         .from('profiles')
         .delete()
@@ -52,4 +53,4 @@ async function deleteUser(userId) {
 }
 
 
-export { registerWithEmail, postLoginForm, postSignOut, getUserData, updateUserData, updateProfileData, deleteUser }
+export { registerWithEmail, postLoginForm, postSignOut, getUserData, updateUserData, updateProfileData, deleteProfileData }
