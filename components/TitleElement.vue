@@ -43,8 +43,6 @@ export default {
   min-width: 400px;
   max-width: 800px;
   height: fit-content;
-  /* min-width: fit-content;  
-  min-height: fit-content;*/
   margin-top: 15vh;
   padding: 1rem;;
   text-align: center;

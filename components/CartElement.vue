@@ -1,7 +1,6 @@
 <template>
   <div class="cart-container" v-show="modalStore.modalList.showCart">
     <NuxtLayout name="modal">
-    <!-- <div class="close-cart-arrow" @click="cartStore.toggleCart">close</div> -->
     <h3 class="cart-title">In Cart:</h3>
     <ul class="item-on-order-container">
       <li
@@ -72,21 +71,6 @@ export default {
 </script>
 
 <style scoped>
-.cart-container {
-  /* width: 600px;
-  height: 80vh;
-  padding: 2rem;
-  background-color: white;
-  position: fixed;
-  top: 18vh;
-  right: 10px;
-  z-index: 999;
-  display: grid;
-  grid-template-rows: repeat(12, 1fr); */
-}
-/* .close-cart-arrow {
-  grid-row: 1/2;
-} */
 .cart-title {
   grid-row: 2/3;
 }

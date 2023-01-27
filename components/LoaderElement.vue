@@ -58,14 +58,6 @@ export default {
     };
   },
   methods: {
-    // loaderLeave(el) {
-    //   console.log(el);
-    //   gsap.to(el, {
-    //     opacity: 0,
-    //     duration: 1,
-    //     // done: this.setPageLoad,
-    //   });
-    // },
     showSlices() {
       gsap.to(this.$refs.pizzaslice, {
         opacity: 1,
@@ -88,7 +80,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$refs.loader);
     this.showSlices(this.$refs.pizzaslice)
   },
   unmounted() {

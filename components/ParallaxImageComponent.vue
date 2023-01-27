@@ -5,7 +5,6 @@
 </template>
 
 <script>
-//
 // csak a file nevet kell beirni ha egybol az assets mappaban van a kep
 export default {
   name: "ParallaxImageComponent",
@@ -30,9 +29,6 @@ export default {
         height: this.imgHeight,
       };
     },
-    // applyClass() {
-    //   return
-    // },
   },
 };
 </script>
