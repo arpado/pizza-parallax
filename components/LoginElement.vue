@@ -25,7 +25,7 @@
         <button @click="userStore.login(email, password)">Login</button>
         <p>
           Not registered yet?
-          <NuxtLink to="/RegisterPage" @click="modalStore.closeModal"
+          <NuxtLink to="/user-registration" @click="modalStore.closeModal"
             >Register Here!</NuxtLink
           >
         </p>
