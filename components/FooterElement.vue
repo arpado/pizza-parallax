@@ -2,9 +2,8 @@
   <div class="container">
       <div class="sitemap">
         <NuxtLink class="nuxt-link" to="/">Home</NuxtLink>
-        <NuxtLink class="nuxt-link" to="OurMenu">Our Menu</NuxtLink>
-        <NuxtLink class="nuxt-link" to="LoginPage">Login</NuxtLink>
-        <NuxtLink class="nuxt-link" to="RegisterPage">Register</NuxtLink>
+        <NuxtLink class="nuxt-link" to="menu">Our Menu</NuxtLink>
+        <NuxtLink class="nuxt-link" to="user-registration">Register</NuxtLink>
       </div>
       <div class="contacts">
         <p>Some contacts here</p>
@@ -17,7 +16,6 @@
 
 <script>
 export default {
-
 }
 </script>
 
