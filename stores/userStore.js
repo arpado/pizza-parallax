@@ -43,6 +43,7 @@ export const useUserStore = defineStore('user', {
                 this.user = new User(userData.data[0].first_name, userData.data[0].last_name, token.user.email, token.user.phone, userData.data[0].address, token.user.id)
             }
         },
+        // Updates the user, has to be broken into two, because supabase has a different method for updating auth schema
         async updateUser(column, data, userId) {
             let table = this.getTable(column)
 
@@ -53,11 +54,15 @@ export const useUserStore = defineStore('user', {
 
             await updateUserData(table, column, data, userId)
         },
-        // REMOVED FOR NOW
+
+        // deletes user
+        // REMOVED FOR NOW, should be called in supabase for security reasons
         // async deleteUser() {
         //     let { error } = await deleteProfileData(this.userId)
         //     console.log(error)
         // },
+
+        // Get the previous orders of the user
         async getUserOrderHistory() {
             this.orderHistory = []
             let { data, error } = await getOrderHistory(this.userId)
@@ -72,7 +77,6 @@ export const useUserStore = defineStore('user', {
             })
         },
         getTable(column) {
-
             switch (column) {
                 case 'firstName':
                 case 'lastName':
