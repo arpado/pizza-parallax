@@ -107,8 +107,7 @@ export default {
   },
   methods: {
     sendToCart() {
-      this.itemModStore.createItem();
-      this.cartStore.addToOrder(this.itemModStore.orderItem);
+      this.cartStore.addToOrder(this.itemModStore.createItem());
     },
   },
 };
