@@ -41,7 +41,7 @@ export default {
     return {
       navArray: [
         { text: "Home", to: "/", hash: "" },
-        { text: "Our Selection", to: "OurMenu", hash: "" },
+        { text: "Our Selection", to: "menu", hash: "" },
         { text: "User Profile", to: "user-profile", hash: "" },
         // { text: "Contacts", to: "/", hash: "#contacts-section"},
       ],
