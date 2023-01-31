@@ -3,10 +3,6 @@ import { defineStore } from 'pinia';
 export const useModalStore = defineStore('modal', {
     state: () => {
         return {
-            // showLogin: false,
-            // showBooking: false,
-            // showItemSetup: false,
-            // showCart: false,
             modalList: {
                 showLogin: false,
                 showBooking: false,
@@ -16,23 +12,8 @@ export const useModalStore = defineStore('modal', {
         }
     },
     actions: {
-        // toggleLogin() {
-        //     this.showBooking = false
-        //     this.showItemSetup = false
-        //     this.showLogin = !this.showLogin
-        // },
-        // toggleBooking() {
-        //     this.showLogin = false
-        //     this.showItemSetup = false
-        //     this.showBooking = !this.showBooking
-        // },
-        // toggleItemSetup(item) {
-        //     this.showLogin = false
-        //     this.showBooking = false
-        //     this.showItemSetup = !this.showItemSetup
-        // },
-        openModal(showModal) {
-            this.modalList[showModal] = true
+        openModal(selectedModal) {
+            this.modalList[selectedModal] = true
         },
         closeModal() {
             this.modalList.showLogin = false
