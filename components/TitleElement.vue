@@ -4,7 +4,7 @@
     <h2>Come and eat at our place! Lorem ipsum, dolor sit amet consectetur adipisicing elit!</h2>
     <div class="btn-container">
       <ButtonElement text="Book a Table!" @click="modalStore.openModal('showBooking')" />
-      <NuxtLink to="OurMenu">
+      <NuxtLink to="menu">
         <ButtonElement text="Order Pizza" />
       </NuxtLink>
     </div>
