@@ -7,14 +7,12 @@
         @slices-done="this.loaderDone = true"
         key="loader"
       />
-      <div v-else>
-        <NuxtLayout name="default" key="page">
+      <div class="main-content" v-else>
+        <NuxtLayout name="default" key="page" appear>
           <NuxtPage />
         </NuxtLayout>
       </div>
     </TransitionGroup>
-
-    <!-- <Transition name="content" ></Transition> -->
 
     <Transition name="content" mode="in-out">
       <LoginElement />
@@ -69,7 +67,7 @@ export default {
     },
   },
   async mounted() {
-    await this.userStore.checkActiveUser()
+    await this.userStore.checkActiveUser();
     this.pageLoaded = true;
   },
 };
@@ -175,9 +173,10 @@ button,
   opacity: 0;
 } */
 
+/* EZ A PAGE ITT A FO ANIMACIO */
 .page-enter-from {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(100px);
 }
 .page-enter-active,
 .page-leave-active {
