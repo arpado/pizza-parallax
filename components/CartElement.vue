@@ -1,6 +1,5 @@
 <template>
-  <div class="cart-container" v-show="modalStore.modalList.showCart">
-    <NuxtLayout name="modal">
+  <NuxtLayout name="modal" v-show="modalStore.modalList.showCart">
     <h3 class="cart-title">In Cart:</h3>
     <ul class="item-on-order-container">
       <li
@@ -45,10 +44,9 @@
       <p>total: {{ cartStore.totalPrice }}</p>
     </div>
     <div class="send-order">
-      <button @click="sendOrder">SEND ORDER</button>
+      <button @click="proceedToCheckout">Proceed to Checkout</button>
     </div>
-    </NuxtLayout>
-  </div>
+  </NuxtLayout>
 </template>
 
 <script>
@@ -62,9 +60,10 @@ export default {
     return { cartStore, modalStore };
   },
   methods: {
-    sendOrder() {
+    proceedToCheckout() {
       this.modalStore.closeModal()
-      this.$router.push('/OrderForm')
+      this.cartStore.lockOrder()
+      this.$router.push('/checkout')
     }
   },
 };
