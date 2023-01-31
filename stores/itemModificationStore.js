@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { getItemData } from '@/composables/serverRequests'
 
+// This is the object which gets sent to the cart, containing all the neccessary data, when the user clicks the "Send to cart" button
 class OrderItemClassInstance {
     constructor(name, id, type, propSelectors, props, selectedOptions, quantity, price) {
         this.name = name;
@@ -15,6 +16,7 @@ class OrderItemClassInstance {
     }
 }
 
+// Helper object, contains the data for the different properties (eg.: size, crust, etc). The options under this should be mutually exclusive (only one can be and should be active).
 class itemProp {
     constructor(name, description, data) {
         this.name = name;
@@ -27,7 +29,6 @@ export const useItemModificationStore = defineStore('itemModification', {
     state: () => {
         return {
             itemOnMod: null,
-            orderItem: null,
             propSelectors: {},
             additionalOptions: [],
             selectedOptions: [],
@@ -36,7 +37,9 @@ export const useItemModificationStore = defineStore('itemModification', {
         }
     },
     actions: {
-        async loadItem(item, table) {
+        // INITIAL SETUP METHODS//
+        // If the item is NOT already on modification then clears the props, options, quantity, etc., then puts the new item on itemOnMod and calls the getAdditionalOptionsList() to fill the previously cleared stuff.
+        async loadItem(item) {
             if (this.itemOnMod !== item) {
                 this.propSelectors = {}
                 this.additionalOptions = []
@@ -46,13 +49,11 @@ export const useItemModificationStore = defineStore('itemModification', {
                 await this.getAdditionalOptionsList(item)
             }
         },
-
-        // INITIAL SETUP METHODS//
-
+        // Checks table name then determines and creates the extra options for the selection plus the predefined selections if there should be any
         async getAdditionalOptionsList(item) {
-
             switch (item.table) {
                 case "pizzas":
+                    // get size
                     let sizeData = await getItemData('pizzas', `size(name), price`, [{ name: item.name }], 'price')
                     // flatten data
                     sizeData.data.forEach(elem => {
@@ -60,13 +61,13 @@ export const useItemModificationStore = defineStore('itemModification', {
                         delete elem.size
                     })
                     this.itemProps.size = new itemProp('size', 'Select pizza size', sizeData.data)
-                    // preset size on front-end
+                    // presets selected size on front-end
                     this.propSelectors.size = this.itemProps.size.data[1].name
 
                     // get crust
                     let crustData = await getItemData('crusts', `name, price`, null, 'price')
                     this.itemProps.crust = new itemProp('crust', 'Select pizza crust', crustData.data)
-                    // preset crust on front-end
+                    // presets selected crust on front-end
                     this.propSelectors.crust = this.itemProps.crust.data[1].name
 
                     // get toppings
@@ -83,7 +84,7 @@ export const useItemModificationStore = defineStore('itemModification', {
                     this.itemProps.size = new itemProp('size', 'Select drink size', drinkSizeData.data)
                     this.propSelectors.size = this.itemProps.size.data[1].name
                     break;
-                    
+
                 case "desserts":
 
                     break;
@@ -92,34 +93,16 @@ export const useItemModificationStore = defineStore('itemModification', {
                     break;
             }
         },
-        getPropSelectors(item) {
-            // sets up the pre-assigned selectedProps in the json
-            const selectedProps = {}
-            for (const [key, value] of Object.entries(item)) {
-                selectedProps[value.selector] = value.data.filter((elem) => elem.isSelected)[0].name
-            }
-            return selectedProps
-        },
-        getAdditionalOptionsPrice() {
-            let selectedOptionsPriceList = [];
+        // getPropSelectors(item) {
+        //     // sets up the pre-assigned selectedProps in the json
+        //     const selectedProps = {}
+        //     for (const [key, value] of Object.entries(item)) {
+        //         selectedProps[value.selector] = value.data.filter((elem) => elem.isSelected)[0].name
+        //     }
+        //     return selectedProps
+        // },
 
-            //ezt itt egy felsobb szinten is le kell jataszani az extras array elemeire
-            this.selectedOptions.forEach((option) => {
-                for (let i = 0; i < this.additionalOptions.length; i++) {
-                    let elem = this.additionalOptions[i].data.filter((elem) => elem.name === option);
-                    if (elem.length) {
-                        selectedOptionsPriceList.push(elem[0].price);
-                    }
-                }
-            });
-
-            let selectedOptionsPrice = selectedOptionsPriceList.reduce(
-                (accum, curr) => accum + curr,
-                0
-            );
-
-            return selectedOptionsPrice;
-        },
+        // QUANTITY INREMENTER AND DECREMENTER
         fewerItem() {
             if (this.selectedItemQuantity > 1) {
                 this.selectedItemQuantity--;
@@ -129,11 +112,14 @@ export const useItemModificationStore = defineStore('itemModification', {
             this.selectedItemQuantity++;
         },
 
+        // FINALIZATION
         createItem() {
             let itemPrice = this.getPropPrices() + this.getAdditionalOptionsPrice()
             let selectedProps = this.getSelectedProps()
-            this.orderItem = new OrderItemClassInstance(this.itemOnMod.name, this.itemOnMod.id, this.itemOnMod.type, this.propSelectors, selectedProps, this.selectedOptions, this.selectedItemQuantity, itemPrice)
+            return new OrderItemClassInstance(this.itemOnMod.name, this.itemOnMod.id, this.itemOnMod.type, this.propSelectors, selectedProps, this.selectedOptions, this.selectedItemQuantity, itemPrice)
         },
+
+        // FINALIZATION HELPER FUNCTIONS //
         getSelectedProps() {
             const props = {}
             if (Object.keys(this.propSelectors).length) {
@@ -152,6 +138,26 @@ export const useItemModificationStore = defineStore('itemModification', {
                 }
             }
             return price
+        },
+        // Goes through the selectedOptions and gets the price for them
+        getAdditionalOptionsPrice() {
+            let selectedOptionsPriceList = [];
+            //ezt itt egy felsobb szinten is le kell jataszani az extras array elemeire, arra az esetre, ha tobb valaszthato array is van
+            this.selectedOptions.forEach((option) => {
+                for (let i = 0; i < this.additionalOptions.length; i++) {
+                    let elem = this.additionalOptions[i].data.filter((elem) => elem.name === option);
+                    if (elem.length) {
+                        selectedOptionsPriceList.push(elem[0].price);
+                    }
+                }
+            });
+
+            let selectedOptionsPrice = selectedOptionsPriceList.reduce(
+                (accum, curr) => accum + curr,
+                0
+            );
+
+            return selectedOptionsPrice;
         },
     },
     getters: {
