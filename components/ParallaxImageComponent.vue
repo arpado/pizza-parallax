@@ -22,6 +22,14 @@ export default {
   },
   computed: {
     applyStyle() {
+      if(!this.imageName) {
+        return {
+          // "background-image": `url("/images/${this.imageName}")`,
+          height: this.imgHeight,
+          // "background-image": 'unset',
+        }
+      }
+
       return {
         /* eslint-disable */
         "background-image": `url("/images/${this.imageName}")`,
@@ -41,22 +49,24 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   display: flex;
-  padding: 4em;
+  /* padding = problem */
+  /* padding: 4em; */
   /* parallax - fixed; no-parallax - scroll*/
-  background-attachment: fixed;
+  background-attachment: scroll;
   /* background-image: url("assets/bg-hero.jpg");
   height: 100vh; */
 }
 .main-parallax {
-  justify-content: right;
+  justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 }
-@media (max-width: 560px) {
+@media (min-width: 560px) {
   .pimg {
-    background-attachment: scroll;
+    background-attachment: fixed;
   }
   .main-parallax {
-    justify-content: center;
+    justify-content: right;
     align-items: center;
   }
 }
