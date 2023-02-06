@@ -8,6 +8,15 @@
       >
       <!-- :external="true" -->
     </li>
+        <li v-if="userStore.user">
+      <NuxtLink
+        class="navLink flex center-both"
+        @click="$emit('user-profile')"
+        tabindex="0"
+      >
+        User Profile
+      </NuxtLink>
+    </li>
     <li>
       <NuxtLink
         class="navLink flex center-both"
@@ -59,8 +68,10 @@ ul {
   list-style: none;
   font-size: 2rem;
   transition: top 0.5s ease-out;
+  white-space: nowrap;
 }
 .navLink {
+  /* ez adja az elemek kozotti tavot */
   margin: 0 30px;
   overflow: hidden;
   position: relative;
@@ -88,7 +99,7 @@ ul {
   opacity: 1;
   transform: translate3d(100%, 0, 0);
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1200px) {
   ul {
     position: relative;
     flex-direction: row;
