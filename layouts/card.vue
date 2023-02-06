@@ -23,6 +23,6 @@ export default {};
 .card-foreground {
   height: fit-content;
   background-color: var(--main-white);
-  padding: 2rem;
+  padding: 1rem;
 }
 </style>
