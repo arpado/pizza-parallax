@@ -42,7 +42,7 @@ export default {
       navArray: [
         { text: "Home", to: "/", hash: "" },
         { text: "Our Selection", to: "menu", hash: "" },
-        { text: "User Profile", to: "user-profile", hash: "" },
+        // { text: "User Profile", to: "user-profile", hash: "" },
         // { text: "Contacts", to: "/", hash: "#contacts-section"},
       ],
       modalArray: [
@@ -165,7 +165,7 @@ header {
   visibility: visible;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1200px) {
   .narrowscreen-nav {
     display: none;
     visibility: none;
