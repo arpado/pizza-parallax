@@ -1,13 +1,13 @@
 <template>
   <NuxtLayout name="card">
-    <div class="container flex center-both gap-1">
+    <div class="container flex justify-evenly gap-1">
       <div class="subcontainer image flex center-both">
         <img :src="`/images/${content.image}`" alt="" />
       </div>
-      <div class="subcontainer text">
+      <div class="subcontainer text flex column justify-evenly align-center">
         <h3>{{ content.title }}</h3>
-        <div class="text" v-for="(para, index) in content.text" :key="index">
-          <p>{{ para }}</p>
+        <div>
+          <p v-for="(para, index) in content.text" :key="index">{{ para }}</p>
         </div>
       </div>
     </div>
@@ -29,12 +29,15 @@ export default {
   width: 100%;
 }
 .image {
-  max-height: 500px;
+  max-width: 500px;
   overflow: hidden;
 }
 img {
   width: 100%;
   object-fit: cover;
+}
+.text {
+  max-width: 500px;
 }
 h3 {
   text-align: center;
