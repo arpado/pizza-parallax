@@ -16,7 +16,7 @@
           </template>
           <template #content>
             <div
-              class="radio-selector"
+              class="radio-selector flex"
               v-for="data in itemProp.data"
               :key="data.name"
             >
@@ -28,7 +28,8 @@
                 v-model="itemModStore.propSelectors[itemProp.name]"
               />
               <label :for="data.name"
-                >{{ data.name }} -- ${{ data.price }}</label
+                class="radio-label flex justify-between"
+                ><span>{{ data.name }}</span><span>${{ data.price }}</span></label
               >
             </div>
           </template>
@@ -43,7 +44,7 @@
           </template>
           <template #content>
             <div
-              class="checkbox-container"
+              class="checkbox-container flex"
               v-for="data in additionalOption.data"
               :key="data.name"
             >
@@ -55,7 +56,8 @@
                 :value="data.name"
               />
               <label :for="data.name"
-                >{{ data.name }} -- +${{ data.price }}</label
+                class="checkbox-label flex justify-between"
+                ><span>{{ data.name }}</span><span>+${{ data.price }}</span></label
               >
             </div>
           </template>
@@ -115,14 +117,23 @@ export default {
 
 <style scoped>
 .container {
-  width: fit-content;
+  min-width: 200px;
+  width: 70vw;
   max-width: 500px;
   height: fit-content;
   max-height: 80vh;
   overflow: auto;
+  scroll-margin-block-start: 1rem;
+  padding-right: 0.5rem;
 }
 .container > * {
   margin-top: 30px;
+}
+.radio-label,
+.checkbox-label {
+  display: inline-flex;
+  width: 100%;
+
 }
 .item-quantity-input {
   width: 50px;
@@ -133,5 +144,10 @@ export default {
 .item-quantity-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+@media (min-width: 650px) {
+  .container {
+    width: 60vw;
+  }
 }
 </style>
