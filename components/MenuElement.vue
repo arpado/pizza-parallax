@@ -14,17 +14,18 @@
             <p>{{ item.description }}</p>
           </div>
           <div class="item-price flex align-center justify-between">
-            <p>Price starts from:</p>
-            <p>${{ item.price }}</p>
+            <span>Price starts from:</span>
+            <span>${{ item.price }}</span>
           </div>
         </div>
       </div>
-      <button
+      <!-- <button
         class="order-btn btn-font flex center-both"
         @click="modifyItem(item, activeTable)"
       >
         Select Item
-      </button>
+      </button> -->
+      <ButtonElement  class="order-btn" @click="modifyItem(item, activeTable)" text="Select Item"/>
     </NuxtLayout>
   </div>
 </template>
@@ -60,9 +61,10 @@ export default {
 <style scoped>
 .additional-dimensions {
   min-height: 60vh;
-  min-width: 380px;
+  min-width: 200px;
   width: 80vw;
   max-width: 350px;
+  box-shadow: 2px 2px 5px 2px black;
 }
 img {
   width: 100%;
@@ -73,7 +75,7 @@ img {
   margin-bottom: 1rem;
 }
 .item-description {
-  min-height: 15rem;
+  min-height: 8rem;
   margin: 1rem 0;
 }
 .item-description > h4 {
@@ -85,11 +87,11 @@ img {
   margin: 1rem 0;
 }
 .order-btn {
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
   margin: 1rem auto 0;
-  background-color: var(--main-red);
+  /* background-color: var(--main-red);
   color: var(--main-black);
   border: 1px solid var(--main-black);
-  cursor: pointer;
+  cursor: pointer; */
 }
 </style>
