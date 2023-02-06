@@ -85,7 +85,7 @@ export default {
 body,
 html {
   height: 100%;
-  font-size: 100%;
+  /* font-size: 100%; */
   scroll-behavior: smooth;
   font-family: Roboto Slab;
 }
@@ -101,10 +101,11 @@ html {
   --main-red: #fd1d01;
   --main-brown: #ba8475;
   --main-white: #fff6f2;
-  --main-black: #281713;
+  --main-black: rgb(40, 23, 19);
+  --main-black-opaque: rgba(40, 23, 19, 0.7)
 }
 h2 {
-  font-size: 2rem;
+  /* font-size: 2rem; */
 }
 p,
 label,
@@ -113,11 +114,11 @@ h3,
 h4,
 button,
 .btn-font {
-  font-size: 1rem;
+  /* font-size: 1rem; */
 }
 @media (min-width: 800px) {
   h2 {
-    font-size: 2rem;
+    /* font-size: 2rem; */
   }
   p,
   label,
@@ -126,10 +127,26 @@ button,
   h4,
   button,
   .btn-font {
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
   }
 }
 
+/* new */
+p + p {
+    margin-top: 10px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  /* height: 5px; */
+}
+::-webkit-scrollbar-track {
+  background-color: black;
+  margin: 1rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--main-red);
+  border-radius: 5px;
+}
 /* animation */
 
 /* .loader-leave-active {
@@ -203,5 +220,27 @@ button,
 .modalanimation-enter-from,
 .modalanimation-leave-to {
   opacity: 0;
+}
+/* .background-stripes {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--main-red),
+    var(--main-red) 10px,
+    var(--main-white) 10px,
+    var(--main-white) 20px,
+    var(--main-brown) 20px,
+    var(--main-brown) 30px,
+    var(--main-black) 30px,
+    var(--main-black) 40px
+  );
+} */
+.background-stripes {
+  background: repeating-linear-gradient(
+  45deg,
+  #606dbc,
+  #606dbc 10px,
+  #465298 10px,
+  #465298 20px
+);
 }
 </style>
