@@ -60,6 +60,9 @@ export default {
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+  /* transform-style: preserve-3d;
+    object-fit: cover; */
+  /* z-index: -1; */
 }
 @media (min-width: 560px) {
   .pimg {

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="title flex column center-both">
       <p>Welcome to the one and only</p>
-      <h1>Pizza Parallax</h1>
+      <h1>Pizza Parallax!</h1>
     </div>
     <div class="order flex column">
       <h2>Choose from a wide selection of pizzas!</h2>
@@ -99,9 +99,9 @@ export default {
 </script>
 
 <style scoped>
-.container > * {
+/* .container > * {
   border: 1px solid white;
-}
+} */
 .container {
   width: calc(100vw - 30px);
   /* min-width: 400px; */
@@ -123,8 +123,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  /* transform: translateZ(5px) scale(0.8); */
 }
-
+h1 {
+  margin-top: 20px;
+  transform: rotateZ(353deg);
+  font-size: 4rem;
+}
 .order > p {
   margin: 10px 0;
 }
@@ -135,7 +140,9 @@ export default {
 }
 
 .booking-box {
+  margin-top: 10px;
   border: 1px solid var(--main-white);
+  border-radius: 20px;
   width: 100%;
   height: fit-content;
   padding: 1rem;
@@ -143,7 +150,8 @@ export default {
 }
 .input-container {
   border: 1px solid var(--main-white);
-  padding: 0 1rem;
+  border-radius: 20px;
+  padding: 0.5rem 1rem 0 1rem;
   align-items: center;
 }
 .input-box > input,

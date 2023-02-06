@@ -141,7 +141,7 @@ p + p {
 }
 ::-webkit-scrollbar-track {
   background-color: black;
-  margin: 1rem;
+  /* margin: 1rem; */
 }
 ::-webkit-scrollbar-thumb {
   background: var(--main-red);

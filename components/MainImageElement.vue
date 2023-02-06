@@ -25,5 +25,6 @@ export default {};
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("/images/pizza-tray.png");
+  /* transform: translateZ(-5px) scale(1.5); */
 }
 </style>
