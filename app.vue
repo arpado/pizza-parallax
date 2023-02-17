@@ -91,7 +91,14 @@ html {
 }
 /* ez lehet, h nem kell */
 .body {
-  background-color: var(--main-black);
+  /* background-color: var(--main-black); */
+  background: repeating-linear-gradient(
+    45deg,
+    #606dbc,
+    #606dbc 10px,
+    #465298 10px,
+    #465298 20px
+  );
   height: 100%;
   font-size: 100%;
   scroll-behavior: smooth;
@@ -102,7 +109,7 @@ html {
   --main-brown: #ba8475;
   --main-white: #fff6f2;
   --main-black: rgb(40, 23, 19);
-  --main-black-opaque: rgba(40, 23, 19, 0.7)
+  --main-black-opaque: rgba(40, 23, 19, 0.7);
 }
 h2 {
   /* font-size: 2rem; */
@@ -133,7 +140,7 @@ button,
 
 /* new */
 p + p {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 ::-webkit-scrollbar {
   width: 5px;
@@ -234,13 +241,48 @@ p + p {
     var(--main-black) 40px
   );
 } */
-.background-stripes {
+/* .background-stripes {
   background: repeating-linear-gradient(
-  45deg,
-  #606dbc,
-  #606dbc 10px,
-  #465298 10px,
-  #465298 20px
-);
+    45deg,
+    #606dbc,
+    #606dbc 10px,
+    #465298 10px,
+    #465298 20px
+  );
+} */
+
+/* PARALLAX  at a later point in time*/
+.parallax-wrapper {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  perspective: 10px;
+}
+
+.parallax-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transform-style: preserve-3d;
+  z-index: -1;
+}
+
+.parallax-background {
+  transform: translateZ(-10px) scale(2);
+}
+
+.parallax-foreground {
+  transform: translateZ(-5px) scale(1.5);
+}
+
+.parallax-background,
+.parallax-foreground {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 </style>
