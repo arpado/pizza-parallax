@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <ParallaxImageComponent
-      :classConfig="'main-parallax background-stripes'"
+      :classConfig="'main-parallax '"
       :imgHeight="'fit-content'"
     >
       <MainImageElement />
@@ -16,6 +16,7 @@
 </template>
 
 <script setup>
+// background-stripes
       // imageName="bg-hero.jpg"
 import sectionContent from "../content/hero-section-content.json";
 import contacts from "../content/contacts.json";
