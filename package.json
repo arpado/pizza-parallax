@@ -39,7 +39,8 @@
     "serverless-http": "^3.1.0",
     "swiper": "^8.3.2",
     "ts-jest": "^29.0.5",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vue-loader": "^17.0.1"
   },
   "prisma": {
     "schema": "server/database/schema.prisma"
