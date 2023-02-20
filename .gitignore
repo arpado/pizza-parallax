@@ -11,3 +11,5 @@ functions
 
 # Local Netlify folder
 .netlify
+
+coverage/**
