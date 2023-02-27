@@ -76,6 +76,8 @@ export const useUserStore = defineStore('user', {
                 }
             })
         },
+        // helper function to get the correct table for each type of data 
+        // (custom data, like name and address are in the 'users' table, the auth data like email, password, phone, etc are in the supabase-built-in 'profiles' table) 
         getTable(column) {
             switch (column) {
                 case 'firstName':
