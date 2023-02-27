@@ -8,7 +8,7 @@
       <div class="item-buttons">
         <NuxtLayout
           name="collapsible-container"
-          v-for="(itemProp, index) in itemModStore.itemProps"
+          v-for="(itemProp, index) in itemModStore.aggregatedProps.propOptions"
           :key="index"
         >
           <template #title>
@@ -25,7 +25,7 @@
                 :name="index"
                 :value="data.name"
                 :id="data.name"
-                v-model="itemModStore.propSelectors[itemProp.name]"
+                v-model="itemModStore.aggregatedProps.selectedProps[itemProp.name]"
               />
               <label :for="data.name"
                 class="radio-label flex justify-between"
@@ -36,7 +36,7 @@
         </NuxtLayout>
         <NuxtLayout
           name="collapsible-container"
-          v-for="(additionalOption, index) in itemModStore.additionalOptions"
+          v-for="(additionalOption, index) in itemModStore.aggregatedProps.additionalOptions"
           :key="index"
         >
           <template #title>
@@ -52,7 +52,7 @@
                 type="checkbox"
                 :name="data.name"
                 :id="data.name"
-                v-model="itemModStore.selectedOptions"
+                v-model="itemModStore.aggregatedProps.selectedOptions"
                 :value="data.name"
               />
               <label :for="data.name"
