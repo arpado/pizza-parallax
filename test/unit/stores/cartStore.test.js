@@ -1,8 +1,8 @@
 import { shallowMount } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia, defineStore } from 'pinia'
-import { useCartStore } from '../../stores/cartStore'
-import { OrderItemClassInstance } from '../../stores/itemModificationStore'
+import { useCartStore } from '@/stores/cartStore'
+import { OrderItemClassInstance } from '@/stores/itemModificationStore'
 
 const testOrderItem = {
   name: "test_product",
@@ -12,6 +12,7 @@ const testOrderItem = {
   quantity: 1,
   sumPrice: 100
 }
+
 
 let cartStore = undefined;
 
