@@ -29,11 +29,11 @@ export const useItemModificationStore = defineStore('itemModification', {
     state: () => {
         return {
             itemOnMod: null,
-            selectedProps: {},
-            additionalOptions: [],
-            selectedOptions: [],
+            // selectedProps: {},
+            // additionalOptions: [],
+            // selectedOptions: [],
             selectedItemQuantity: 1,
-            itemProps: {},
+            // itemProps: {},
 
             aggregatedProps: {
                 selectedProps: {},
@@ -48,9 +48,6 @@ export const useItemModificationStore = defineStore('itemModification', {
         // If the item is NOT already on modification then clears the props, options, quantity, etc., then puts the new item on itemOnMod and calls the getAdditionalOptionsList() to fill the previously cleared stuff.
         async loadItem(item) {
             if (this.itemOnMod !== item) {
-                // this.selectedProps = {}
-                // this.additionalOptions = []
-                // this.itemProps = {}
                 this.selectedItemQuantity = 1
                 this.itemOnMod = item
                 let result = await this.getAdditionalOptionsList(item, getItemData)
@@ -77,24 +74,21 @@ export const useItemModificationStore = defineStore('itemModification', {
                         delete elem.size
                     })
                     result.propOptions.size = new propOptionsList('size', 'Select pizza size', sizeData.data)
+
                     // presets selected size on front-end
                     result.selectedProps.size = result.propOptions.size.data[1].name
 
                     // get crust
                     let crustData = await callback('crusts', `name, price`, null, 'price')
                     result.propOptions.crust = new propOptionsList('crust', 'Select pizza crust', crustData.data)
+
                     // presets selected crust on front-end
                     result.selectedProps.crust = result.propOptions.crust.data[1].name
 
                     // get toppings
                     let toppings = await callback('toppings', `name, price`, null, 'name')
                     result.additionalOptions.push({ title: 'Toppings', data: toppings.data })
-
-                    // this.additionalOptions.push({ title: 'Toppings', data: topping.data })
                     return result
-
-                    // let res =  item.table
-                    // return res
                     break;
 
                 case "drinks":
@@ -145,10 +139,8 @@ export const useItemModificationStore = defineStore('itemModification', {
         // FINALIZATION HELPER FUNCTIONS //
         getSelectedProps() {
             const props = {}
-            // console.log(this.aggregatedProps.selectedProps)
             if (Object.keys(this.aggregatedProps.selectedProps).length) {
                 for (const [key, value] of Object.entries(this.aggregatedProps.selectedProps)) {
-                    // console.log(this.aggregatedProps.selectedProps[key])
                     props[key] = this.aggregatedProps.propOptions[key].data.filter(e => e.name === this.aggregatedProps.selectedProps[key])[0]
                 }
             }
