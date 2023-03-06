@@ -13,7 +13,17 @@ module.exports = {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
     "^.+\\.(js|jsx)$": "babel-jest",
     "^.+\\.mjs$": "babel-jest",
+    "^.+\\.vue$": "@vue/vue3-jest",
   },
   testPathIgnorePatterns: ["<rootDir>/build/", "<rootDir>/node_modules/"],
-  moduleFileExtensions: ["js", "jsx", "mjs"]
+  moduleFileExtensions: ["js", "jsx", "mjs", "vue"],
+  testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: ["node", "node-addons"],
+ },
 }
+
+// transform //
+//     "^.+\\.vue$": "vue-jest",
+// '^.+\\.vue$': 'vue3-jest',
+//    '^.+\\js$': 'babel-jest',

@@ -1,41 +1,26 @@
 import { shallowMount } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia, defineStore } from 'pinia'
+import { createTestingPinia } from '@pinia/testing'
 import { useItemModificationStore } from '@/stores/itemModificationStore'
 import { registerWithEmail, postLoginForm } from '@/composables/userAuth'
-  import { newPizza, oldPizza, pizzaSizeDataRequest, pizzaCrustDataRequest, pizzaAdditionalOptionsRequest, pizzaOnMod, drinkSizeDataRequest, drinkOnMod, pizzaSelectedProps, pizzaPropOptions } from './inputData/itemModStoreTestInput'
+import { newPizza, oldPizza, pizzaSizeDataRequest, pizzaSizeDataRequest2, pizzaCrustDataRequest, pizzaAdditionalOptionsRequest, pizzaOnMod, drinkSizeDataRequest, drinkOnMod, pizzaSelectedProps, pizzaPropOptions } from './inputData/itemModStoreTestInput'
+import * as serverReq from '@/composables/serverRequests'
+import {getItemData}  from '@/composables/serverRequests'
+// let serverReq = require('@/composables/serverRequests')
 
-// const testUser = new OrderItemClassInstance(
-//     "name",
-//     1,
-//     "test_type",
-//     "test_propSelectors",
-//     "test_props",
-//     "test_selectedOptions",
-//     1,
-//     10,
-// )
+const pinia = createPinia()
+setActivePinia(pinia)
+const itemModStore = useItemModificationStore();
 
-// let useItemModificationStore = undefined;
-// const newPizza = {
-//   description: "Tomato, Parmigiano Reggiano, tuna, olives, garlic, capers, onion, and hot Calabrian chili peppers",
-//   id: 13,
-//   table: "pizzas",
-//   image: "https://qykublxyqkhmvdpnkezp.supabase.co/storage/v1/object/public/test-bucket/pizza-ready-cropped.jpg",
-//   name: "Calabrese",
-//   price: 15,
-//   size: 1,
-// }
 
-// const oldPizza = {
-//   description: "Tomato, mozarella and basil",
-//   id: 1,
-//   table: "pizzas",
-//   image: "https://qykublxyqkhmvdpnkezp.supabase.co/storage/v1/object/public/test-bucket/pizza-ready-cropped.jpg",
-//   name: "Margharita",
-//   price: 10,
-//   size: 1,
-// }
+// const wrapper = mount(Counter, {
+//   global: {
+//     plugins: [createTestingPinia({
+//       stubActions: false,
+//     })],
+//   },
+// })
 
 const setup = () => {
   const pinia = createPinia()
@@ -45,210 +30,168 @@ const setup = () => {
   // return itemModStore
 }
 
+// jest.mock(serverReq, () => ({
+//   getItemData: jest.fn(val => {return val})
+// }))
 
 describe('Sanity check to see how a basic test works', () => {
   test("Sanity check", () => {
     expect(true).toBe(true);
   });
-
 })
 
+/*
+describe('Testing mocking problem', () => {
 
-describe('check if loadItem loads the proper data', () => {
+  beforeEach(() => {
+    setup()
+    const itemModStore = useItemModificationStore();
+    // let store = require('@/composables/serverRequests')
+    // let myMock = jest.spyOn(store, 'getItemData')
+    // let myMock = jest.spyOn(serverReq, 'getItemData')
+    //   .mockImplementationOnce(() => { return pizzaSizeDataRequest })
+    //   .mockImplementationOnce(() => { return pizzaCrustDataRequest })
+    //   .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
+    // return myMock
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+    jest.restoreAllMocks()
+  })
+
+  test('should be mocking api call', async() => {
+    // const itemModStore = useItemModificationStore();
+    // let store = require('@/composables/serverRequests')
+    // let myMock = jest.spyOn(store, 'getItemData')
+    let myMock = jest.spyOn(serverReq, 'getItemData')
+    // jest.mock('@/composables/serverRequests')
+      .mockImplementationOnce(() => { return pizzaSizeDataRequest })
+      .mockImplementationOnce(() => { return pizzaCrustDataRequest })
+      .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
+      
+      // .mockImplementationOnce(() => Promise.resolve(pizzaSizeDataRequest))
+      // .mockImplementationOnce(() => Promise.resolve(pizzaCrustDataRequest))
+      // .mockImplementationOnce(() => Promise.resolve(pizzaAdditionalOptionsRequest))
+
+      // jest.clearAllMocks();
+    // console.log(myMock.mock)
+    // await itemModStore.loadItem(oldPizza)
+    await itemModStore.loadItem(newPizza)
+    // console.log(myMock.mock)
+
+    expect(itemModStore.itemOnMod).toMatchObject(newPizza)
+  });
+
+  test('should be mocking api call 2', async() => {
+    // const itemModStore = useItemModificationStore();
+    // let store = require('@/composables/serverRequests')
+    let myMock = jest.spyOn(serverReq, 'getItemData')
+      .mockImplementationOnce(() => { return pizzaSizeDataRequest })
+      .mockImplementationOnce(() => { return pizzaCrustDataRequest })
+      .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
+      // .mockImplementationOnce(() => Promise.resolve(pizzaSizeDataRequest))
+      // .mockImplementationOnce(() => Promise.resolve(pizzaCrustDataRequest))
+      // .mockImplementationOnce(() => Promise.resolve(pizzaAdditionalOptionsRequest))
+      // jest.clearAllMocks();
+      // console.log(myMock.mock)
+
+    await itemModStore.loadItem(oldPizza)
+    // console.log(myMock.mock)
+
+    expect(itemModStore.itemOnMod).toMatchObject(oldPizza)
+  });
+});*/
+
+
+describe('check if loadItem() loads the proper data', () => {
   beforeEach(() => {
     setup()
   })
 
-  // afterEach(() => {
-  //   itemModStore.$reset()
-  // })
+  afterEach(() => {
+    jest.clearAllMocks()
+    jest.restoreAllMocks()
+  })
 
   test('itemOnMod should be empty in the beginning', () => {
     const itemModStore = useItemModificationStore();
     expect(itemModStore.itemOnMod).toBe(null)
   });
 
-  test('itemOnMod should be a new item', () => {
+  test('itemOnMod should be a new item', async () => {
     const itemModStore = useItemModificationStore();
-    itemModStore.loadItem(newPizza)
+    
+    jest.spyOn(serverReq, 'getItemData')
+      .mockImplementationOnce(() => { return pizzaSizeDataRequest })
+      .mockImplementationOnce(() => { return pizzaCrustDataRequest })
+      .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
+
+    await itemModStore.loadItem(newPizza)
     expect(itemModStore.itemOnMod).toMatchObject(newPizza)
   });
 
-  test('new itemOnMod object should replace the old one', () => {
+  test('new itemOnMod object should replace the old one', async () => {
     const itemModStore = useItemModificationStore();
-    itemModStore.loadItem(oldPizza)
-    itemModStore.loadItem(newPizza)
-    expect(itemModStore.itemOnMod).toMatchObject(newPizza)
-  });
+    // expect.assertions(1) ???
 
-  test('itemOnMod quantity should change', () => {
-    const itemModStore = useItemModificationStore();
-    itemModStore.loadItem(oldPizza)
-    itemModStore.loadItem(newPizza)
+    jest.spyOn(serverReq, 'getItemData')
+    .mockImplementationOnce(() => { return pizzaSizeDataRequest })
+    .mockImplementationOnce(() => { return pizzaCrustDataRequest })
+    .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
+    await itemModStore.loadItem(oldPizza)
+
+    jest.spyOn(serverReq, 'getItemData')
+    .mockImplementationOnce(() => { return pizzaSizeDataRequest })
+    .mockImplementationOnce(() => { return pizzaCrustDataRequest })
+    .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
+    await itemModStore.loadItem(newPizza)
+    
+    expect(itemModStore.itemOnMod).toMatchObject(newPizza)
   });
 })
 
 describe('getAdditionalOptionsList(item) tests', () => {
-  beforeEach(() => {
-    setup()
+    beforeEach(() => {
+      setup()
+    })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
-
-  // let sizeData = {
-  //   error: null,
-  //   data: [
-  //     { price: 15, size: { name: 'small - 28 cm' } },
-  //     { price: 18, size: { name: 'medium - 32 cm' } },
-  //     { price: 20, size: { name: 'large - 36 cm' } },
-  //     { price: 25, size: { name: 'extra large - 45 cm' } }
-  //   ],
-  //   count: null,
-  //   status: 200,
-  //   statusText: 'OK'
-  // }
-
-  // let crustData = {
-  //   error: null,
-  //   data: [
-  //     { name: 'normal', price: 0 },
-  //     { name: 'thin', price: 0 },
-  //     { name: 'thick', price: 0.5 },
-  //     { name: 'thick, filled with cheese', price: 1 }
-  //   ],
-  //   count: null,
-  //   status: 200,
-  //   statusText: 'OK'
-  // }
-
-  // let additionalOptions = {
-  //   error: null,
-  //   data: [
-  //     { name: 'anchovies', price: 15 },
-  //     { name: 'artichokes', price: 10 },
-  //     { name: 'brokkoli', price: 10 },
-  //     { name: 'cheese', price: 5 },
-  //     { name: 'ham', price: 15 },
-  //     { name: 'mushroom', price: 10 },
-  //     { name: 'salami', price: 15 }
-  //   ],
-  //   count: null,
-  //   status: 200,
-  //   statusText: 'OK'
-  // }
-
-  // let result = {
-  //   propOptions: {
-  //     size: {
-  //       name: "size",
-  //       description: "Select pizza size",
-  //       data: [
-  //         { price: 15, name: 'small - 28 cm' },
-  //         { price: 18, name: 'medium - 32 cm' },
-  //         { price: 20, name: 'large - 36 cm' },
-  //         { price: 25, name: 'extra large - 45 cm' }
-  //       ],
-  //     },
-  //     crust: {
-  //       name: "crust",
-  //       description: "Select pizza crust",
-  //       data: [
-  //         { name: 'normal', price: 0 },
-  //         { name: 'thin', price: 0 },
-  //         { name: 'thick', price: 0.5 },
-  //         { name: 'thick, filled with cheese', price: 1 }
-  //       ],
-  //     },
-  //   },
-  //   selectedProps: {
-  //     size: "medium - 32 cm",
-  //     crust: "thin",
-  //   },
-  //   additionalOptions: [
-  //     {
-  //       title: 'Toppings',
-  //       data: [
-  //         { name: 'anchovies', price: 15 },
-  //         { name: 'artichokes', price: 10 },
-  //         { name: 'brokkoli', price: 10 },
-  //         { name: 'cheese', price: 5 },
-  //         { name: 'ham', price: 15 },
-  //         { name: 'mushroom', price: 10 },
-  //         { name: 'salami', price: 15 }
-  //       ]
-  //     }
-  //   ]
-  // }
 
   test('pizza call should return the proper object', async () => {
     const itemModStore = useItemModificationStore();
     let param = {
       table: "pizzas",
     }
-    let cb = jest.
-      fn()
+
+    jest.spyOn(serverReq, 'getItemData')
       .mockImplementationOnce(() => { return pizzaSizeDataRequest })
       .mockImplementationOnce(() => { return pizzaCrustDataRequest })
       .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
 
-    let res = await itemModStore.getAdditionalOptionsList(param, cb)
+    let res = await itemModStore.getAdditionalOptionsList(param)
 
     expect(res).toMatchObject(pizzaOnMod)
-    // getAdditionalOptionsList(item)
-
   });
-
-  // let drinkSizeData = {
-  //   error: null,
-  //   data: [
-  //     {price: 5, name: 'small - 0.33 l'},
-  //     {price: 5, name: 'small - 0.33 l'},
-  //     {price: 10, name: 'medium - 0.5 l'},
-  //     {price: 10, name: 'medium - 0.5 l'},
-  //     {price: 12, name: 'large - 1 l'},
-  //     {price: 12, name: 'large - 1 l'}
-  //   ],
-  //   count: null,
-  //   status: 200,
-  //   statusText: 'OK'
-  // }
-
-  // let resultDrinks = {
-  //   propOptions: {
-  //     size: {
-  //       name: "size",
-  //       description: "Select drink size",
-  //       data: [
-  //         {price: 5, name: 'small - 0.33 l'},
-  //         {price: 5, name: 'small - 0.33 l'},
-  //         {price: 10, name: 'medium - 0.5 l'},
-  //         {price: 10, name: 'medium - 0.5 l'},
-  //         {price: 12, name: 'large - 1 l'},
-  //         {price: 12, name: 'large - 1 l'}
-  //       ],
-  //     },
-  //   },
-  //   selectedProps: {
-  //     size: "small - 0.33 l",
-  //   },
-  // }
 
   test('drinks call should return the proper object', async () => {
     const itemModStore = useItemModificationStore();
     let param = {
       table: "drinks",
     }
-    let cb = jest.
-      fn()
-      .mockImplementationOnce(() => { return drinkSizeDataRequest })
-      // .mockImplementationOnce(() => { return crustData })
-      // .mockImplementationOnce(() => { return additionalOptions })
 
-    let res = await itemModStore.getAdditionalOptionsList(param, cb)
+    jest.spyOn(serverReq, 'getItemData')
+      .mockImplementationOnce(() => { return drinkSizeDataRequest })
+    .mockImplementationOnce(() => { return crustData })
+    .mockImplementationOnce(() => { return additionalOptions })
+    let res = await itemModStore.getAdditionalOptionsList(param)
 
     expect(res).toMatchObject(drinkOnMod)
-    // getAdditionalOptionsList(item)
   });
-
 });
+
 
 describe('more and less items on modification', () => {
   beforeEach(() => {
@@ -287,8 +230,8 @@ describe('getSelectedProps test group', () => {
     let res = itemModStore.getSelectedProps()
 
     let expectedRes = {
-      crust: {name: 'thin', price: 0},
-      size: {price: 18, name: 'medium - 32 cm'}
+      crust: { name: 'thin', price: 0 },
+      size: { price: 18, name: 'medium - 32 cm' }
     }
 
     expect(res).toMatchObject(expectedRes)

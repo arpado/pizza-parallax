@@ -50,14 +50,14 @@ export const useItemModificationStore = defineStore('itemModification', {
             if (this.itemOnMod !== item) {
                 this.selectedItemQuantity = 1
                 this.itemOnMod = item
-                let result = await this.getAdditionalOptionsList(item, getItemData)
+                let result = await this.getAdditionalOptionsList(item)
                 this.aggregatedProps.propOptions = result.propOptions
                 this.aggregatedProps.selectedProps = result.selectedProps
                 this.aggregatedProps.additionalOptions = result.additionalOptions
             }
         },
         // Checks table name then determines and creates the extra options for the selection plus the predefined selections if there should be any
-        async getAdditionalOptionsList(item, callback) {
+        async getAdditionalOptionsList(item) {
             let result = {
                 selectedProps: {},
                 propOptions: {},
@@ -67,11 +67,12 @@ export const useItemModificationStore = defineStore('itemModification', {
             switch (item.table) {
                 case "pizzas":
                     // get size
-                    let sizeData = await callback('pizzas', `size(name), price`, [{ name: item.name }], 'price')
+                    // the sizeData modifies the original source - not that it matters for api reqs, but can screw with test mocks
+                    let sizeData = await getItemData('pizzas', `size(name), price`, [{ name: item.name }], 'price')
                     // flatten data
                     sizeData.data.forEach(elem => {
                         elem.name = elem.size.name
-                        delete elem.size
+                        // delete elem.size
                     })
                     result.propOptions.size = new propOptionsList('size', 'Select pizza size', sizeData.data)
 
@@ -79,20 +80,20 @@ export const useItemModificationStore = defineStore('itemModification', {
                     result.selectedProps.size = result.propOptions.size.data[1].name
 
                     // get crust
-                    let crustData = await callback('crusts', `name, price`, null, 'price')
+                    let crustData = await getItemData('crusts', `name, price`, null, 'price')
                     result.propOptions.crust = new propOptionsList('crust', 'Select pizza crust', crustData.data)
 
                     // presets selected crust on front-end
                     result.selectedProps.crust = result.propOptions.crust.data[1].name
 
                     // get toppings
-                    let toppings = await callback('toppings', `name, price`, null, 'name')
+                    let toppings = await getItemData('toppings', `name, price`, null, 'name')
                     result.additionalOptions.push({ title: 'Toppings', data: toppings.data })
                     return result
                     break;
 
                 case "drinks":
-                    let drinkSizeData = await callback('drinks', `size(name), price`, [{ name: item.name }], 'price')
+                    let drinkSizeData = await getItemData('drinks', `size(name), price`, [{ name: item.name }], 'price')
                     // drinkSizeData.data.forEach(elem => {
                     //     elem.name = elem.size.name
                     //     delete elem.size

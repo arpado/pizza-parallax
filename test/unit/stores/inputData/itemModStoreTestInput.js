@@ -30,6 +30,18 @@ export const pizzaSizeDataRequest = {
     status: 200,
     statusText: 'OK'
 }
+export const pizzaSizeDataRequest2 = {
+  error: null,
+  data: [
+      { price: 15, size: { name: 'small - 28 cm' } },
+      { price: 18, size: { name: 'medium - 32 cm' } },
+      { price: 20, size: { name: 'large - 36 cm' } },
+      { price: 25, size: { name: 'extra large - 45 cm' } }
+  ],
+  count: null,
+  status: 200,
+  statusText: 'OK'
+}
 
 export const pizzaCrustDataRequest = {
     error: null,
