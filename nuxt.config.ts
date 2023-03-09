@@ -31,7 +31,8 @@ export default defineNuxtConfig({
               download: true,
               inject: true
             }
-          }]    
+          }],
+          ['nuxt-vitest']  
     ],
     imports: {
         dirs: ['stores'],
