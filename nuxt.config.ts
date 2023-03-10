@@ -28,6 +28,7 @@ export default defineNuxtConfig({
               'Montserrat': true,
               'Oswald': true,
               'Roboto Slab': true,
+              'Neonderthaw': true,
               download: true,
               inject: true
             }
