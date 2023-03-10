@@ -29,8 +29,13 @@ export const useUserStore = defineStore('user', {
             this.user = new User(userData.data[0].first_name, userData.data[0].last_name, loginData.data.user.email, loginData.data.user.phone, userData.data[0].address, loginData.data.user.id)
         },
         async logout() {
-            await postSignOut()
-            this.clearUserData()
+            try {
+                let { error } = await postSignOut()
+                this.clearUserData()
+                return {message: "User has logged out!"}
+            } catch (error) {
+                return error
+            }
         },
         async checkActiveUser() {
             if (window.localStorage.getItem('sb-qykublxyqkhmvdpnkezp-auth-token')) {
@@ -76,6 +81,8 @@ export const useUserStore = defineStore('user', {
                 }
             })
         },
+        // helper function to get the correct table for each type of data 
+        // (custom data, like name and address are in the 'users' table, the auth data like email, password, phone, etc are in the supabase-built-in 'profiles' table) 
         getTable(column) {
             switch (column) {
                 case 'firstName':
