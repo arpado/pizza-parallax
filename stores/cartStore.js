@@ -50,7 +50,7 @@ export const useCartStore = defineStore('cart', {
         item.orderUnitId = uuidv4();
         this.itemOnOrder.push(item)
       } else {
-        console.log('Error in addToOrder()')
+        console.warn('Error in addToOrder()')
       } 
     },
     moreItem(index) {
@@ -74,18 +74,18 @@ export const useCartStore = defineStore('cart', {
     // !!! a uuid should be given as a ID for each order, maybe on the end of addToOrder, then should be sent back here from the server, and put in a var, and get this checked for === before sending to make sure no multi-sending the same order is possible
     async sendOrder() {
       if (!this.userId) {
-        console.log('No user found!')
+        console.warn('No user found!')
         return
       }
       if (this.lockedOrderID === this.sentOrderID) {
-        console.log('This order has already been  sent!')
+        console.warn('This order has already been sent!')
         return
       }
       
       // if (this.userId && ) {
         let error = await sendOrderData(this.lockedOrder, this.userId)
         if (error) {
-          console.log(error)
+          console.error(error)
         } else {
           this.sentOrderID = this.lockedOrderID
         }
