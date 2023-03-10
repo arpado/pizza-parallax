@@ -5,14 +5,9 @@
 </template>
 
 <script>
-// @click="doThis"
+// maybe add a common functionality to the button?
 export default {
   props: ["text"],
-  // methods: {
-  //   doThis(func, arg) {
-
-  //   }
-  // }
 };
 </script>
 
