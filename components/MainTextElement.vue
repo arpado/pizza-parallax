@@ -2,7 +2,7 @@
   <div class="container">
     <div class="title flex column center-both">
       <p>Welcome to the one and only</p>
-      <h1>Pizza Parallax!</h1>
+      <h1 class="neon">Pizza Parallax!</h1>
     </div>
     <div class="order flex column">
       <h2>Choose from a wide selection of pizzas!</h2>
@@ -128,8 +128,34 @@ export default {
 h1 {
   margin-top: 20px;
   transform: rotateZ(353deg);
-  font-size: 4rem;
+  font-size: 6rem;
 }
+
+.neon {
+  font-family: Neonderthaw, cursive;
+  animation: neonize 1s ease-in-out infinite alternate;
+}
+@keyframes neonize {
+  from {
+    text-shadow: 
+    0 0 4px var(--main-white),
+    0 0 10px var(--main-white),
+    0 0 20px var(--main-red),
+    0 0 30px var(--main-red),
+    0 0 40px var(--main-red),
+    0 0 50px var(--main-red);
+  }
+  to {
+    text-shadow: 
+    0 0 2px var(--main-white),
+    0 0 5px var(--main-white),
+    0 0 10px var(--main-red),
+    0 0 15px var(--main-red),
+    0 0 20px var(--main-red),
+    0 0 25px var(--main-red);
+  }
+}
+
 .order > p {
   margin: 10px 0;
 }
