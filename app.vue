@@ -109,7 +109,7 @@ html {
   --main-brown: #ba8475;
   --main-white: #fff6f2;
   --main-black: rgb(40, 23, 19);
-  --main-black-opaque: rgba(40, 23, 19, 0.7);
+  --main-black-opaque: rgba(40, 23, 19, 0.8);
 }
 h2 {
   /* font-size: 2rem; */
