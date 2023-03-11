@@ -4,15 +4,11 @@ import { createPinia, setActivePinia, defineStore } from 'pinia'
 import { createTestingPinia } from '@pinia/testing'
 import { useItemModificationStore } from '@/stores/itemModificationStore'
 import { registerWithEmail, postLoginForm } from '@/composables/userAuth'
-import { newPizza, oldPizza, pizzaSizeDataRequest, pizzaSizeDataRequest2, pizzaCrustDataRequest, pizzaAdditionalOptionsRequest, pizzaOnMod, drinkSizeDataRequest, drinkOnMod, pizzaSelectedProps, pizzaPropOptions } from './inputData/itemModStoreTestInput'
+import { newPizza, oldPizza, pizzaSizeDataRequest, pizzaSizeDataRequest2, pizzaCrustDataRequest, pizzaAdditionalOptionsRequest, pizzaAggregatedProps, pizzaSelectedOptions, drinkSizeDataRequest, drinkAggregatedProps } from './inputData/itemModStoreTestInput'
 import * as serverReq from '@/composables/serverRequests'
 import {getItemData}  from '@/composables/serverRequests'
+import { describe } from 'vitest'
 // let serverReq = require('@/composables/serverRequests')
-
-const pinia = createPinia()
-setActivePinia(pinia)
-const itemModStore = useItemModificationStore();
-
 
 // const wrapper = mount(Counter, {
 //   global: {
@@ -25,94 +21,28 @@ const itemModStore = useItemModificationStore();
 const setup = () => {
   const pinia = createPinia()
   setActivePinia(pinia)
-  // useItemModificationStore = useItemModificationStore();
+  // this here is not possible??
   // const itemModStore  = useItemModificationStore();
-  // return itemModStore
 }
 
-// jest.mock(serverReq, () => ({
-//   getItemData: jest.fn(val => {return val})
-// }))
+beforeEach(() => {
+  setup()
+})
+
+afterEach(() => {
+  vi.clearAllMocks()
+  vi.restoreAllMocks()
+})
 
 describe('Sanity check to see how a basic test works', () => {
+
   test("Sanity check", () => {
     expect(true).toBe(true);
   });
 })
 
-/*
-describe('Testing mocking problem', () => {
-
-  beforeEach(() => {
-    setup()
-    const itemModStore = useItemModificationStore();
-    // let store = require('@/composables/serverRequests')
-    // let myMock = jest.spyOn(store, 'getItemData')
-    // let myMock = jest.spyOn(serverReq, 'getItemData')
-    //   .mockImplementationOnce(() => { return pizzaSizeDataRequest })
-    //   .mockImplementationOnce(() => { return pizzaCrustDataRequest })
-    //   .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
-    // return myMock
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-    jest.restoreAllMocks()
-  })
-
-  test('should be mocking api call', async() => {
-    // const itemModStore = useItemModificationStore();
-    // let store = require('@/composables/serverRequests')
-    // let myMock = jest.spyOn(store, 'getItemData')
-    let myMock = jest.spyOn(serverReq, 'getItemData')
-    // jest.mock('@/composables/serverRequests')
-      .mockImplementationOnce(() => { return pizzaSizeDataRequest })
-      .mockImplementationOnce(() => { return pizzaCrustDataRequest })
-      .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
-      
-      // .mockImplementationOnce(() => Promise.resolve(pizzaSizeDataRequest))
-      // .mockImplementationOnce(() => Promise.resolve(pizzaCrustDataRequest))
-      // .mockImplementationOnce(() => Promise.resolve(pizzaAdditionalOptionsRequest))
-
-      // jest.clearAllMocks();
-    // console.log(myMock.mock)
-    // await itemModStore.loadItem(oldPizza)
-    await itemModStore.loadItem(newPizza)
-    // console.log(myMock.mock)
-
-    expect(itemModStore.itemOnMod).toMatchObject(newPizza)
-  });
-
-  test('should be mocking api call 2', async() => {
-    // const itemModStore = useItemModificationStore();
-    // let store = require('@/composables/serverRequests')
-    let myMock = jest.spyOn(serverReq, 'getItemData')
-      .mockImplementationOnce(() => { return pizzaSizeDataRequest })
-      .mockImplementationOnce(() => { return pizzaCrustDataRequest })
-      .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
-      // .mockImplementationOnce(() => Promise.resolve(pizzaSizeDataRequest))
-      // .mockImplementationOnce(() => Promise.resolve(pizzaCrustDataRequest))
-      // .mockImplementationOnce(() => Promise.resolve(pizzaAdditionalOptionsRequest))
-      // jest.clearAllMocks();
-      // console.log(myMock.mock)
-
-    await itemModStore.loadItem(oldPizza)
-    // console.log(myMock.mock)
-
-    expect(itemModStore.itemOnMod).toMatchObject(oldPizza)
-  });
-});*/
-
 
 describe('check if loadItem() loads the proper data', () => {
-  beforeEach(() => {
-    setup()
-  })
-
-  afterEach(() => {
-    vi.clearAllMocks()
-    vi.restoreAllMocks()
-  })
 
   test('itemOnMod should be empty in the beginning', () => {
     const itemModStore = useItemModificationStore();
@@ -142,7 +72,7 @@ describe('check if loadItem() loads the proper data', () => {
     await itemModStore.loadItem(oldPizza)
 
     vi.spyOn(serverReq, 'getItemData')
-    .mockImplementationOnce(() => { return pizzaSizeDataRequest2 })
+    .mockImplementationOnce(() => { return pizzaSizeDataRequest })
     .mockImplementationOnce(() => { return pizzaCrustDataRequest })
     .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
     await itemModStore.loadItem(newPizza)
@@ -152,13 +82,6 @@ describe('check if loadItem() loads the proper data', () => {
 })
 
 describe('getAdditionalOptionsList(item) tests', () => {
-    beforeEach(() => {
-      setup()
-    })
-
-  afterEach(() => {
-    vi.restoreAllMocks()
-  })
 
   test('pizza call should return the proper object', async () => {
     const itemModStore = useItemModificationStore();
@@ -172,8 +95,7 @@ describe('getAdditionalOptionsList(item) tests', () => {
       .mockImplementationOnce(() => { return pizzaAdditionalOptionsRequest })
 
     let res = await itemModStore.getAdditionalOptionsList(param)
-
-    expect(res).toMatchObject(pizzaOnMod)
+    expect(res).toMatchObject(pizzaAggregatedProps)
   });
 
   test('drinks call should return the proper object', async () => {
@@ -186,17 +108,54 @@ describe('getAdditionalOptionsList(item) tests', () => {
       .mockImplementationOnce(() => { return drinkSizeDataRequest })
     .mockImplementationOnce(() => { return crustData })
     .mockImplementationOnce(() => { return additionalOptions })
+    
+    let res = await itemModStore.getAdditionalOptionsList(param)
+    expect(res).toMatchObject(drinkAggregatedProps)
+  });
+
+  test('desserts call should return a string for now', async () => {
+    const itemModStore = useItemModificationStore();
+    let param = {
+      table: "desserts",
+    }
+
+    // vi.spyOn(serverReq, 'getItemData')
+    //   .mockImplementationOnce(() => { return drinkSizeDataRequest })
+    // .mockImplementationOnce(() => { return crustData })
+    // .mockImplementationOnce(() => { return additionalOptions })
+    
+    let res = await itemModStore.getAdditionalOptionsList(param)
+    expect(res).toMatchObject('Desserts not available yet!')
+  });
+
+  test('call with wrong param should return error', async () => {
+    const itemModStore = useItemModificationStore();
+    let param = 'wrongParam'
+    let error = console.error('Error in additional options')
+
+    // vi.spyOn(serverReq, 'getItemData')
+    //   .mockImplementationOnce(() => { return drinkSizeDataRequest })
+    // .mockImplementationOnce(() => { return crustData })
+    // .mockImplementationOnce(() => { return additionalOptions })
+
     let res = await itemModStore.getAdditionalOptionsList(param)
 
-    expect(res).toMatchObject(drinkOnMod)
+    expect(res).toMatchObject(error)
+  });
+
+  test.todo('call with no param should return error', async () => {
+    const itemModStore = useItemModificationStore();
+    let param = null
+    let error = console.error('Error: No item set in function getAdditionalOptionsList!')
+
+    let res = await itemModStore.getAdditionalOptionsList(param)
+
+    expect(res).toMatchObject(error)
   });
 });
 
 
 describe('more and less items on modification', () => {
-  beforeEach(() => {
-    setup()
-  })
 
   test('quantity should increase on call', () => {
     const itemModStore = useItemModificationStore();
@@ -219,38 +178,59 @@ describe('more and less items on modification', () => {
 });
 
 describe('getSelectedProps test group', () => {
-  beforeEach(() => {
-    setup()
-  })
 
   test('should return the proper object', () => {
     const itemModStore = useItemModificationStore();
-    itemModStore.aggregatedProps.propOptions = pizzaPropOptions
-    itemModStore.aggregatedProps.selectedProps = pizzaSelectedProps
-    let res = itemModStore.getSelectedProps()
+    // itemModStore.aggregatedProps.propOptions = pizzaPropOptions
+    // itemModStore.aggregatedProps.selectedProps = pizzaAggregatedProps[pizzaSelectedProps]
+    itemModStore.aggregatedProps = pizzaAggregatedProps
 
     let expectedRes = {
       crust: { name: 'thin', price: 0 },
       size: { price: 18, name: 'medium - 32 cm' }
     }
 
+    let res = itemModStore.getSelectedProps()
     expect(res).toMatchObject(expectedRes)
   });
 });
 
-// describe('getPropPrices test group', () => {
-//   beforeEach(() => {
-//     setup()
-//   })
+describe('getPropPrices test group', () => {
 
-//   test('should return the approx. float', () => {
-//     const itemModStore = useItemModificationStore();
-//     itemModStore.aggregatedProps.selectedProps = pizzaSelectedProps
-//     let res = itemModStore.getPropPrices()
-//     let cb = jest.
-//     fn()
-//     .mockImplementationOnce(() => { return drinkSizeDataRequest })
+  test('should return the approx. float', () => {
+    const itemModStore = useItemModificationStore();
+    // itemModStore.aggregatedProps.selectedProps = pizzaAggregatedProps.pizzaSelectedProps
+    itemModStore.aggregatedProps = pizzaAggregatedProps
+    // itemModStore.aggregatedProps.propOptions = pizzaPropOptions
+    
+    let res = itemModStore.getPropPrices()
+    expect(res).toBeCloseTo(18, 1);
+  });
 
-//     expect(res).toBeCloseTo(18, 1);
-//   });
-// });
+  test.todo('should change the price if new element is chosen', () => {
+    
+  });
+});
+
+describe('getAdditionalOptionsPrice() tests', () => {
+  test.todo('should return the proper value', () => {
+    const itemModStore = useItemModificationStore();
+    itemModStore.aggregatedProps = pizzaAggregatedProps
+    itemModStore.aggregatedProps.selectedOptions = pizzaSelectedOptions
+
+    let res = itemModStore.getAdditionalOptionsPrice()
+    expect(res).toBeCloseTo();
+  });
+});
+
+describe('createItem() tests', () => {
+  test.todo('should ', () => {
+    
+  });
+});
+
+describe('getSumItemPrice(state) tests', () => {
+  test.todo('should ', () => {
+    
+  });
+});
