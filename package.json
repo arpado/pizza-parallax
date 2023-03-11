@@ -5,7 +5,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "test": "vitest --run --reporter verbose --globals --environment jsdom",
+    "test": "vitest --run --reporter verbose --globals --environment jsdom --coverage",
     "test:watch": "vitest --reporter verbose --globals"
   },
   "devDependencies": {
@@ -14,6 +14,7 @@
     "@nuxtjs/google-fonts": "^3.0.0-1",
     "@nuxtjs/supabase": "^0.3.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vitest/coverage-c8": "^0.29.2",
     "@vue/test-utils": "^2.3.1",
     "happy-dom": "^8.9.0",
     "jsdom": "^21.1.0",
