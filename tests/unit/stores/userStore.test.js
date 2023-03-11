@@ -29,7 +29,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  jest.restoreAllMocks()
+  vi.restoreAllMocks()
 })
 
 describe('Sanity check to see how a basic test works', () => {
@@ -69,7 +69,7 @@ describe('test', () => {
     //   clearUserData: () => { return true }
     // }));
 
-    jest.spyOn(userStore, 'logout').mockImplementationOnce(() => {return {message: "User has logged outtt!"} })
+    vi.spyOn(userStore, 'logout').mockImplementationOnce(() => {return {message: "User has logged outtt!"} })
     let result = await userStore.logout()
     expect(result).toMatchObject({message: "User has logged outtt!"})
   });
