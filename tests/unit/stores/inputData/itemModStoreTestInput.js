@@ -126,9 +126,7 @@ export const pizzaAggregatedProps = {
 
 // selected extra options //
 
-export const pizzaSelectedOptions = {
-  
-}
+export const pizzaSelectedOptions = [ "ham", "mushroom", "cheese" ]
 
 // etc //
 
