@@ -58,6 +58,9 @@ export const useItemModificationStore = defineStore('itemModification', {
         },
         // Checks table name then determines and creates the extra options for the selection plus the predefined selections if there should be any
         async getAdditionalOptionsList(item) {
+            // if(!item) {
+            //     return console.error('Error: No item set in function getAdditionalOptionsList!')
+            // }
             let result = {
                 selectedProps: {},
                 propOptions: {},
@@ -90,7 +93,7 @@ export const useItemModificationStore = defineStore('itemModification', {
                     let toppings = await getItemData('toppings', `name, price`, null, 'name')
                     result.additionalOptions.push({ title: 'Toppings', data: toppings.data })
                     return result
-                    break;
+                    // break;
 
                 case "drinks":
                     let drinkSizeData = await getItemData('drinks', `size(name), price`, [{ name: item.name }], 'price')
@@ -101,13 +104,13 @@ export const useItemModificationStore = defineStore('itemModification', {
                     result.propOptions.size = new propOptionsList('size', 'Select drink size', drinkSizeData.data)
                     result.selectedProps.size = result.propOptions.size.data[1].name
                     return result
-                    break;
+                    // break;
 
                 case "desserts":
-
-                    break;
+                    return 'Desserts not available yet!'
+                    // break;
                 default:
-                    console.log('error in additional options')
+                    console.error('Error in additional options')
                     break;
             }
         },
