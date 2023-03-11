@@ -213,18 +213,18 @@ describe('getPropPrices test group', () => {
 });
 
 describe('getAdditionalOptionsPrice() tests', () => {
-  test.todo('should return the proper value', () => {
+  test('should return the proper value', () => {
     const itemModStore = useItemModificationStore();
     itemModStore.aggregatedProps = pizzaAggregatedProps
     itemModStore.aggregatedProps.selectedOptions = pizzaSelectedOptions
 
     let res = itemModStore.getAdditionalOptionsPrice()
-    expect(res).toBeCloseTo();
+    expect(res).toBeCloseTo(30, 1);
   });
 });
 
 describe('createItem() tests', () => {
-  test.todo('should ', () => {
+  test.todo('should return the proper object', () => {
     
   });
 });
