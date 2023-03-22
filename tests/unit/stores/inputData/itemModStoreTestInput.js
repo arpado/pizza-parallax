@@ -128,6 +128,37 @@ export const pizzaAggregatedProps = {
 
 export const pizzaSelectedOptions = [ "ham", "mushroom", "cheese" ]
 
+// OrderItemClassInstance //
+export const pizzaOrderItem = {
+  "name": "Calabrese",
+  "id": 13,
+  "selectedProps": {
+      "size": "medium - 32 cm",
+      "crust": "thin"
+  },
+  "props": {
+      "size": {
+          "price": 18,
+          // "size": {
+          //     "name": "medium - 32 cm"
+          // },
+          "name": "medium - 32 cm"
+      },
+      "crust": {
+          "name": "thin",
+          "price": 0
+      }
+  },
+  "selectedOptions": [
+      "ham",
+      "mushroom",
+      "cheese",
+  ],
+  "quantity": 1,
+  "price": 48,
+  "sumPrice": 48,
+}
+
 // etc //
 
 // export const pizzaSelectedProps = {
