@@ -11,7 +11,13 @@ import path from 'path';
 
 export default defineConfig({
   // any custom vitest config you require
-  plugins: [vue()],
+  plugins: [vue({
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => ['NuxtLayout'].includes(tag),
+      }
+    }
+  })],
   test:{
     globals:true,
     environment: 'happy-dom',
@@ -24,3 +30,18 @@ export default defineConfig({
       }
   }
 })
+
+// export default defineVitestConfig({
+//   plugins: [vue()],
+//   test: {
+//     globals:true,
+//     environment: 'nuxt'
+//   },
+//   root: ".",
+//   //   resolve: { aliases },
+//     resolve: {
+//         alias: {
+//           '@': path.resolve(__dirname, '.')
+//         }
+//     }
+// })
