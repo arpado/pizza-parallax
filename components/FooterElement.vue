@@ -8,7 +8,7 @@
       <div class="contacts">
         <p>Some contacts here</p>
       </div>
-      <div class="copright">
+      <div class="copyright">
         <p>Copyright 2022 by ArpadO</p>
       </div>
   </div>
