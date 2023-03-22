@@ -6,13 +6,15 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "test": "vitest --run --reporter verbose --globals --environment jsdom --coverage",
-    "test:watch": "vitest --reporter verbose --globals"
+    "test:watch": "vitest --reporter verbose --globals",
+    "nuxitest": "nuxi test"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
     "@nuxt/content": "^2.0.1",
     "@nuxtjs/google-fonts": "^3.0.0-1",
     "@nuxtjs/supabase": "^0.3.0",
+    "@testing-library/vue": "^7.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitest/coverage-c8": "^0.29.2",
     "@vue/test-utils": "^2.3.1",
