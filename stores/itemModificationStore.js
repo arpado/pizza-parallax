@@ -137,7 +137,7 @@ export const useItemModificationStore = defineStore('itemModification', {
         createItem() {
             let itemPrice = this.getPropPrices() + this.getAdditionalOptionsPrice()
             let selectedPropsFinal = this.getSelectedProps()
-            return new OrderItemClassInstance(this.itemOnMod.name, this.itemOnMod.id, this.itemOnMod.type, this.aggregatedProps.selectedProps, selectedPropsFinal, this.selectedOptions, this.selectedItemQuantity, itemPrice)
+            return new OrderItemClassInstance(this.itemOnMod.name, this.itemOnMod.id, this.itemOnMod.table, this.aggregatedProps.selectedProps, selectedPropsFinal, this.aggregatedProps.selectedOptions, this.selectedItemQuantity, itemPrice)
         },
 
         // FINALIZATION HELPER FUNCTIONS //
@@ -162,6 +162,7 @@ export const useItemModificationStore = defineStore('itemModification', {
         },
         // Goes through the selectedOptions and gets the price for them
         getAdditionalOptionsPrice() {
+            // CHECK IF THIS SHOULD RETURN AND OBJECT, THE ORDER IN THE ARRAY MIGHT CAUSE PROBLEM!
             let selectedOptionsPriceList = [];
             //ezt itt egy felsobb szinten is le kell jataszani az extras array elemeire, arra az esetre, ha tobb valaszthato array is van
             this.aggregatedProps.selectedOptions.forEach((option) => {
