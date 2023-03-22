@@ -6,7 +6,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "test": "vitest --run --reporter verbose --globals --environment jsdom --coverage",
-    "test:watch": "vitest --reporter verbose --globals",
+    "test:watch": "vitest --reporter verbose --globals --environment jsdom",
     "nuxitest": "nuxi test"
   },
   "devDependencies": {
