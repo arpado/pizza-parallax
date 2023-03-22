@@ -2,18 +2,18 @@ import { shallowMount } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia, defineStore } from 'pinia'
 import { useUserStore } from '@/stores/userStore'
-import { registerWithEmail, postLoginForm } from '@/composables/userAuth'
+import * as userAuth from '@/composables/userAuth'
 import { clearUserData } from '@/stores/userStore'
+import { loginData, userData, activeUser } from './inputData/userStoreTestInput'
+import { expect } from 'vitest'
 
-
-
-const testUser = {
-  firstName: "test_first_name",
-  lastName: 'test_last_name',
-  email: "test_email@gmail.com",
-  phone: 12345678,
-  address: "test address 87"
-}
+// const testUser = {
+//   firstName: "test_first_name",
+//   lastName: 'test_last_name',
+//   email: "test_email@gmail.com",
+//   phone: 12345678,
+//   address: "test address 87"
+// }
 
 // const userStore = null;
 
@@ -29,22 +29,18 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+  vi.clearAllMocks()
   vi.restoreAllMocks()
 })
 
-describe('Sanity check to see how a basic test works', () => {
-  test("Sanity check", () => {
-    expect(true).toBe(true);
-  });
-})
+// describe('Sanity check', () => {
+//   test("Sanity check", () => {
+//     expect(true).toBe(true);
+//   });
+// })
 
 
 describe('getTable test cases', () => {
-
-
-  // afterEach(() => {
-  //   userStore.$reset()
-  // })
 
   test('pass firstName to the getTable the result should be the "users" table, pass email res should be "profiles"', () => {
   let userStore = useUserStore();
@@ -53,9 +49,21 @@ describe('getTable test cases', () => {
   })
 })
 
-describe('test', () => {
+describe('login tests', () => {
 
-  test('should return ', async() => {
+  test.only('should return active user', async() => {
+    let userStore = useUserStore();
+    vi.spyOn(userAuth, 'postLoginForm').mockImplementation(() => {return loginData})
+    vi.spyOn(userAuth, 'getUserData').mockImplementation(() => {return userData})
+
+    await userStore.login()
+    expect(userStore.user).toMatchObject(activeUser)
+  });
+});
+
+describe('logout tests', () => {
+
+  test('should return logout message', async() => {
   let userStore = useUserStore();
     // let postSignOut = jest.fn(true)
     //  clearUserData = jest.fn().mockImplementationOnce(() => { return true })
@@ -69,9 +77,10 @@ describe('test', () => {
     //   clearUserData: () => { return true }
     // }));
 
-    vi.spyOn(userStore, 'logout').mockImplementationOnce(() => {return {message: "User has logged outtt!"} })
+    // vi.spyOn(userStore, 'logout').mockImplementationOnce(() => {return {message: "User has logged out!"} })
+    vi.spyOn(userAuth, 'postSignOut').mockImplementationOnce()
     let result = await userStore.logout()
-    expect(result).toMatchObject({message: "User has logged outtt!"})
+    expect(result).toMatchObject({message: "User has logged out!"})
   });
 });
 
