@@ -5,14 +5,8 @@
 </template>
 
 <script>
-// @click="doThis"
 export default {
   props: ["text"],
-  // methods: {
-  //   doThis(func, arg) {
-
-  //   }
-  // }
 };
 </script>
 
