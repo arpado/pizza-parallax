@@ -79,9 +79,10 @@ export default {
         this.menuVisible = false;
       }
     },
-    emitScrollRequest(id) {
-      this.$emit("scroll-request", id);
-    },
+    // CHECK WHAT THIS DOES!!!
+    // emitScrollRequest(id) {
+    //   this.$emit("scroll-request", id);
+    // },
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
