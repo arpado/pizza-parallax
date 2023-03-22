@@ -1,45 +1,29 @@
-import { describe, test } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ButtonElement from '@/components/ButtonElement.vue'
 
+describe('ButtonElement component tests', () => {
+  let wrapper = null
 
-// test('displays message', () => {
-//   const wrapper = mount(ButtonElement, {
-//     props: {
-//       text: 'Hello world'
-//     }
-//   })
-
-//   // Assert the rendered text of the component
-//   // expect(wrapper.text()).toContain('Hello world')
-// })
-
-test("mount component",async()=>{
-  expect(ButtonElement).toBeTruthy();
-  // expect(ButtonElement).toBe(null);
-
-
-  const wrapper = mount(ButtonElement,{
-      props:{
-         text:"Guess User Age App",
+  beforeEach(() => {
+    wrapper = mount(ButtonElement, {
+      props: {
+        text: "Dummy Text",
       },
+    });
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
+  test("should mount component", async () => {
+    expect(wrapper.isVisible()).toBe(true)
+    expect(wrapper.find("div").isVisible()).toBeTruthy();
+  })
+
+  test('should display proper text', () => {
+    expect(wrapper.text()).toMatch("Dummy Text");
   });
-  expect(wrapper.text()).toContain("Guess User Age App");
-})
+});
 
-// const ButtonElement = {
-//   template: '<p>{{ text }}</p>',
-//   props: ['text']
-// }
 
-// test('displays message', () => {
-
-//   const wrapper = mount(ButtonElement, {
-//     props: {
-//       text: 'Hello world'
-//     }
-//   })
-
-//   // Assert the rendered text of the component
-//   expect(wrapper.text()).toContain('Hello world')
-// })
