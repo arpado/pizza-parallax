@@ -18,13 +18,13 @@
           <div class="text">
             <h4 class="contacts-subtitle flex center-both">Open Hours:</h4>
             <ul>
-              <li>Monday: {{ content.hours.closed }}</li>
-              <li>Tuesday: {{ content.hours.regular }}</li>
-              <li>Wednesday: {{ content.hours.regular }}</li>
-              <li>Thursday: {{ content.hours.regular }}</li>
-              <li>Friday: {{ content.hours.extended }}</li>
-              <li>Staruday: {{ content.hours.extended }}</li>
-              <li>Sunday: {{ content.hours.extended }}</li>
+              <li>Monday:<span data-test="open-hrs">{{ content.hours.closed }}</span></li>
+              <li>Tuesday:<span data-test="open-hrs">{{ content.hours.regular }}</span></li>
+              <li>Wednesday:<span data-test="open-hrs">{{ content.hours.regular }}</span></li>
+              <li>Thursday:<span data-test="open-hrs">{{ content.hours.regular }}</span></li>
+              <li>Friday:<span data-test="open-hrs">{{ content.hours.extended }}</span></li>
+              <li>Staruday:<span data-test="open-hrs">{{ content.hours.extended }}</span></li>
+              <li>Sunday:<span data-test="open-hrs">{{ content.hours.extended }}</span></li>
             </ul>
           </div>
         </div>
