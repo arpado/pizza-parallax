@@ -4,9 +4,9 @@
       <div class="login-container flex column justify-evenly">
         <h3>LOGIN</h3>
         <!-- <form action="POST"> -->
-        <form v-on:submit.prevent action="#" method="POST">
+        <form v-on:submit.prevent="userStore.login(email, password)" action="#" method="POST">
           <label for="email">Email:</label>
-          <input type="email" name="email" id="email" v-model="email" />
+          <input type="email" name="email" id="email" v-model="email" @keyup.enter="userStore.login(email, password)"/>
           <hr />
           <label for="password">Password:</label>
           <input
@@ -14,6 +14,7 @@
             name="password"
             id="password"
             v-model="password"
+            @keyup.enter="userStore.login(email, password)"
           />
           <hr />
         </form>
@@ -22,7 +23,7 @@
           <p v-if="errorMessage">{{ errorMessage }}</p>
           <p v-else>Something went wrong!</p>
         </div>
-        <button @click="userStore.login(email, password)">Login</button>
+        <button type="submit" @click="userStore.login(email, password)">Login</button>
         <p>
           Not registered yet?
           <NuxtLink to="/user-registration" @click="modalStore.closeModal"
