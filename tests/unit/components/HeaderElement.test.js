@@ -36,9 +36,6 @@ describe('HeaderElement tests', () => {
     test('should mount element and be visible', () => {
         expect(wrapper.isVisible()).toBe(true)
     });
-
-
-
 });
 
 describe('HeaderElement functions', () => {
