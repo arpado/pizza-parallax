@@ -77,15 +77,15 @@ import { useModalStore } from "../stores/modalStore";
 
 export default {
   name: "MainTextElement",
-  props: {
-    title: {
-      type: String,
-    },
-    transparent: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  // props: {
+  //   title: {
+  //     type: String,
+  //   },
+  //   transparent: {
+  //     type: Boolean,
+  //     default: false,
+  //   },
+  // },
   setup() {
     const modalStore = useModalStore();
     return { modalStore };
