@@ -1,7 +1,7 @@
 <template>
   <div class="loader container flex center-both" ref="loader">
     <div class="plate">
-      <img class="plate-image" src="@/src/images/plate.png" alt="">
+      <img class="plate-image" src="@/src/images/plate.png" alt="" />
       <div
         class="pizza-slice"
         :style="{ transform: `rotate(${slice.rotationValue}deg)` }"
@@ -64,23 +64,23 @@ export default {
         duration: 1,
         stagger: 0.1,
         // onComplete: this.hideSlices,
-        onComplete: this.slicesDone
-      })
+        onComplete: this.slicesDone,
+      });
     },
-      hideSlices() {
+    hideSlices() {
       gsap.to(this.$refs.pizzaslice, {
         opacity: 0,
         duration: 0.3,
         stagger: 0.3,
         // onComplete: this.showSlices,
-      })
+      });
     },
     slicesDone() {
-      this.$emit('slicesDone')
-    }
+      this.$emit("slicesDone");
+    },
   },
   mounted() {
-    this.showSlices(this.$refs.pizzaslice)
+    this.showSlices(this.$refs.pizzaslice);
   },
   unmounted() {
     // this.loaderLeave(this.$refs.loader);
