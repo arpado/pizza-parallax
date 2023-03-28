@@ -26,7 +26,7 @@
         Cart
       </NuxtLink>
     </li>
-    <li v-if="!userStore.user">
+    <li data-test="login" v-if="!userStore.user">
       <div
         class="navLink flex center-both"
         @click="$emit('login')"
@@ -35,7 +35,7 @@
         Login
       </div>
     </li>
-    <li v-else>
+    <li data-test="logout" v-else>
       <div class="navLink flex center-both" @click="userStore.logout" tabindex="0">
         Logout
       </div>
