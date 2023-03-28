@@ -6,16 +6,16 @@
       </div>
       <div class="item-body">
         <div class="flex center-both">
-          <img :src="item.image" alt="" />
+          <img data-test="image" :src="item.image" alt="" />
         </div>
         <div>
           <div class="item-description">
             <h4>Toppings:</h4>
-            <p>{{ item.description }}</p>
+            <p data-test="description">{{ item.description }}</p>
           </div>
           <div class="item-price flex align-center justify-between">
             <span>Price starts from:</span>
-            <span>${{ item.price }}</span>
+            <span data-test="price">${{ item.price }}</span>
           </div>
         </div>
       </div>
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import { useModalStore } from "~/stores/modalStore";
-import { useItemModificationStore } from "~/stores/itemModificationStore";
+import { useModalStore } from "@/stores/modalStore";
+import { useItemModificationStore } from "@/stores/itemModificationStore";
 
 export default {
   name: "SectionElement",
@@ -43,6 +43,7 @@ export default {
     return { modalStore, itemModStore };
   },
   methods: {
+    // should be redone
     async modifyItem(item, table) {
       let itemToBeModified = {
         name: item.name,
