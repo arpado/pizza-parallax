@@ -25,6 +25,7 @@ export default {
   background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
   background-color: var(--main-red);
   box-shadow: inset 0px 2px 0px 0px #f29c93, 0 0 0px 0px var(--main-white);
+  color: var(--main-white);
   font-weight: bold;
   font-size: 1.3rem;
   text-decoration: none;
@@ -32,6 +33,9 @@ export default {
   cursor: pointer;
   transition: box-shadow 0.15s;
   z-index: 1;
+}
+.button > span {
+  transition: transform 0.15s;
 }
 .button::before {
   position: absolute;
@@ -46,6 +50,9 @@ export default {
   z-index: -1;
   transition: opacity 0.15s linear;
   opacity: 0;
+}
+.button:hover > span {
+  transform: translateY(-1px);
 }
 .button:hover::before {
   opacity: 1;
