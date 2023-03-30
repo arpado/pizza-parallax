@@ -55,11 +55,11 @@ export default {
   },
   mounted() {
     window.addEventListener("click", this.closeOpenNavMenu);
-    window.addEventListener("scroll", this.updateScroll);
+    document.body.addEventListener("scroll", this.updateScroll);
   },
   unmounted() {
     window.removeEventListener("click", this.closeOpenNavMenu);
-    window.removeEventListener("scroll", this.updateScroll);
+    document.body.removeEventListener("scroll", this.updateScroll);
   },
   methods: {
     // EZT ATIRNI, H VISSZAVIGYEN A /HOME-RA
@@ -84,7 +84,16 @@ export default {
     //   this.$emit("scroll-request", id);
     // },
     updateScroll() {
-      this.scrollPosition = window.scrollY;
+      // DEBOUNCE!!!
+
+      // let timer
+      
+      //   clearTimeout(timer)
+      
+      // timer = setTimeout(() => {
+              this.scrollPosition = document.body.scrollTop;
+      // }, 1000);
+      
     },
   },
 };
