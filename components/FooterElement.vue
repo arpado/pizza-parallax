@@ -23,6 +23,7 @@ export default {
 .container {
 width: 100%;
 height: fit-content;
+min-height: 70px;
 background-color: var(--main-black);
 color: var(--main-white);
 display: flex;
