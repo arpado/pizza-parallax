@@ -66,6 +66,7 @@ export default {
   width: 80vw;
   max-width: 350px;
   box-shadow: 2px 2px 5px 2px black;
+  background-color: var(--main-white);
 }
 img {
   width: 100%;
