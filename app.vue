@@ -88,6 +88,7 @@ html {
   /* font-size: 100%; */
   scroll-behavior: smooth;
   font-family: Roboto Slab;
+  overflow-x: hidden;
 }
 /* ez lehet, h nem kell */
 .body {
@@ -149,6 +150,7 @@ p + p {
 ::-webkit-scrollbar-track {
   background-color: black;
   /* margin: 1rem; */
+  margin-top: 80px;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--main-red);
