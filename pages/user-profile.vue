@@ -1,40 +1,28 @@
 <template>
   <div class="wrapper flex column center-both">
-    <h3>User Profile:</h3>
-    <div class="data-container flex column" v-if="userStore.user">
-      <div class="data-unit" v-for="(value, key) in userStore.user" :key="key">
-        <div
-          :class="key"
-          class="flex justify-between"
-          v-if="activeSetup === key"
-        >
-          <div>
-            <input class="input-field" type="text" v-model="userStore.user[key]" />
-            <button @click="toggleSetup(key)">Cancel</button>
-            <button @click="userStore.updateUser(key, userStore.user[key], userStore.user.id)">Save</button>
-          </div>
-        </div>
-        <div class="flex justify-between" v-else>
-          <span>{{ key }}</span> -- <span>{{ value }}</span> --
-          <a @click="toggleSetup(key)">Modify data</a>
-        </div>
-      </div>
-      <!-- THE OPTION TO DELETE USER ACCOUNT IS REMOVED FOR NOW -->
-      <!-- <div class="delete-user">
-        <button @click="deleteUser">Delete Account</button>
-      </div> -->
-      <h3>User History</h3>
-      <div class="flex column" v-if="userStore.orderHistory">
-        <div class="order-history" v-for="(item, index) in userStore.orderHistory" :key="index">
-          <!-- {{ item }} -->
-          <p>{{ item.item_id }} -- {{ item.item_option }} -- {{ item.item_quantity }}</p>
-        </div>
-      </div>
-      <button @click="userStore.getUserOrderHistory">Get History</button>
+    <div class="menu flex center-both wrap">
+      <ButtonElement text="User Data" @click="setActiveMenu('userData')" />
+      <ButtonElement
+        text="Order History"
+        @click="setActiveMenu('userHistory')"
+      />
+      <ButtonElement
+        text="Something Else"
+        @click="setActiveMenu('somethingElse')"
+      />
     </div>
-    <div v-else>
-      <h3>No user logged in!</h3>
-    </div>
+    <NuxtLayout name="card" class="card flex center-both">
+      <div class="inner-container">
+        <UserDataElement
+          v-show="activeMenu === 'userData'"
+          :userStore="userStore"
+        />
+        <UserHistoryElement
+          v-show="activeMenu === 'userHistory'"
+          :userStore="userStore"
+        />
+      </div>
+    </NuxtLayout>
   </div>
 </template>
 
@@ -48,24 +36,13 @@ export default {
   },
   data() {
     return {
-      activeSetup: null,
+      activeMenu: "userData",
     };
   },
   methods: {
-    toggleSetup(key) {
-      if (this.activeSetup === key) {
-        this.activeSetup = null;
-        return;
-      }
-      this.activeSetup = key;
+    setActiveMenu(menu) {
+      this.activeMenu = menu;
     },
-  
-    // REMOVED FOR NOW
-    // deleteUser() {
-    //   if (confirm('Are you sure?')) {
-    //     this.userStore.deleteUser()
-    //   }
-    // }
   },
 };
 </script>
@@ -73,17 +50,22 @@ export default {
 <style scoped>
 .wrapper {
   width: 100vw;
-  min-height: 100vh;
+  /* min-height: calc(100vh - 50px); */
+  /* min-height: 100%; */
   color: var(--main-white);
+  padding-top: 150px;
 }
-.data-container {
-  border: 1px solid black;
-  width: 360px;
+.menu > * {
+  margin: 0 10px;
+  width: 200px;
 }
-.data-unit {
-  height: 100px;
+.card {
+  max-width: fit-content;
 }
-.input-field {
-  width: 100 px;
+.inner-container {
+  width: 100%;
+  min-height: 40vh;
+  min-width: 400px;
+  max-width: 90vw;
 }
 </style>
