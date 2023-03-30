@@ -21,6 +21,9 @@ export const useUserStore = defineStore('user', {
         }
     },
     actions: {
+        // TODO:login should save userdata into localstorage in order to save api calls for the userdata if user is logged in
+        // then if data changes, refresh localstorage
+        // then if logout, delete user data from storage
         async login(email, password) {
             let loginData = await postLoginForm(email, password)
             this.userId = loginData.data.user.id
