@@ -73,6 +73,7 @@ export default {
 <style scoped>
 .container {
   width: 100%;
+  min-height: calc(100vh - 70px);
   background-image: url("/images/pizza4.jpg");
   background-size: cover;
   background-repeat: no-repeat;
