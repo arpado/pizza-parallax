@@ -39,10 +39,12 @@ export default {};
   position: absolute;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   top: 0;
   font-size: 4rem;
   color: var(--main-white);
   /* background-color: yellow; */
+  /* font-family: Neonderthaw, cursive; */
 }
 .foreground {
   width: 100%;
@@ -50,6 +52,7 @@ export default {};
   position: absolute;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   bottom: 0;
   font-size: 2rem;
   z-index: 1;
