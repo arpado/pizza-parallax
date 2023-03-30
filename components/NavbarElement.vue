@@ -8,10 +8,10 @@
       >
       <!-- :external="true" -->
     </li>
-        <li v-if="userStore.user">
+    <li v-if="userStore.user">
       <NuxtLink
         class="navLink flex center-both"
-        @click="$emit('user-profile')"
+        :to="{ path: '/user-profile', hash: '' }"
         tabindex="0"
       >
         User Profile
@@ -36,7 +36,11 @@
       </div>
     </li>
     <li data-test="logout" v-else>
-      <div class="navLink flex center-both" @click="userStore.logout" tabindex="0">
+      <div
+        class="navLink flex center-both"
+        @click="userStore.logout"
+        tabindex="0"
+      >
         Logout
       </div>
     </li>
