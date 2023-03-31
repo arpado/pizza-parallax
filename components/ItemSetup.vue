@@ -1,9 +1,9 @@
 <template>
   <NuxtLayout name="modal" v-if="modalStore.modalList.showItemSetup">
     <div class="container">
-      <h3 v-if="itemModStore.orderItem">{{ itemModStore.orderItem.name }}</h3>
-      <p v-if="itemModStore.orderItem">
-        {{ itemModStore.orderItem.description }}
+      <h2 v-if="itemModStore.itemOnMod">{{ itemModStore.itemOnMod.name }}</h2>
+      <p v-if="itemModStore.itemOnMod">
+        {{ itemModStore.itemOnMod.description }}.
       </p>
       <div class="item-buttons">
         <NuxtLayout
@@ -25,18 +25,21 @@
                 :name="index"
                 :value="data.name"
                 :id="data.name"
-                v-model="itemModStore.aggregatedProps.selectedProps[itemProp.name]"
+                v-model="
+                  itemModStore.aggregatedProps.selectedProps[itemProp.name]
+                "
               />
-              <label :for="data.name"
-                class="radio-label flex justify-between"
-                ><span>{{ data.name }}</span><span>${{ data.price }}</span></label
+              <label :for="data.name" class="radio-label flex justify-between"
+                ><span>{{ data.name }}</span
+                ><span>${{ data.price }}</span></label
               >
             </div>
           </template>
         </NuxtLayout>
         <NuxtLayout
           name="collapsible-container"
-          v-for="(additionalOption, index) in itemModStore.aggregatedProps.additionalOptions"
+          v-for="(additionalOption, index) in itemModStore.aggregatedProps
+            .additionalOptions"
           :key="index"
         >
           <template #title>
@@ -55,9 +58,11 @@
                 v-model="itemModStore.aggregatedProps.selectedOptions"
                 :value="data.name"
               />
-              <label :for="data.name"
+              <label
+                :for="data.name"
                 class="checkbox-label flex justify-between"
-                ><span>{{ data.name }}</span><span>+${{ data.price }}</span></label
+                ><span>{{ data.name }}</span
+                ><span>+${{ data.price }}</span></label
               >
             </div>
           </template>
@@ -71,13 +76,13 @@
           </template>
         </NuxtLayout>
       </div>
-      <div class="price-container">
-        <p>Total price:</p>
-        <p>{{ total }}</p>
+      <div class="price-container flex justify-between">
+        <h3>Total price:</h3>
+        <h3>{{ total }}</h3>
       </div>
-      <div class="flex justify-evenly">
-        <div class="item-quantity">
-          <button @click="itemModStore.fewerItem">-</button>
+      <div class="item-quantity flex justify-evenly align-center wrap">
+        <div class="flex justify-evenly align-center">
+          <ButtonElementSmall text="-" @click="itemModStore.fewerItem" />
           <input
             type="number"
             name=""
@@ -86,9 +91,9 @@
             class="item-quantity-input"
             v-model="itemModStore.selectedItemQuantity"
           />
+          <ButtonElementSmall text="+" @click="itemModStore.moreItem" />
         </div>
-        <button @click="itemModStore.moreItem">+</button>
-        <button @click="sendToCart()">Order</button>
+        <ButtonElement text="Order" @click="sendToCart()" />
       </div>
     </div>
   </NuxtLayout>
@@ -110,6 +115,7 @@ export default {
   methods: {
     sendToCart() {
       this.cartStore.addToOrder(this.itemModStore.createItem());
+      this.modalStore.closeModal();
     },
   },
 };
@@ -126,19 +132,40 @@ export default {
   scroll-margin-block-start: 1rem;
   padding-right: 0.5rem;
 }
-.container > * {
+/* .container > * {
+  margin-top: 30px;
+} */
+h2,
+.item-buttons {
   margin-top: 30px;
 }
 .radio-label,
 .checkbox-label {
   display: inline-flex;
   width: 100%;
-
+}
+input[type="radio"],
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+.price-container {
+  margin: 20px;
 }
 .item-quantity-input {
-  width: 50px;
+  /* width: 50px; */
   text-align: center;
   -moz-appearance: textfield;
+
+  height: 50px;
+  width: 60px;
+  /* min-width: -moz-fit-content;
+    min-width: fit-content; */
+  /* margin: 10px; */
+  padding: 1rem;
+  border: 1px solid var(--main-white);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
 }
 .item-quantity-input::-webkit-outer-spin-button,
 .item-quantity-input::-webkit-inner-spin-button {
