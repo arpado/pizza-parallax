@@ -1,10 +1,11 @@
 import supabase from "./supabaseClient";
 
 // built-in supabase register function
-async function registerWithEmail(email, password, firstName, lastName, address) {
+async function registerWithEmail(email, password, firstName, lastName, address, phone) {
     return await supabase.auth.signUp({
         email: email,
         password: password,
+        phone: phone,
         options: {
             data: {
                 firstname: firstName,
