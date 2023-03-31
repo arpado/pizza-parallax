@@ -7,8 +7,12 @@
         @click="setActiveMenu('userHistory')"
       />
       <ButtonElement
-        text="Something Else"
-        @click="setActiveMenu('somethingElse')"
+        text="Current Order"
+        @click="setActiveMenu('userOrder')"
+      />
+      <ButtonElement
+        text="Bookings"
+        @click="setActiveMenu('userBooking')"
       />
     </div>
     <NuxtLayout name="card" class="card flex center-both">
