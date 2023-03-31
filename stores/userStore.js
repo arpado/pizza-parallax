@@ -30,6 +30,7 @@ export const useUserStore = defineStore('user', {
             let userData = await getUserData(this.userId)
 
             this.user = new User(userData.data[0].first_name, userData.data[0].last_name, loginData.data.user.email, loginData.data.user.phone, userData.data[0].address, loginData.data.user.id)
+            return loginData
         },
         async logout() {
             try {
