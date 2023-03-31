@@ -1,6 +1,7 @@
 <template>
   <div class="body">
-    <TransitionGroup name="content" mode="in-out" appear>
+    <!-- mode="in-out" -->
+    <TransitionGroup name="content" appear>
       <LoaderElement
         class="loader"
         v-if="!pageLoaded || !loaderDone"
@@ -150,12 +151,36 @@ p + p {
 ::-webkit-scrollbar-track {
   background-color: black;
   /* margin: 1rem; */
+}
+html > ::-webkit-scrollbar-track {
   margin-top: 80px;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--main-red);
   border-radius: 5px;
 }
+
+/* userform */
+.input-box {
+  margin: 10px auto;
+  max-width: 350px;
+}
+.input-box > label,
+.input-box > p {
+  font-size: 1.3rem;
+}
+.input-box > input {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+.input-box > hr {
+    width: 100%;
+    height: 1px;
+    margin: 5px;
+}
+
+
 /* animation */
 
 /* .loader-leave-active {
