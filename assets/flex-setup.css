@@ -44,6 +44,15 @@
 .align-stretch {
     align-items: stretch;
 }
+.self-start {
+    align-self: flex-start;
+}
+.self-center {
+    align-self: center;
+}
+.self-end {
+    align-self: flex-end;
+}
 .wrap {
     flex-wrap: wrap;
 }
