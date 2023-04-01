@@ -93,7 +93,7 @@
           />
           <ButtonElementSmall text="+" @click="itemModStore.moreItem" />
         </div>
-        <ButtonElement text="Order" @click="sendToCart()" />
+        <ButtonElement text="Order" @click="addToCart" />
       </div>
     </div>
   </NuxtLayout>
@@ -113,9 +113,12 @@ export default {
     return { modalStore, cartStore, itemModStore, total };
   },
   methods: {
-    sendToCart() {
-      this.cartStore.addToOrder(this.itemModStore.createItem());
-      this.modalStore.closeModal();
+    addToCart() {
+      // this.cartStore.addToCart(this.itemModStore.createItem());
+      // this.modalStore.closeModal();
+      // useNuxtApp().$toast.success(`Added to cart!`);
+      // useNuxtApp().$toast.error(`Something went wrong!`)  
+      this.cartStore.addToCart();
     },
   },
 };

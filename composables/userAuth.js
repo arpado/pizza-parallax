@@ -35,17 +35,20 @@ async function getUserData(userID) {
 }
 
 // updates user data in the public schema, helperObj has to be used to make the column selectable
-async function updateUserData(table, column, data, userId) {
+async function updateProfileData(table, column, data, userId) {
+    // console.log(table, column, data, userId)
     let helperObj = {}
     helperObj[column] = data
-    return await supabase
+    let res =  await supabase
         .from(table)
         .update(helperObj)
         .eq('id', userId)
+    console.log(res)
+    return res
 }
 
 // updates user data in the auth schema, helperObj has to be used to make the column selectable
-async function updateProfileData(column, data) {
+async function updateUserData(column, data) {
     let helperObj = {}
     helperObj[column] = data
     return await supabase.auth.updateUser(helperObj)

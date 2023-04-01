@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { postLoginForm, postSignOut, getUserData, updateUserData, updateProfileData, deleteProfileData } from '@/composables/userAuth'
 import { getOrderHistory } from '@/composables/serverRequests'
+import { useModalStore } from './modalStore'
 
 class User {
     constructor(firstName, lastName, email, phone, address) {
@@ -25,20 +26,31 @@ export const useUserStore = defineStore('user', {
         // then if data changes, refresh localstorage
         // then if logout, delete user data from storage
         async login(email, password) {
-            let loginData = await postLoginForm(email, password)
-            this.userId = loginData.data.user.id
-            let userData = await getUserData(this.userId)
+            const modalStore = useModalStore()
 
-            this.user = new User(userData.data[0].first_name, userData.data[0].last_name, loginData.data.user.email, loginData.data.user.phone, userData.data[0].address, loginData.data.user.id)
-            return loginData
+            try {
+                let loginData = await postLoginForm(email, password)
+                this.userId = loginData.data.user.id
+                let userData = await getUserData(this.userId)
+
+                this.user = new User(userData.data[0].first_name, userData.data[0].last_name, loginData.data.user.email, loginData.data.user.phone, userData.data[0].address, loginData.data.user.id)
+
+                useNuxtApp().$toast.success(`Login successful!<br/>Welcome back ${this.user.firstName}!`, { dangerouslyHTMLString: true });
+                modalStore.closeModal();
+            } catch (error) {
+                useNuxtApp().$toast.error(`Login failed!`);
+            }
+
+            // return loginData
         },
         async logout() {
-            try {
-                let { error } = await postSignOut()
+            let { error } = await postSignOut()
+
+            if (error === null) {
+                useNuxtApp().$toast.success(`Logout successful!<br/>Have a nice day, ${this.user.firstName}!`, { dangerouslyHTMLString: true });
                 this.clearUserData()
-                return {message: "User has logged out!"}
-            } catch (error) {
-                return error
+            } else {
+                useNuxtApp().$toast.error('Logout failed!');
             }
         },
         async checkActiveUser() {
@@ -55,13 +67,20 @@ export const useUserStore = defineStore('user', {
         // Updates the user, has to be broken into two, because supabase has a different method for updating auth schema
         async updateUser(column, data, userId) {
             let table = this.getTable(column)
+            let res;
+            // console.log(table, column, data, userId)
 
-            if (table === 'profiles') {
-                let res = await updateProfileData(column, data)
-                return res
+            if (table === 'users') {
+                res = await updateUserData(column, data)
+            } else if (table === 'profiles') {
+                res = await updateProfileData(table, column, data, userId)
             }
 
-            await updateUserData(table, column, data, userId)
+            if (res.status === 204) {
+                useNuxtApp().$toast.success(`Changes saved!`)
+            } else {
+                useNuxtApp().$toast.error(`Changes have not been saved!<br>${res.error.message}`, { dangerouslyHTMLString: true });
+            }
         },
 
         // deletes user
@@ -76,6 +95,11 @@ export const useUserStore = defineStore('user', {
             this.orderHistory = []
             let { data, error } = await getOrderHistory(this.userId)
 
+            if (error) {
+                useNuxtApp().$toast.error(`Something went wrong!`);
+                return
+            }
+
             data.forEach(elem => {
                 let index = this.orderHistory.findIndex(item => elem.order_item_id === item.order_item_id)
                 if (index !== -1) {
@@ -84,19 +108,21 @@ export const useUserStore = defineStore('user', {
                     this.orderHistory.push(elem)
                 }
             })
+
+ 
         },
         // helper function to get the correct table for each type of data 
         // (custom data, like name and address are in the 'users' table, the auth data like email, password, phone, etc are in the supabase-built-in 'profiles' table) 
         getTable(column) {
             switch (column) {
-                case 'firstName':
-                case 'lastName':
+                case 'first_name':
+                case 'last_name':
                 case 'address':
-                    return 'users'
+                    return 'profiles'
                     break;
                 case 'email':
                 case 'phone':
-                    return 'profiles'
+                    return 'users'
                     break;
                 default:
                     break;

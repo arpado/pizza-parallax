@@ -6,7 +6,7 @@
         <hr class="title-hr" />
         <!-- <form action="POST"> -->
         <form
-          v-on:submit.prevent="login(email, password)"
+          v-on:submit.prevent="userStore.login(email, password)"
           action="#"
           method="POST"
         >
@@ -17,7 +17,7 @@
               name="email"
               id="email"
               v-model="email"
-              @keyup.enter="login(email, password)"
+              @keyup.enter="userStore.login(email, password)"
             />
             <hr />
           </div>
@@ -28,7 +28,7 @@
               name="password"
               id="password"
               v-model="password"
-              @keyup.enter="login(email, password)"
+              @keyup.enter="userStore.login(email, password)"
             />
             <hr />
           </div>
@@ -39,10 +39,11 @@
           <p v-else>Something went wrong!</p>
         </div>
         <ButtonElement
+          id="login-button"
           class="self-center"
           text="Login"
           type="submit"
-          @click="login(email, password)"
+          @click="userStore.login(email, password)"
         />
         <p>
           Not registered yet?
@@ -77,16 +78,18 @@ export default {
       errorMessage: null,
     };
   },
-  methods: {
-    async login(email, password) {
-      try {
-        let { data, error } = await this.userStore.login(email, password);
-        this.modalStore.closeModal();
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
+  // methods: {
+  //   async login(email, password) {
+  //     try {
+  //       let { data, error } = await this.userStore.login(email, password);
+  //       // this.modalStore.closeModal();
+  //       // useNuxtApp().$toast.success('Login successful!');
+  //     } catch (error) {
+  //       // console.log(error);
+  //       // useNuxtApp().$toast.error(`Login failed!`);
+  //     }
+  //   },
+  // },
 };
 </script>
 

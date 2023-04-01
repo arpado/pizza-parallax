@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { mapState } from 'pinia'
 import { useUserStore } from './userStore'
 import { sendOrderData } from '@/composables/serverRequests'
+import { useItemModificationStore } from './itemModificationStore'
+import { useModalStore } from './modalStore'
 
 export const useCartStore = defineStore('cart', {
   state: () => {
@@ -34,14 +36,20 @@ export const useCartStore = defineStore('cart', {
         a.every((val, index) => val === b[index]);
     },
     // if the item with its exact optional settings is already on the list adds one the the counter, otherwise adds the item to the list 
-    addToOrder(item) {
+    addToCart() {
+      const itemModStore = useItemModificationStore()
+      const modalStore = useModalStore()
+      let item = itemModStore.createItem()
       let itemFound = false
+
       this.itemOnOrder.forEach(elem => {
         // ide komplexebb validatort
         if (item.name === elem.name && item.size === elem.size && this.checkSelectedOptions(item.selectedOptions, elem.selectedOptions)) {
           elem.quantity += item.quantity;
           elem.sumPrice = elem.quantity * elem.price;
           itemFound = true
+          modalStore.closeModal();
+          useNuxtApp().$toast.success(`Added to cart!`);
           return
         }
       })
@@ -49,7 +57,10 @@ export const useCartStore = defineStore('cart', {
       if (!itemFound && item.quantity > 0) {
         item.orderUnitId = uuidv4();
         this.itemOnOrder.push(item)
+        modalStore.closeModal();
+        useNuxtApp().$toast.success(`Added to cart!`);
       } else {
+        useNuxtApp().$toast.error(`Something went wrong!`) 
         console.warn('Error in addToOrder()')
       } 
     },
@@ -74,10 +85,12 @@ export const useCartStore = defineStore('cart', {
     // !!! a uuid should be given as a ID for each order, maybe on the end of addToOrder, then should be sent back here from the server, and put in a var, and get this checked for === before sending to make sure no multi-sending the same order is possible
     async sendOrder() {
       if (!this.userId) {
+        useNuxtApp().$toast.error(`You have to log in first!`) 
         console.warn('No user found!')
         return
       }
       if (this.lockedOrderID === this.sentOrderID) {
+        useNuxtApp().$toast.error(`This order has already been sent!`) 
         console.warn('This order has already been sent!')
         return
       }
@@ -85,8 +98,10 @@ export const useCartStore = defineStore('cart', {
       // if (this.userId && ) {
         let error = await sendOrderData(this.lockedOrder, this.userId)
         if (error) {
+          useNuxtApp().$toast.error(`Something went wrong!<br>${error}`, {dangerouslyHTMLString: true}) 
           console.error(error)
         } else {
+        useNuxtApp().$toast.success(`Your order has been sent!`);
           this.sentOrderID = this.lockedOrderID
         }
       // } else {

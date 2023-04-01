@@ -81,7 +81,7 @@ describe('LoginElement functionality tests', () => {
 
         email.setValue('test@test.com')
         password.setValue('password')
-        await wrapper.find('button').trigger('click')
+        await wrapper.find('#login-button').trigger('click')
 
         expect(userLogin).toHaveBeenCalledTimes(1)
         expect(userLogin).toHaveBeenCalledWith('test@test.com', 'password')

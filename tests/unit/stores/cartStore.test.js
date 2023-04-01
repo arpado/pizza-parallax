@@ -3,6 +3,8 @@ import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia, defineStore } from 'pinia'
 import { useCartStore } from '@/stores/cartStore'
 import { OrderItemClassInstance } from '@/stores/itemModificationStore'
+import { useItemModificationStore } from "@/stores/itemModificationStore"
+import { useNuxtApp } from "nuxt"
 
 const testOrderItem = {
   name: "test_product",
@@ -35,6 +37,7 @@ const setup = () => {
   // }
   // cartStore = useCartStore();
   cartStore = useCartStore();
+  // let itemModStore = useItemModificationStore()
 }
 
 describe('Cart Store tests', () => {
@@ -47,36 +50,39 @@ describe('Cart Store tests', () => {
     cartStore=null;
   })
 
-  it('add 1 product to the card and remove it. The cart should be empty', () => {
-    cartStore.addToOrder(testOrderItem)
+  it.only('add 1 product to the card and remove it. The cart should be empty', () => {
+  let itemModStore = useItemModificationStore()
+
+    itemModStore.itemOnMod = testOrderItem
+    cartStore.addToCart()
     expect(cartStore.totalPrice).toBe("100.00")
     cartStore.deleteItem(testOrderItem.name, testOrderItem.size)
     expect(cartStore.totalPrice).toBe("0.00")
   })
 
   it('add 2 product to the card, the sum should be 2 times of the price', () => {
-    cartStore.addToOrder(testOrderItem)
+    cartStore.addToCart(testOrderItem)
     expect(cartStore.totalPrice).toBe("100.00")
-    cartStore.addToOrder(testOrderItem)
+    cartStore.addToCart(testOrderItem)
     expect(cartStore.totalPrice).toBe("200.00")
   })
 
   it('add product with negativ Qantity and throw a warning message', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation();
-    cartStore.addToOrder(testOrderItemNegativQuantity)
+    cartStore.addToCart(testOrderItemNegativQuantity)
     expect(warn).toHaveBeenCalled();
     warn.mockReset();
   })
 
   it('add product and decrease the quantity 2 times but it should stay 1 quantity', () => {
-    cartStore.addToOrder(testOrderItem)
+    cartStore.addToCart(testOrderItem)
     expect(cartStore.itemOnOrder[0].quantity).toBe(1)
     cartStore.lessItem(0)
     expect(cartStore.itemOnOrder[0].quantity).toBe(1)
   })
 
   it('add product and increase then decrease the item quantity', () => {
-    cartStore.addToOrder(testOrderItem)
+    cartStore.addToCart(testOrderItem)
     expect(cartStore.itemOnOrder[0].quantity).toBe(1)
     cartStore.moreItem(0)
     expect(cartStore.itemOnOrder[0].quantity).toBe(2)
@@ -85,7 +91,7 @@ describe('Cart Store tests', () => {
   })
 
   it('add product and increase the item quantity', () => {
-    cartStore.addToOrder(testOrderItem)
+    cartStore.addToCart(testOrderItem)
     expect(cartStore.itemOnOrder[0].quantity).toBe(1)
     cartStore.moreItem(0)
     expect(cartStore.itemOnOrder[0].quantity).toBe(2)
@@ -96,7 +102,7 @@ describe('Cart Store tests', () => {
   })
 
   it('call sendOrder without user defined', () => {
-    cartStore.addToOrder(testOrderItem)
+    cartStore.addToCart(testOrderItem)
     const warn = vi.spyOn(console, 'warn').mockImplementation();
     cartStore.sendOrder()
     expect(warn).toHaveBeenCalled();

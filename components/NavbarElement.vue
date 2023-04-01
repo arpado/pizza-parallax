@@ -38,7 +38,7 @@
     <li data-test="logout" v-else>
       <div
         class="navLink flex center-both"
-        @click="userStore.logout"
+        @click="logout"
         tabindex="0"
       >
         Logout
@@ -57,9 +57,32 @@ export default {
     const userStore = useUserStore();
     return { userStore };
   },
+  methods: {
+    async logout() {
+      // try {
+        await this.userStore.logout()
+        // console.log(res)
+        // if (res === undefined) {
+        //   useNuxtApp().$toast.success('Logout successful!');
+        // } else {
+        //   useNuxtApp().$toast.success('Logout failed!');
+        // }
+        // if (error) {
+        //           console.log(error)
+        // } else {
+        //        console.log(error)
+
+        // }
+
+      // } catch (error) {
+   
+      // }                
+    }
+  }
 };
 </script>
 
+  
 <style scoped>
 ul {
   position: absolute;

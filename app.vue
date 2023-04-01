@@ -52,7 +52,21 @@ export default {
     });
     const modalStore = useModalStore();
     const userStore = useUserStore();
-    return { modalStore, userStore };
+
+    // TOAST left here as a remainder
+    // nextTick(() => {
+    //   if (process.client) {
+    //     useNuxtApp().$toast('notify after nextTick');
+    //   }
+    // });
+
+    // const notify = () => {
+    //   useNuxtApp().$toast.info('toastify success');
+      // or
+      // toast.info('toastify success');
+    // };
+  
+    return { modalStore, userStore,  /*notify*/ };
   },
   methods: {
     // loaderLeave(el) {
