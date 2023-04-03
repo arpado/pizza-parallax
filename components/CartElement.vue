@@ -34,7 +34,7 @@
               <ButtonElementSmall @click="cartStore.lessItem(index)" text="-"/>
               <div class="quantity-indicator flex center-both">{{ item.quantity }}</div>
               <ButtonElementSmall @click="cartStore.moreItem(index)" text="+"/>
-              <ButtonElementSmall @click="cartStore.deleteItem(item.name, item.size)" text="X"/>
+              <ButtonElementSmall @click="cartStore.deleteItem(item.name, item.size)" iconName="bi:trash3-fill"/>
               <!-- <button
                 class="order-manipulation-btn"
                 @click="cartStore.lessItem(index)"

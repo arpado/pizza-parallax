@@ -1,20 +1,21 @@
 <template>
   <div class="button flex center-both" tabindex="0">
-    <span>{{ text }}</span>
+    <Icon v-if="iconName" :name="iconName" />
+    <span v-else >{{ text }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["text"],
+  props: ["text", "iconName"],
 };
 </script>
 
 <style scoped>
 .button {
-  height: 50px;
-  width: 50px;
-  min-width: fit-content;
+  min-height: 50px;
+  min-width: 50px;
+  width: fit-content;
   margin: 10px;
   position: relative;
   padding: 6px 24px;

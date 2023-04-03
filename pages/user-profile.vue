@@ -25,6 +25,10 @@
           v-show="activeMenu === 'userHistory'"
           :userStore="userStore"
         />
+        <UserOrderElement
+          v-show="activeMenu === 'userOrder'"
+          :userStore="userStore"
+        />
       </div>
     </NuxtLayout>
   </div>

@@ -67,14 +67,14 @@
             </div>
           </template>
         </NuxtLayout>
-        <NuxtLayout name="collapsible-container">
+        <!-- <NuxtLayout name="collapsible-container">
           <template #title>
             <h3>Additional Request</h3>
           </template>
           <template #content>
             <textarea name="" id="" cols="30" rows="10"></textarea>
           </template>
-        </NuxtLayout>
+        </NuxtLayout> -->
       </div>
       <div class="price-container flex justify-between">
         <h3>Total price:</h3>

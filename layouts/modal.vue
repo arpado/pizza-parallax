@@ -2,7 +2,7 @@
   <div class="modal-container" @click="modalStore.closeOnOutsideClick">
     <div class="modal-card flex column align-end">
       <div class="modal-close flex center-both" @click="modalStore.closeModal">
-        <p>+</p>
+        <Icon name="mdi:close-thick" size="48px" class="close-thick"/>
       </div>
       <!-- ref="card" -->
       <NuxtLayout name="card" >
@@ -55,13 +55,17 @@ export default {
   z-index: 999;
   border: 2px solid white;
   border-radius: 50%;
+  transition: transform 0.15s ease-in-out;
 }
 .modal-close:hover {
   cursor: pointer;
 }
-.modal-close > p {
-  transform: rotateZ(45deg);
-  font-size: 4rem;
+.modal-close:active {
+  transform: translate(35px, 18px) scale(0.95);
+}
+
+.close-thick {
   color: white;
 }
+
 </style>
