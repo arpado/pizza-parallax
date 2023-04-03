@@ -96,7 +96,7 @@
       </div>
       <hr />
       <div class="order-total">
-        <p>Order Total: ${{ cartStore.totalPrice }}</p>
+        <p>Order Total: ${{ cartStore.getTotalPrice }}</p>
       </div>
       <div class="send-order">
         <ButtonElement @click="proceedToCheckout" text="Proceed to Checkout" />
@@ -128,7 +128,6 @@ export default {
           res = res.concat(", ", list[i]);
         }
         res = res.concat(" and ", list[list.length - 1]);
-        console.log(res);
         return res;
       } else {
         return "None";
