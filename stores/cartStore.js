@@ -16,7 +16,7 @@ export const useCartStore = defineStore('cart', {
     }
   },
   getters: {
-    totalPrice: (state) => {
+    getTotalPrice: (state) => {
       let totalArr = [];
       state.itemOnOrder.forEach(item => {
         totalArr.push(item.sumPrice);
@@ -24,6 +24,15 @@ export const useCartStore = defineStore('cart', {
       return totalArr.reduce(
         (total, sumPrice) => total + sumPrice,
         0).toFixed(2)
+    },
+    getVat: (state) => {
+      return (state.getTotalPrice * 0.19).toFixed(2)
+    },
+    getShippingPrice: (state) => {
+      return state.getTotalPrice > 100 ? 0 : 20;
+    },
+    getOrderFullTotal: (state) => {
+      return (parseFloat(state.getTotalPrice) + parseFloat(state.getVat) + parseFloat(state.getShippingPrice)).toFixed(2)
     },
     ...mapState(useUserStore, ['userId']),
   },
