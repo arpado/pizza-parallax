@@ -92,7 +92,7 @@
               <h4>YOUR CART IS EMPTY!</h4>
               <img
                 class="empty-boxes"
-                src="images/empty-pizza-boxes.png"
+                src="@/src/images/empty-pizza-boxes.png"
                 alt="A stack of empty pizza boxes."
               />
             </div>
