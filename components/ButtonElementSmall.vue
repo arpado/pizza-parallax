@@ -13,7 +13,7 @@ export default {
 
 <style scoped>
 .button {
-  min-height: 50px;
+  height: 50px;
   min-width: 50px;
   width: fit-content;
   margin: 10px;
