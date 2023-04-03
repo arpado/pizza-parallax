@@ -12,7 +12,13 @@
         @cart="modalStore.openModal('showCart')"
       />
       <div class="narrowscreen-nav">
-        <div class="hamburger" @click="toggleMenu" tabindex="0">Menu</div>
+        <!-- <div class="hamburger" @click="toggleMenu" tabindex="0">Menu</div> -->
+        <div class="hamburger" @click="toggleMenu" tabindex="0">
+          <div class="hamb-bar" id="hamb-bar-top"></div>
+          <div class="hamb-bar" id="hamb-bar-middle"></div>
+          <div class="hamb-bar" id="hamb-bar-bottom"></div>
+        </div>
+        <Transition name="menu">
         <NavbarElement
           v-show="menuVisible"
           :nav-array="navArray"
@@ -21,6 +27,7 @@
           @cart="modalStore.openModal('showCart')"
           :dropdown-top="[scrollPosition >= 120 ? '80px' : '130px']"
         />
+        </Transition>
       </div>
     </nav>
   </header>
@@ -30,6 +37,8 @@
 import { useCartStore } from "../stores/cartStore";
 import { useModalStore } from "../stores/modalStore";
 import { mapActions } from "pinia";
+import gsap from "gsap";
+
 
 export default {
   setup() {
@@ -68,15 +77,49 @@ export default {
     },
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
+
+      if (this.menuVisible) {
+        gsap.to('#hamb-bar-top', {
+          transform: 'translate3D(0px, 16.5px, 0px) rotateZ(45deg)'
+        })
+        gsap.to('#hamb-bar-middle', {
+          transform: 'rotateZ(45deg)'
+        })
+        gsap.to('#hamb-bar-bottom', {
+          transform: 'translate3D(0px, -16.5px, 0px) rotateZ(-45deg)'
+        })
+      }
+      else {
+        gsap.to('#hamb-bar-top', {
+          transform: 'translate3D(0px, 0px, 0px) rotateZ(0deg)'
+        })
+         gsap.to('#hamb-bar-middle', {
+          transform: 'rotateZ(0deg)'
+        })
+         gsap.to('#hamb-bar-bottom', {
+          transform: 'translate3D(0px, 0px, 0px) rotateZ(0deg)'
+        })
+      }
     },
     // the dropdown should be able to close if viewport goes wide enough, this should be solved later
     closeOpenNavMenu(e) {
       if (
         this.menuVisible &&
         // window.innerWidth > 1100 &&
-        !e.target.classList.contains("hamburger")
+        !e.target.classList.contains("hamburger") &&
+        !e.target.classList.contains("hamb-bar")
       ) {
         this.menuVisible = false;
+
+        gsap.to('#hamb-bar-top', {
+          transform: 'translate3D(0px, 0px, 0px) rotateZ(0deg)'
+        })
+         gsap.to('#hamb-bar-middle', {
+          transform: 'rotateZ(0deg)'
+        })
+         gsap.to('#hamb-bar-bottom', {
+          transform: 'translate3D(0px, 0px, 0px) rotateZ(0deg)'
+        })
       }
     },
     // CHECK WHAT THIS DOES!!!
@@ -145,12 +188,23 @@ header {
   margin-right: 10vw;
   position: relative;
   overflow: hidden;
+  /* new */
+  height: 50px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* position: fixed; */
+  color: white;
+  /* top: 10px;
+  right: 30px; */
 }
 .hamburger:hover,
 .hamburger:focus {
   cursor: pointer;
 }
-.hamburger::after {
+/* .hamburger::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -165,6 +219,14 @@ header {
 .hamburger:focus::after {
   opacity: 1;
   transform: translate3d(100%, 0, 0);
+} */
+.hamb-bar {
+  width: 100%;
+  height: 5px;
+  background-color: white;
+  border-radius: 10px;
+  transform-origin: center;
+  /*transition: all 1s cubic-bezier(0.54, 0.54, 0.54, 0.54); */
 }
 .widescreen-nav {
   display: none;
@@ -173,6 +235,27 @@ header {
 .narrowscreen-nav {
   display: flex;
   visibility: visible;
+}
+
+/* animation */
+
+/* .menu-before-enter,
+.menu-after-leave {
+    transform: translateY(-120px);
+} */
+.menu-enter-active,
+.menu-leave-active {
+  transition: transform 0.2s cubic-bezier(0.28, 0.62, 0.57, 1);
+  transform-origin: top center;
+
+}
+/* .menu-after-enter,
+.menu-before-leave {
+  transform: translateY(-120px);
+} */
+.menu-enter-from,
+.menu-leave-to {
+  transform: rotateX(-90deg) scaleX(0);
 }
 
 @media (min-width: 1200px) {
