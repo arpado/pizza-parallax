@@ -59,24 +59,7 @@ export default {
   },
   methods: {
     async logout() {
-      // try {
-        await this.userStore.logout()
-        // console.log(res)
-        // if (res === undefined) {
-        //   useNuxtApp().$toast.success('Logout successful!');
-        // } else {
-        //   useNuxtApp().$toast.success('Logout failed!');
-        // }
-        // if (error) {
-        //           console.log(error)
-        // } else {
-        //        console.log(error)
-
-        // }
-
-      // } catch (error) {
-   
-      // }                
+      await this.userStore.logout()             
     }
   }
 };
