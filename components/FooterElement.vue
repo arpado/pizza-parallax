@@ -42,7 +42,6 @@ export default {};
   width: 100%;
   height: fit-content;
   min-height: fit-content;
-  /* margin-top: 20px; */
   padding: 1rem;
   background-color: var(--main-black);
   color: var(--main-white);
@@ -91,16 +90,16 @@ export default {};
     grid-template-rows: none;
   }
   .sitemap {
-  grid-row: unset;
-  grid-column: 1/2;
-}
-.contacts {
-  grid-row: unset;
-  grid-column: 2/3;
-}
-.copyright {
-  grid-row: unset;
-  grid-column: 3/4;
-}
+    grid-row: unset;
+    grid-column: 1/2;
+  }
+  .contacts {
+    grid-row: unset;
+    grid-column: 2/3;
+  }
+  .copyright {
+    grid-row: unset;
+    grid-column: 3/4;
+  }
 }
 </style>
