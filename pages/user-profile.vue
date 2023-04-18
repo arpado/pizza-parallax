@@ -63,8 +63,11 @@ export default {
   color: var(--main-white);
   padding-top: 150px;
 }
+.menu {
+  margin-bottom: 20px;
+}
 .menu > * {
-  margin: 0 10px;
+  margin: 10px;
   width: 200px;
 }
 .card {
@@ -73,7 +76,7 @@ export default {
 .inner-container {
   width: 100%;
   min-height: 40vh;
-  min-width: 400px;
+  min-width: 200px;
   max-width: 90vw;
 }
 </style>
