@@ -53,6 +53,7 @@ export const useCartStore = defineStore('cart', {
 
       this.itemOnOrder.forEach(elem => {
         // ide komplexebb validatort
+        // LODASH isEqual!!!!
         if (item.name === elem.name && item.size === elem.size && this.checkSelectedOptions(item.selectedOptions, elem.selectedOptions)) {
           elem.quantity += item.quantity;
           elem.sumPrice = elem.quantity * elem.price;
@@ -69,9 +70,9 @@ export const useCartStore = defineStore('cart', {
         modalStore.closeModal();
         useNuxtApp().$toast.success(`Added to cart!`);
       } else {
-        useNuxtApp().$toast.error(`Something went wrong!`) 
+        useNuxtApp().$toast.error(`Something went wrong!`)
         console.warn('Error in addToOrder()')
-      } 
+      }
     },
     moreItem(index) {
       this.itemOnOrder[index].quantity++
@@ -94,25 +95,25 @@ export const useCartStore = defineStore('cart', {
     // !!! a uuid should be given as a ID for each order, maybe on the end of addToOrder, then should be sent back here from the server, and put in a var, and get this checked for === before sending to make sure no multi-sending the same order is possible
     async sendOrder() {
       if (!this.userId) {
-        useNuxtApp().$toast.error(`You have to log in first!`) 
+        useNuxtApp().$toast.error(`You have to log in first!`)
         console.warn('No user found!')
         return
       }
       if (this.lockedOrderID === this.sentOrderID) {
-        useNuxtApp().$toast.error(`This order has already been sent!`) 
+        useNuxtApp().$toast.error(`This order has already been sent!`)
         console.warn('This order has already been sent!')
         return
       }
-      
+
       // if (this.userId && ) {
-        let error = await sendOrderData(this.lockedOrder, this.userId)
-        if (error) {
-          useNuxtApp().$toast.error(`Something went wrong!<br>${error}`, {dangerouslyHTMLString: true}) 
-          console.error(error)
-        } else {
+      let error = await sendOrderData(this.lockedOrder, this.userId)
+      if (error) {
+        useNuxtApp().$toast.error(`Something went wrong!<br>${error}`, { dangerouslyHTMLString: true })
+        console.error(error)
+      } else {
         useNuxtApp().$toast.success(`Your order has been sent!`);
-          this.sentOrderID = this.lockedOrderID
-        }
+        this.sentOrderID = this.lockedOrderID
+      }
       // } else {
       // }
     },
