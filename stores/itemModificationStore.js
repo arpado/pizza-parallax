@@ -3,10 +3,10 @@ import { getItemData } from '@/composables/serverRequests'
 
 // This is the object which gets sent to the cart, containing all the neccessary data, when the user clicks the "Send to cart" button
 class OrderItemClassInstance {
-    constructor(name, id, type, selectedProps, props, selectedOptions, quantity, price) {
+    constructor(name, id, table, selectedProps, props, selectedOptions, quantity, price) {
         this.name = name;
         this.id = id;
-        this.type = type;
+        this.table = table;
         this.selectedProps = selectedProps;
         this.props = props;
         this.selectedOptions = selectedOptions;
@@ -69,9 +69,11 @@ export const useItemModificationStore = defineStore('itemModification', {
             }
             switch (item.table) {
                 case "pizzas":
+                    // get pizzas
+                    
                     // get size
                     // the sizeData modifies the original source - not that it matters for api reqs, but can screw with test mocks
-                    let sizeData = await getItemData('pizzas', `size(name), price`, [{ name: item.name }], 'price')
+                    let sizeData = await getItemData('pizzas', `id, size(name), price`, [{ name: item.name }], 'price')
                     // flatten data
                     sizeData.data.forEach(elem => {
                         elem.name = elem.size.name
@@ -137,7 +139,7 @@ export const useItemModificationStore = defineStore('itemModification', {
         createItem() {
             let itemPrice = this.getPropPrices() + this.getAdditionalOptionsPrice()
             let selectedPropsFinal = this.getSelectedProps()
-            return new OrderItemClassInstance(this.itemOnMod.name, this.itemOnMod.id, this.itemOnMod.table, this.aggregatedProps.selectedProps, selectedPropsFinal, this.aggregatedProps.selectedOptions, this.selectedItemQuantity, itemPrice)
+            return new OrderItemClassInstance(this.itemOnMod.name, selectedPropsFinal.size.id, this.itemOnMod.table, this.aggregatedProps.selectedProps, selectedPropsFinal, this.aggregatedProps.selectedOptions, this.selectedItemQuantity, itemPrice)
         },
 
         // FINALIZATION HELPER FUNCTIONS //
