@@ -146,7 +146,9 @@ export const pizzaOrderItem = {
       },
       "crust": {
           "name": "thin",
-          "price": 0
+          "price": 0,
+          // maybe id shold be given 
+          // id: 1,
       }
   },
   "selectedOptions": [
@@ -154,6 +156,18 @@ export const pizzaOrderItem = {
       "mushroom",
       "cheese",
   ],
+  // modify it like this
+  // "selectedOptions": {
+  //   "toppings": {
+  //     "ham": {
+            // id: 1,
+            // name: "ham",
+            //     },
+  //     "mushroom",
+  //     "cheese",
+  //   }
+  // }
+
   "quantity": 1,
   "price": 48,
   "sumPrice": 48,
