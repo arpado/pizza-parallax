@@ -62,5 +62,14 @@ async function deleteProfileData(userId) {
         .eq('id', userId)
 }
 
+// MAYBE SHOULD BE IMPLEMENTED SOMEHOW
+// supabase built-in auth state change watcher, maybe will be good for something later
+// function onAuthStateChange() {
+//     supabase.auth.onAuthStateChange((_event, session) => {
+//         if (session?.user) {
+//             console.log(session?.user?.app_metadata) // show custom claims
+//         }
+//     })
+// }
 
 export { registerWithEmail, postLoginForm, postSignOut, getUserData, updateUserData, updateProfileData, deleteProfileData }
